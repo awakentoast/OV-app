@@ -13,7 +13,7 @@ public class OVIntro extends Application
    public void start( Stage stage ) throws IOException
    {
       FXMLLoader fxmlLoader = new FXMLLoader( OVIntro.class.getResource( "OVIntroGUI.fxml" ) );
-      Scene      scene      = new Scene( fxmlLoader.load(), 320, 240 );
+      Scene      scene      = new Scene( fxmlLoader.load(), 1000, 600 );
       stage.setTitle( "OVIntro!" );
       stage.setScene( scene );
       stage.show();
