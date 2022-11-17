@@ -1,4 +1,4 @@
-package adsd.demo.ovintro;
+package adsd.demo.ovappavo;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 
-public class OVIntroController
+public class OVappController
 {
    @FXML private ComboBox<String> comboTransport;
    @FXML private ComboBox<String> comboA;
@@ -16,25 +16,25 @@ public class OVIntroController
    @FXML
    public void onComboA()
    {
-      System.out.println( "OVIntroController.onComboA" );
+      System.out.println( "OVappController.onComboA" );
    }
 
    @FXML
    public void onComboB()
    {
-      System.out.println( "OVIntroController.onComboB" );
+      System.out.println( "OVappController.onComboB" );
    }
 
    @FXML
    protected void onTransport()
    {
-      System.out.print( "OVIntroController.onTransportChange" );
+      System.out.print( "OVappController.onTransportChange" );
    }
 
    @FXML
    protected void onPlanMyTrip()
    {
-      System.out.println( "OVIntroController.onPlanMyTrip" );
+      System.out.println( "OVappController.onPlanMyTrip" );
       System.out.format( "OVType: %s\n", comboTransport.getValue() );
       System.out.format( "From:   %s\n", comboA.getValue() );
       System.out.format( "To:     %s\n", comboB.getValue() );

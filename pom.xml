@@ -60,7 +60,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>adsd.demo.ovintro/adsd.demo.ovintro.OVIntro</mainClass>
+                            <mainClass>adsd.demo.ovintro/adsd.demo.ovappavo.OVapp</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

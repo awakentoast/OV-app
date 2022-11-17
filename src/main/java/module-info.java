@@ -3,6 +3,6 @@ module adsd.demo.ovintro {
    requires javafx.fxml;
 
 
-   opens adsd.demo.ovintro to javafx.fxml;
-   exports adsd.demo.ovintro;
+   opens adsd.demo.ovappavo to javafx.fxml;
+   exports adsd.demo.ovappavo;
 }

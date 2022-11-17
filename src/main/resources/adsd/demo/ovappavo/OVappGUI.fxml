@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
            prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="adsd.demo.ovintro.OVIntroController">
+           fx:controller="adsd.demo.ovappavo.OVappController">
     <items>
         <VBox prefHeight="398.0" prefWidth="441.0">
             <children>
