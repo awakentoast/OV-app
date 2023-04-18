@@ -44,11 +44,11 @@ public class OVappController
       System.out.println( "OVappController.onPlanMyTrip" );
       System.out.format( "OVType: %s\n", comboTransport.getValue() );
       System.out.format( "Van:   %s\n", comboA.getValue() );
-      System.out.format( "Tot:     %s\n", comboB.getValue() );
+      System.out.format( "Tot:      %s\n", comboB.getValue() );
 
       String text = String.format( "%-8s %-15s\n", "OVType:", comboTransport.getValue() );
-      text += String.format( "%-8s %-15s\n", "From:", comboA.getValue() );
-      text += String.format( "%-8s %-15s\n", "To:", comboB.getValue() );
+      text += String.format( "%-8s %-15s\n", "Van:", comboA.getValue() );
+      text += String.format( "%-8s %-15s\n", "Tot:", comboB.getValue() );
 
       textArea.setText( text );
    }
@@ -60,8 +60,13 @@ public class OVappController
 
       // Initialise the combo box comboTransport with transportation types ...
       {
-         String[] ovtypes = { "bus", "tram", "train", "plane" };
+<<<<<<< HEAD
+         String[] ovtypes = { "bus", "tram", "trein", "vliegtuig" };
+=======
+         String[] ovtypes = { "plane", "train", "bus", "tram", "taxi" };
+>>>>>>> f3112927b4124fb5c36b222059a14e2a739b32e6
 
+         
          ObservableList<String> list = FXCollections.observableArrayList( ovtypes );
          comboTransport.setItems( list );
          comboTransport.getSelectionModel().select( 2 ); // i.e. "train"
