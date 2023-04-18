@@ -3,6 +3,7 @@ package adsd.demo.ovappavo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 
@@ -11,6 +12,7 @@ public class OVappController
    @FXML private ComboBox<String> comboTransport;
    @FXML private ComboBox<String> comboA;
    @FXML private ComboBox<String> comboB;
+   @FXML private Button button2;
    @FXML private TextArea         textArea;
 
    @FXML
@@ -32,16 +34,21 @@ public class OVappController
    }
 
    @FXML
+   protected void onButton() {
+      System.out.println("aaaa");
+   }
+
+   @FXML
    protected void onPlanMyTrip()
    {
       System.out.println( "OVappController.onPlanMyTrip" );
       System.out.format( "OVType: %s\n", comboTransport.getValue() );
-      System.out.format( "From:   %s\n", comboA.getValue() );
-      System.out.format( "To:     %s\n", comboB.getValue() );
+      System.out.format( "Van:   %s\n", comboA.getValue() );
+      System.out.format( "Tot:      %s\n", comboB.getValue() );
 
       String text = String.format( "%-8s %-15s\n", "OVType:", comboTransport.getValue() );
-      text += String.format( "%-8s %-15s\n", "From:", comboA.getValue() );
-      text += String.format( "%-8s %-15s\n", "To:", comboB.getValue() );
+      text += String.format( "%-8s %-15s\n", "Van:", comboA.getValue() );
+      text += String.format( "%-8s %-15s\n", "Tot:", comboB.getValue() );
 
       textArea.setText( text );
    }
@@ -53,7 +60,11 @@ public class OVappController
 
       // Initialise the combo box comboTransport with transportation types ...
       {
+<<<<<<< HEAD
          String[] ovtypes = { "bus", "tram", "trein", "vliegtuig" };
+=======
+         String[] ovtypes = { "plane", "train", "bus", "tram", "taxi" };
+>>>>>>> f3112927b4124fb5c36b222059a14e2a739b32e6
 
          
          ObservableList<String> list = FXCollections.observableArrayList( ovtypes );
@@ -63,7 +74,7 @@ public class OVappController
 
       // Initialise the combo box comboA with stopover locations.
       {
-         String[] locations = { "Amsterdam", "Amersfoort", "Arnhem", "Nijmegen", "Utrecht", "Rotterdam", "Vlissingen", "Maastricht", "Groningen" };
+         String[] locations = { "Amsterdam", "Amersfoort", "Arnhem", "Nijmegen", "Utrecht", "Rotterdam", "Vlissingen", "Maastricht", "Groningen", "Emmen", "Xanten", "Abcoude" };
 
          ObservableList<String> list = FXCollections.observableArrayList( locations );
          comboA.setItems( list );
