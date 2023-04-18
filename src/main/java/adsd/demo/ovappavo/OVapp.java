@@ -13,7 +13,7 @@ public class OVapp extends Application
    public void start( Stage stage ) throws IOException
    {
       FXMLLoader fxmlLoader = new FXMLLoader( OVapp.class.getResource( "OVappGUI.fxml" ) );
-      Scene      scene      = new Scene( fxmlLoader.load(), 1000, 600 );
+      Scene      scene      = new Scene( fxmlLoader.load(), 1200, 800 );
       stage.setTitle( "Mijn Prachtige Applicatie" );
       stage.setScene( scene );
       stage.show();
