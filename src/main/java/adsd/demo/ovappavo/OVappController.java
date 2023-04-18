@@ -60,11 +60,9 @@ public class OVappController
 
       // Initialise the combo box comboTransport with transportation types ...
       {
-<<<<<<< HEAD
-         String[] ovtypes = { "bus", "tram", "trein", "vliegtuig" };
-=======
-         String[] ovtypes = { "plane", "train", "bus", "tram", "taxi" };
->>>>>>> f3112927b4124fb5c36b222059a14e2a739b32e6
+
+         String[] ovtypes = { "vliegtuig", "trein", "bus", "tram", "taxi" };
+
 
          
          ObservableList<String> list = FXCollections.observableArrayList( ovtypes );
@@ -74,7 +72,7 @@ public class OVappController
 
       // Initialise the combo box comboA with stopover locations.
       {
-         String[] locations = { "Amsterdam", "Amersfoort", "Arnhem", "Nijmegen", "Utrecht", "Rotterdam", "Vlissingen", "Maastricht", "Groningen", "Emmen", "Xanten", "Abcoude" };
+         String[] locations = { "Amsterdam", "Amersfoort", "Arnhem", "Nijmegen", "Utrecht", "Rotterdam", "Vlissingen", "Maastricht", "Groningen", "Emmen", "Xanten", "Abcoude", "Haarlem" };
 
          ObservableList<String> list = FXCollections.observableArrayList( locations );
          comboA.setItems( list );
