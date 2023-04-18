@@ -21,7 +21,10 @@
                     </children>
                 </HBox>
 
+<<<<<<< HEAD
                 <Button fx:id="buttonPlanMyTrip" mnemonicParsing="false" onAction="#onPlanMyTrip" text="Plan my trip" />
+=======
+>>>>>>> 5b8355eae6dfd19ff6b56fc2ef96ae006c24f4ad
             <Button mnemonicParsing="false" text="onPlanMyTrip" />
 
                 <Button fx:id="buttonPlanMyTrip" mnemonicParsing="false" onAction="#onPlanMyTrip" text="Plan mijn reis" />
