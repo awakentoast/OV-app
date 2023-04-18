@@ -55,6 +55,7 @@ public class OVappController
       {
          String[] ovtypes = { "bus", "tram", "trein", "vliegtuig" };
 
+         
          ObservableList<String> list = FXCollections.observableArrayList( ovtypes );
          comboTransport.setItems( list );
          comboTransport.getSelectionModel().select( 2 ); // i.e. "train"
