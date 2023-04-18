@@ -63,11 +63,7 @@ public class OVappController
 
 
          String[] ovtypes = { "vliegtuig", "trein", "bus", "tram", "taxi" };
-<<<<<<< HEAD
 
-
-=======
->>>>>>> ad9409ce40c2fd992e12a8e6be3b0b1c03ec1202
 
 
          
