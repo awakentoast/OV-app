@@ -3,6 +3,7 @@ package adsd.demo.ovappavo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 
@@ -11,6 +12,7 @@ public class OVappController
    @FXML private ComboBox<String> comboTransport;
    @FXML private ComboBox<String> comboA;
    @FXML private ComboBox<String> comboB;
+   @FXML private Button button2;
    @FXML private TextArea         textArea;
 
    @FXML
@@ -29,6 +31,11 @@ public class OVappController
    protected void onTransport()
    {
       System.out.print( "OVappController.onTransportChange" );
+   }
+
+   @FXML
+   protected void onButton() {
+      System.out.println("aaaa");
    }
 
    @FXML
