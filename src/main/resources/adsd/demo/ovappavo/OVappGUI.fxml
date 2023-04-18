@@ -20,8 +20,12 @@
                         <ComboBox fx:id="comboB" onAction="#onComboB" prefWidth="150.0" />
                     </children>
                 </HBox>
+<<<<<<< HEAD
                 <Button fx:id="buttonPlanMyTrip" mnemonicParsing="false" onAction="#onPlanMyTrip" text="Plan my trip" />
             <Button mnemonicParsing="false" text="onPlanMyTrip" />
+=======
+                <Button fx:id="buttonPlanMyTrip" mnemonicParsing="false" onAction="#onPlanMyTrip" text="Plan mijn reis" />
+>>>>>>> c849932111ed68fc9051f06fb681cede79f076ca
             </children>
         </VBox>
         <VBox prefHeight="398.0" prefWidth="248.0">
