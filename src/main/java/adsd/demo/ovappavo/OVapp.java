@@ -14,7 +14,7 @@ public class OVapp extends Application
    {
       FXMLLoader fxmlLoader = new FXMLLoader( OVapp.class.getResource( "OVappGUI.fxml" ) );
       Scene      scene      = new Scene( fxmlLoader.load(), 1000, 600 );
-      stage.setTitle( "OVapp!" );
+      stage.setTitle( "Mijn Prachtige Applicatie" );
       stage.setScene( scene );
       stage.show();
    }
