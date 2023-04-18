@@ -36,8 +36,8 @@ public class OVappController
    {
       System.out.println( "OVappController.onPlanMyTrip" );
       System.out.format( "OVType: %s\n", comboTransport.getValue() );
-      System.out.format( "From:   %s\n", comboA.getValue() );
-      System.out.format( "To:     %s\n", comboB.getValue() );
+      System.out.format( "Van:   %s\n", comboA.getValue() );
+      System.out.format( "Tot:     %s\n", comboB.getValue() );
 
       String text = String.format( "%-8s %-15s\n", "OVType:", comboTransport.getValue() );
       text += String.format( "%-8s %-15s\n", "From:", comboA.getValue() );
