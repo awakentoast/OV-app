@@ -53,7 +53,7 @@ public class OVappController
 
       // Initialise the combo box comboTransport with transportation types ...
       {
-         String[] ovtypes = { "bus", "tram", "train", "plane" };
+         String[] ovtypes = { "bus", "tram", "trein", "vliegtuig" };
 
          ObservableList<String> list = FXCollections.observableArrayList( ovtypes );
          comboTransport.setItems( list );
