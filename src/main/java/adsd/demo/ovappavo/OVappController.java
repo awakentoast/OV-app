@@ -40,8 +40,8 @@ public class OVappController
       System.out.format( "Tot:     %s\n", comboB.getValue() );
 
       String text = String.format( "%-8s %-15s\n", "OVType:", comboTransport.getValue() );
-      text += String.format( "%-8s %-15s\n", "From:", comboA.getValue() );
-      text += String.format( "%-8s %-15s\n", "To:", comboB.getValue() );
+      text += String.format( "%-8s %-15s\n", "Van:", comboA.getValue() );
+      text += String.format( "%-8s %-15s\n", "Tot:", comboB.getValue() );
 
       textArea.setText( text );
    }
