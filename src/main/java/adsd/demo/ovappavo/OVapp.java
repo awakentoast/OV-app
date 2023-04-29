@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 
 public class OVapp extends Application
@@ -19,7 +20,13 @@ public class OVapp extends Application
       stage.show();
    }
 
-   public static void main( String[] args )
+   @Override
+   public void stop() {
+      TripHistory tripHistory = TripHistory.getTripHistory();
+      tripHistory.save();
+   }
+
+   public static void main(String[] args )
    {
       Application.launch();
    }
