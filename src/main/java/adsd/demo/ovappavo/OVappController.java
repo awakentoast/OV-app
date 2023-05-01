@@ -47,14 +47,15 @@ public class OVappController
                     String.format("%-8s %-15s\n", "Tot:", comboB.getValue());
 
       textArea.setText(text);
-      String key = comboTransport.getValue() + comboA.getValue() + comboB.getValue();
-      tripHistory.addTrip(key);
+
+      //String key = comboTransport.getValue() + comboA.getValue() + comboB.getValue();
+      tripHistory.addTrip(text);
    }
 
    @FXML
    protected void onFavorite() {
       System.out.println("onFavorite");
-      tripHistory.getFavoriteTrip();
+      textArea.setText( tripHistory.getFavoriteTrip() );
    }
 
 
