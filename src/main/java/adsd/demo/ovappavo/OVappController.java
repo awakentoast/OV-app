@@ -2,13 +2,19 @@ package adsd.demo.ovappavo;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.scene.Node;
+
+
 
 
 import java.util.Locale;
@@ -30,7 +36,6 @@ public class OVappController
    @FXML private ComboBox<String> comboA;
    @FXML private ComboBox<String> comboB;
    @FXML private TextArea         textArea;
-
 
    ResourceBundle bundle;
    TripHistory tripHistory = new TripHistory();
@@ -144,4 +149,34 @@ public class OVappController
       comboTransport.setItems(FXCollections.observableArrayList(vehicleList));
       comboTransport.getSelectionModel().select(1);
    }
+
+//   scene.getStylesheets().add(getClass().getResource("./dark-mode.css").toExternalForm());
+
+//   @FXML
+//   private void toggleDarkMode(ActionEvent scene) {
+//      if (scene.getStylesheets().contains(getClass().getResource("./dark-mode.css").toExternalForm())) {
+//         scene.getStylesheets().remove(getClass().getResource("./dark-mode.css").toExternalForm());
+//      } else {
+//         scene.getStylesheets().add(getClass().getResource("./dark-mode.css").toExternalForm());
+//      }
+//   }
+
+   @FXML
+   private void toggleDarkMode(ActionEvent event) {
+      Scene scene = ((Node) event.getSource()).getScene();
+      if (scene.getStylesheets().contains("dark-mode.css")) {
+         scene.getStylesheets().remove("dark-mode.css");
+      }
+      else {
+         scene.getStylesheets().add("dark-mode.css");
+      }
+   }
+
+
+
+
+
 }
+
+
+

@@ -1,0 +1,32 @@
+/*alles wat met javafx CSS te maken heeft:
+
+https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html
+
+*/
+
+.root {
+    -fx-background-color: #000000;
+    -fx-text-fill: #ffffff;
+}
+
+.button {
+    -fx-background-color: #555;
+    -fx-text-fill: #ffffff;
+}
+
+.text-field {
+    -fx-background-color: #000000;
+    -fx-text-fill: #ffffff;
+}
+.text-area{
+    -fx-background-color: #000000;
+    -fx-text-fill: #ffffff;
+}
+.list-view{
+    -fx-background-color: #000000;
+    -fx-text-fill: #ffffff;
+}
+.combo-box{
+    -fx-background-color: #555;
+    -fx-text-fill: #ffffff;
+}
