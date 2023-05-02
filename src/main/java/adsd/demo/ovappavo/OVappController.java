@@ -119,9 +119,8 @@ public class OVappController
 
 
       System.out.println( "init TransportSelectorController done" );
-
    }
-   
+
 
    @FXML
    public void switchLanguage() {
