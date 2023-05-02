@@ -37,9 +37,6 @@ public class OVappController
 
    Train train = new Train();
 
-
-
-
    @FXML
    public void onComboA()
    {
