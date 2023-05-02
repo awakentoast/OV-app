@@ -3,7 +3,7 @@ package adsd.demo.ovappavo;
 import java.time.LocalTime;
 
 public class Train extends Data {
-  //  { "Abcoude", "Amersfoort","Amsterdam","Arnhem","Emmen","Groningen","Haarlem","Maastricht" ,"Nijmegen", "Rotterdam","Utrecht","Vlissingen","Xanten" }
+  ///  { "Abcoude", "Amersfoort","Amsterdam","Arnhem","Emmen","Groningen","Haarlem","Maastricht" ,"Nijmegen", "Rotterdam","Utrecht","Vlissingen","Xanten" }
     public void setRoute() {
 
 
