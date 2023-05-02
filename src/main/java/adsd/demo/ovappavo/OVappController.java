@@ -8,16 +8,13 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
-<<<<<<< HEAD
+
 import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
-
-@SuppressWarnings("deprecation")
-=======
 import java.time.LocalTime;
 
->>>>>>> bafed0fe1df36c70597685eecff96dda77782e7a
+@SuppressWarnings("deprecation")
 public class OVappController
 {
 
@@ -112,7 +109,7 @@ public class OVappController
 
 
       // Initialise the combo box comboA with stopover locations.
-     // String[] locations = { "Abcoude", "Amersfoort","Amsterdam","Arnhem","Emmen","Groningen","Haarlem","Maastricht" ,"Nijmegen", "Rotterdam","Utrecht","Vlissingen","Xanten" };
+      // String[] locations = { "Abcoude", "Amersfoort","Amsterdam","Arnhem","Emmen","Groningen","Haarlem","Maastricht" ,"Nijmegen", "Rotterdam","Utrecht","Vlissingen","Xanten" };
 
       String[] locations = train.getLocationsName();
       ObservableList<String> locationList = FXCollections.observableArrayList( locations );

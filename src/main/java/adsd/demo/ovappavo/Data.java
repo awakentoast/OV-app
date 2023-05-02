@@ -49,11 +49,11 @@ public class Data
         location = new Location("Vlissingen");
         locationMap.put(location.getName(), location);
 
-            location = new Location("Xanten");
-            locationMap.put(location.getName(), location);
+        location = new Location("Xanten");
+        locationMap.put(location.getName(), location);
 
         }
-        public String[] getLocationsName() {
+    public String[] getLocationsName() {
         String[] names= new String[locationMap.size()];
         int index =0;
         for (var e: locationMap.values())
@@ -61,7 +61,7 @@ public class Data
             names[index++] = e.getName();
         }
         return names;
-        }
+    }
 
 
         ////////////////////////////////////////////////////////////

@@ -6,7 +6,6 @@ public class Train extends Data {
   ///  { "Abcoude", "Amersfoort","Amsterdam","Arnhem","Emmen","Groningen","Haarlem","Maastricht" ,"Nijmegen", "Rotterdam","Utrecht","Vlissingen","Xanten" }
     public void setRoute() {
 
-
         /// === Routes A-B-C-D ========
         for (int hour = 7; hour <= 19; hour += 2) {
             var departure = LocalTime.of(hour, 0);
@@ -80,8 +79,6 @@ public class Train extends Data {
             }
         }
     }
-
-
 }
 
 // https://www.ns.nl/binaries/_ht_1574840979865/content/assets/ns-nl/dienstregeling/december-2019/spoorkaart-trajecten.pdf
