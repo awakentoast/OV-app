@@ -8,11 +8,16 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
+<<<<<<< HEAD
 import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
 @SuppressWarnings("deprecation")
+=======
+import java.time.LocalTime;
+
+>>>>>>> bafed0fe1df36c70597685eecff96dda77782e7a
 public class OVappController
 {
 
@@ -26,8 +31,13 @@ public class OVappController
    @FXML private ComboBox<String> comboB;
    @FXML private TextArea         textArea;
 
+
    ResourceBundle bundle;
    TripHistory tripHistory = new TripHistory();
+
+   Train train = new Train();
+
+
 
 
    @FXML
@@ -64,6 +74,16 @@ public class OVappController
 
       //String key = comboTransport.getValue() + comboA.getValue() + comboB.getValue();
       tripHistory.addTrip(text);
+
+      System.out.println(comboTransport.getValue());
+      if (comboTransport.getValue().equals("trein"))
+      {
+         train.setRoute();
+         System.out.println("treintjee");
+
+        // train.writeRoutes(comboA.getValue(),comboB.getValue());
+         train.writeAllRoutes();
+      }
    }
 
 
@@ -95,8 +115,9 @@ public class OVappController
 
 
       // Initialise the combo box comboA with stopover locations.
-      String[] locations = { "Abcoude", "Amersfoort","Amsterdam","Arnhem","Emmen","Groningen","Haarlem","Maastricht" ,"Nijmegen", "Rotterdam","Utrecht","Vlissingen","Xanten" };
+     // String[] locations = { "Abcoude", "Amersfoort","Amsterdam","Arnhem","Emmen","Groningen","Haarlem","Maastricht" ,"Nijmegen", "Rotterdam","Utrecht","Vlissingen","Xanten" };
 
+      String[] locations = train.getLocationsName();
       ObservableList<String> locationList = FXCollections.observableArrayList( locations );
       comboA.setItems( locationList );
       comboA.getSelectionModel().select( 0 ); // i.e. "Amsterdam"
@@ -106,6 +127,7 @@ public class OVappController
 
 
       System.out.println( "init TransportSelectorController done" );
+
    }
 
    private void changeTextOfFields() {
