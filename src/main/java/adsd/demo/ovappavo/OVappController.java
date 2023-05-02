@@ -6,12 +6,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 
+import java.time.LocalTime;
+
 public class OVappController
 {
    @FXML private ComboBox<String> comboTransport;
    @FXML private ComboBox<String> comboA;
    @FXML private ComboBox<String> comboB;
    @FXML private TextArea         textArea;
+
+   Train train = new Train();
 
    TripHistory tripHistory = TripHistory.getTripHistory();
 
@@ -50,6 +54,16 @@ public class OVappController
 
       //String key = comboTransport.getValue() + comboA.getValue() + comboB.getValue();
       tripHistory.addTrip(text);
+
+      System.out.println(comboTransport.getValue());
+      if (comboTransport.getValue().equals("trein"))
+      {
+         train.setRoute();
+         System.out.println("treintjee");
+
+        // train.writeRoutes(comboA.getValue(),comboB.getValue());
+         train.writeAllRoutes();
+      }
    }
 
    @FXML
@@ -73,8 +87,9 @@ public class OVappController
 
 
       // Initialise the combo box comboA with stopover locations.
-      String[] locations = { "Abcoude", "Amersfoort","Amsterdam","Arnhem","Emmen","Groningen","Haarlem","Maastricht" ,"Nijmegen", "Rotterdam","Utrecht","Vlissingen","Xanten" };
+     // String[] locations = { "Abcoude", "Amersfoort","Amsterdam","Arnhem","Emmen","Groningen","Haarlem","Maastricht" ,"Nijmegen", "Rotterdam","Utrecht","Vlissingen","Xanten" };
 
+      String[] locations = train.getLocationsName();
       ObservableList<String> locationList = FXCollections.observableArrayList( locations );
       comboA.setItems( locationList );
       comboA.getSelectionModel().select( 0 ); // i.e. "Amsterdam"
@@ -84,6 +99,7 @@ public class OVappController
 
 
       System.out.println( "init TransportSelectorController done" );
+
    }
 
 }
