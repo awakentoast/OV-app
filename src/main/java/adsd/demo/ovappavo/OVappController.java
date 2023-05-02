@@ -3,17 +3,31 @@ package adsd.demo.ovappavo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
+import java.util.Locale;
+import java.util.Objects;
+import java.util.ResourceBundle;
+
+@SuppressWarnings("deprecation")
 public class OVappController
 {
+
+   public Button getFavoriteTripButton;
+   public Button planMyTripButton;
+   public Button switchLanguageButton;
+   public Label transportVehicleText;
+
    @FXML private ComboBox<String> comboTransport;
    @FXML private ComboBox<String> comboA;
    @FXML private ComboBox<String> comboB;
    @FXML private TextArea         textArea;
 
-   TripHistory tripHistory = TripHistory.getTripHistory();
+   ResourceBundle bundle;
+   TripHistory tripHistory = new TripHistory();
 
 
    @FXML
@@ -52,16 +66,24 @@ public class OVappController
       tripHistory.addTrip(text);
    }
 
+
    @FXML
    protected void onFavorite() {
       System.out.println("onFavorite");
       textArea.setText( tripHistory.getFavoriteTrip() );
    }
 
+   public void saveTripHistory() {
+      tripHistory.save();
+   }
 
    // Important method to initialize this Controller object!!!
    public void initialize()
    {
+      bundle = ResourceBundle.getBundle("languages", new Locale("en"));
+      changeTextOfFields();
+
+
       System.out.println( "init TransportSelectorController ..." );
 
       // Initialise the combo box comboTransport with transportation types ...
@@ -86,4 +108,20 @@ public class OVappController
       System.out.println( "init TransportSelectorController done" );
    }
 
+   private void changeTextOfFields() {
+     // transportVehicleText.setText(bundle.getString("transportVehicleText.text"));
+      planMyTripButton.setText(bundle.getString("planMyTripButton.text"));
+      getFavoriteTripButton.setText(bundle.getString("getFavoriteTripButton.text"));
+      switchLanguageButton.setText(bundle.getString("switchLanguageButton.text"));
+   }
+
+   @FXML
+   public void switchLanguage() {
+      if (Objects.equals(bundle.getLocale().getLanguage(), "en")) {
+         bundle = ResourceBundle.getBundle("languages", new Locale("nl"));
+      } else {
+         bundle = ResourceBundle.getBundle("languages", new Locale("en"));
+      }
+      changeTextOfFields();
+   }
 }

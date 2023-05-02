@@ -4,39 +4,25 @@ import java.io.*;
 import java.util.*;
 
 public final class TripHistory {
-    //instance of TripHistory that all classes can share (Singleton), invoke by 'TripHistory exampleName = TripHistory.getTripHistory'
-    private static TripHistory tripHistory = null;
-    private boolean fileHasBeenRead = false;
-
-    public static TripHistory getTripHistory() {
-        if (tripHistory == null) {
-            tripHistory = new TripHistory();
-        }
-        return tripHistory;
-    }
-
 
     private static final String PATH = "src\\main\\java\\adsd\\demo\\ovappavo\\history.txt";
+
     File file = new File(PATH);
 
     Map<String, Integer> tripOccurrences = new HashMap<>();
 
 
-    private TripHistory() {
-        if (!file.isFile()) {
-            System.out.println("file dit not exist already");
-            try(FileOutputStream ignored = new FileOutputStream(PATH)) {
+    public TripHistory() {
+        try {
+            if (file.createNewFile()) {
                 System.out.println("file has been created");
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("error creating file");
+            } else {
+                System.out.println("file already exists");
             }
-        } else {
-            System.out.println("file already exists");
         }
-        if (!fileHasBeenRead) {
-            readFileAndPutInMap();
-            fileHasBeenRead = true;
+        catch (IOException e){
+            e.printStackTrace();
+            System.out.println("IO error in TripHistory constructor");
         }
     }
 

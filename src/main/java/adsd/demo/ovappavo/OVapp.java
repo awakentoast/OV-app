@@ -2,26 +2,28 @@ package adsd.demo.ovappavo;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 public class OVapp extends Application
 {
    @Override
    public void start( Stage stage ) throws IOException
    {
-      FXMLLoader fxmlLoader = new FXMLLoader( OVapp.class.getResource( "OVappGUI.fxml" ) );
-      Scene      scene      = new Scene( fxmlLoader.load(), 1200, 800 );
+      FXMLLoader languageBundleLoader = new FXMLLoader(getClass().getResource("OVappGUI.fxml"));
+      languageBundleLoader.setResources(ResourceBundle.getBundle("languages"));
+      Parent root = languageBundleLoader.load();
       stage.setTitle( "Mijn Prachtige Applicatie" );
-      stage.setScene( scene );
+      stage.setScene( new Scene(root) );
       stage.show();
    }
 
    @Override
    public void stop() {
-      TripHistory tripHistory = TripHistory.getTripHistory();
-      tripHistory.save();
+      //oVappController.saveTripHistory();
    }
 
    public static void main(String[] args )

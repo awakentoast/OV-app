@@ -9,7 +9,7 @@
             <children>
                 <HBox prefHeight="100.0" prefWidth="200.0">
                     <children>
-                        <Label text="transportmiddel:" />
+                        <Label fx:id="transportVehicleText" />
                         <ComboBox fx:id="comboTransport" onAction="#onTransport" prefWidth="150.0" />
                     </children>
                 </HBox>
@@ -21,8 +21,9 @@
                     </children>
                 </HBox>
 
-                <Button mnemonicParsing="false" onAction="#onPlanMyTrip" text="Plan my trip" />
-                <Button mnemonicParsing="false" onAction="#onFavorite" text="Get Favorite" />
+                <Button fx:id="planMyTripButton" mnemonicParsing="false" onAction="#onPlanMyTrip" text="%planMyTripButton.text" />
+                <Button fx:id="getFavoriteTripButton" mnemonicParsing="false" onAction="#onFavorite" text="%getFavoriteTripButton.text" />
+                <Button fx:id="switchLanguageButton" mnemonicParsing="false" onAction="#switchLanguage" text="\%switchLanguageButton.text" />
             </children>
         </VBox>
         <VBox prefHeight="398.0" prefWidth="248.0">
