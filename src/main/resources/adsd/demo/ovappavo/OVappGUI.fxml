@@ -22,8 +22,10 @@
                 </HBox>
 
                 <Button fx:id="planMyTripButton" mnemonicParsing="false" onAction="#onPlanMyTrip" text="%planMyTripButton.text" />
-                <Button fx:id="getFavoriteTripButton" mnemonicParsing="false" onAction="#onFavorite" text="%getFavoriteTripButton.text" />
+                <Button fx:id="getFavoriteTripButton" mnemonicParsing="false" onAction="#onGetFavorite" text="%getFavoriteTripButton.text" />
                 <Button fx:id="switchLanguageButton" mnemonicParsing="false" onAction="#switchLanguage" text="\%switchLanguageButton.text" />
+                <Button fx:id="setFavoriteTripButton" mnemonicParsing="false" onAction="#onSetFavorite" text="\%addFavoriteTrip" />
+
             </children>
         </VBox>
         <VBox prefHeight="398.0" prefWidth="248.0">

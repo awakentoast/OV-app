@@ -24,6 +24,7 @@ public final class TripHistory {
             e.printStackTrace();
             System.out.println("IO error in TripHistory constructor");
         }
+        readFileAndPutInMap();
     }
 
 

@@ -82,14 +82,19 @@ public class OVappController
 
 
    @FXML
-   protected void onFavorite() {
-      System.out.println("onFavorite");
+   protected void onGetFavorite() {
+      System.out.println("onGetFavorite");
       textArea.setText( tripHistory.getFavoriteTrip() );
    }
 
-   public void saveTripHistory() {
-      tripHistory.save();
+   @FXML
+   protected void onSetFavorite() {
+      System.out.println("onSetFavorite");
+      tripHistory.addFavorite(new Trip(LocalTime.of(10,15),"Utrecht", "Abcoude", ));
    }
+
+
+
 
    // Important method to initialize this Controller object!!!
    public void initialize()
