@@ -11,6 +11,8 @@ public final class TripHistory {
 
     Map<String, Integer> tripOccurrences = new HashMap<>();
 
+    List<Trip> favoriteTrips = new ArrayList<>();
+
 
     public TripHistory() {
         try {
@@ -24,6 +26,7 @@ public final class TripHistory {
             e.printStackTrace();
             System.out.println("IO error in TripHistory constructor");
         }
+        readFileAndPutInMap();
     }
 
 

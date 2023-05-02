@@ -7,21 +7,24 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 
 import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import java.time.LocalTime;
+
 
 @SuppressWarnings("deprecation")
 public class OVappController
 {
+   boolean closeRequest = false;
 
    public Button getFavoriteTripButton;
    public Button planMyTripButton;
    public Button switchLanguageButton;
-   public Label transportVehicleText;
+   public Label  transportTypeLabel;
 
    @FXML private ComboBox<String> comboTransport;
    @FXML private ComboBox<String> comboA;
@@ -78,18 +81,22 @@ public class OVappController
         // train.writeRoutes(comboA.getValue(),comboB.getValue());
          train.writeAllRoutes();
       }
+
+      //triggers tripHistory.save() when the app is closed
+      if (!closeRequest) {
+         Stage stage = (Stage) planMyTripButton.getScene().getWindow();
+         stage.setOnCloseRequest((WindowEvent event) -> tripHistory.save());
+         closeRequest = true;
+      }
    }
 
 
    @FXML
-   protected void onFavorite() {
+   protected void onGetFavorite() {
       System.out.println("onFavorite");
       textArea.setText( tripHistory.getFavoriteTrip() );
    }
 
-   public void saveTripHistory() {
-      tripHistory.save();
-   }
 
    // Important method to initialize this Controller object!!!
    public void initialize()
@@ -97,16 +104,7 @@ public class OVappController
       bundle = ResourceBundle.getBundle("languages", new Locale("en"));
       changeTextOfFields();
 
-
       System.out.println( "init TransportSelectorController ..." );
-
-      // Initialise the combo box comboTransport with transportation types ...
-      String[] ovtypes = { "vliegtuig", "trein", "bus", "tram", "taxi" };
-
-      ObservableList<String> vehicleList = FXCollections.observableArrayList( ovtypes );
-      comboTransport.setItems( vehicleList );
-      comboTransport.getSelectionModel().select( 2 ); // i.e. "train"
-
 
       // Initialise the combo box comboA with stopover locations.
       // String[] locations = { "Abcoude", "Amersfoort","Amsterdam","Arnhem","Emmen","Groningen","Haarlem","Maastricht" ,"Nijmegen", "Rotterdam","Utrecht","Vlissingen","Xanten" };
@@ -123,13 +121,7 @@ public class OVappController
       System.out.println( "init TransportSelectorController done" );
 
    }
-
-   private void changeTextOfFields() {
-     // transportVehicleText.setText(bundle.getString("transportVehicleText.text"));
-      planMyTripButton.setText(bundle.getString("planMyTripButton.text"));
-      getFavoriteTripButton.setText(bundle.getString("getFavoriteTripButton.text"));
-      switchLanguageButton.setText(bundle.getString("switchLanguageButton.text"));
-   }
+   
 
    @FXML
    public void switchLanguage() {
@@ -139,5 +131,18 @@ public class OVappController
          bundle = ResourceBundle.getBundle("languages", new Locale("en"));
       }
       changeTextOfFields();
+   }
+
+
+   private void changeTextOfFields() {
+      transportTypeLabel.setText(bundle.getString("transportTypeLabel.text"));
+      planMyTripButton.setText(bundle.getString("planMyTripButton.text"));
+      getFavoriteTripButton.setText(bundle.getString("getFavoriteTripButton.text"));
+      switchLanguageButton.setText(bundle.getString("switchLanguageButton.text"));
+
+      String[] vehicleListArray = bundle.getString("transportTypeComboBox.StringArray").split(",");
+      ObservableList<String> vehicleList = FXCollections.observableArrayList(vehicleListArray);
+      comboTransport.setItems(FXCollections.observableArrayList(vehicleList));
+      comboTransport.getSelectionModel().select(1);
    }
 }

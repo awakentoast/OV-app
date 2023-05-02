@@ -55,7 +55,7 @@ public class Data
         }
     public String[] getLocationsName() {
         String[] names= new String[locationMap.size()];
-        int index =0;
+        int index = 0;
         for (var e: locationMap.values())
         {
             names[index++] = e.getName();
