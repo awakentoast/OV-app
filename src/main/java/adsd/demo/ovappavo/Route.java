@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class Route
 {
+
     private final ArrayList<StopOver> stopOvers = new ArrayList<>();
 
     ///////////////////////////////////////////////////////////////
@@ -57,13 +58,28 @@ public class Route
 
     ///////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////
-    public void write()
+    public void write(String comboA, String comboB)
     {
         var first = stopOvers.get( 0 );
         var last  = stopOvers.get( stopOvers.size() - 1 );
 
-        System.out.format( "route: %s, dep. %s at %s; arr. %s at %s\n", getKey(),
-                first.getName(), first.getDeparture(), last.getName(), last.getArrival() );
+//        System.out.format( "route: %s, dep. %s at %s; arr. %s at %s\n", getKey(),
+//                first.getName(), first.getDeparture(), last.getName(), last.getArrival() );
+        String traject = getKey();
+        // Zoek de positie van het gewenste woord
+        int position = traject.indexOf(comboA);
+        // Gebruik de positie om het gedeelte van de string af te drukken
+        String outputString;
+
+        if(traject.equals(comboA))
+        {
+            outputString  = traject;
+        }
+
+        else outputString  = traject.substring(position);
+
+
+        System.out.format("route: %s, dep. %s at %s arr. %s at %s\n", outputString,getStopOver(comboA).getDeparture(),getStopOver(comboA).getName(),getStopOver(comboB).getArrival(),getStopOver(comboB).getName());
     }
     public StopOver getStopOver (String locationKey)
     {

@@ -4,7 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -42,6 +41,7 @@ public class OVappController
 
    Train train = new Train();
 
+
    @FXML
    public void onComboA()
    {
@@ -60,6 +60,7 @@ public class OVappController
       System.out.print( "OVappController.onTransportChange" );
    }
 
+
    @FXML
    protected void onPlanMyTrip()
    {
@@ -73,19 +74,19 @@ public class OVappController
                     String.format("%-8s %-15s\n", "Tot:", comboB.getValue());
 
       textArea.setText(text);
-
-      //String key = comboTransport.getValue() + comboA.getValue() + comboB.getValue();
       tripHistory.addTrip(text);
 
       System.out.println(comboTransport.getValue());
-      if (comboTransport.getValue().equals("trein"))
-      {
-         train.setRoute();
-         System.out.println("treintjee");
 
-        // train.writeRoutes(comboA.getValue(),comboB.getValue());
-         train.writeAllRoutes();
+
+      if (comboTransport.getValue().equals("Train")||comboTransport.getValue().equals("Trein"))
+      {
+         System.out.println("treintjee");
+        train.writeRoutes(comboA.getValue(),comboB.getValue());
+
+
       }
+
 
       //triggers tripHistory.save() when the app is closed
       if (!closeRequest) {
@@ -106,13 +107,11 @@ public class OVappController
    // Important method to initialize this Controller object!!!
    public void initialize()
    {
+      train.setRoute();
       bundle = ResourceBundle.getBundle("languages", new Locale("en"));
       changeTextOfFields();
 
       System.out.println( "init TransportSelectorController ..." );
-
-      // Initialise the combo box comboA with stopover locations.
-      // String[] locations = { "Abcoude", "Amersfoort","Amsterdam","Arnhem","Emmen","Groningen","Haarlem","Maastricht" ,"Nijmegen", "Rotterdam","Utrecht","Vlissingen","Xanten" };
 
       String[] locations = train.getLocationsName();
       ObservableList<String> locationList = FXCollections.observableArrayList( locations );
@@ -122,8 +121,8 @@ public class OVappController
       comboB.setItems( locationList );
       comboB.getSelectionModel().select( comboB.getItems().size() - 1 );
 
-
       System.out.println( "init TransportSelectorController done" );
+
    }
 
 
@@ -150,16 +149,6 @@ public class OVappController
       comboTransport.getSelectionModel().select(1);
    }
 
-//   scene.getStylesheets().add(getClass().getResource("./dark-mode.css").toExternalForm());
-
-//   @FXML
-//   private void toggleDarkMode(ActionEvent scene) {
-//      if (scene.getStylesheets().contains(getClass().getResource("./dark-mode.css").toExternalForm())) {
-//         scene.getStylesheets().remove(getClass().getResource("./dark-mode.css").toExternalForm());
-//      } else {
-//         scene.getStylesheets().add(getClass().getResource("./dark-mode.css").toExternalForm());
-//      }
-//   }
 
    @FXML
    private void toggleDarkMode(ActionEvent event) {
