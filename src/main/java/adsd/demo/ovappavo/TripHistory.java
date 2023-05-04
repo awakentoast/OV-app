@@ -90,7 +90,6 @@ public final class TripHistory {
         }
     }
 
-
     //when the program stops write the current map to the history file
     public void save() {
         StringBuilder data = new StringBuilder();

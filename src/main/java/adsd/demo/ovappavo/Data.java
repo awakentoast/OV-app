@@ -7,65 +7,85 @@ import java.util.TreeMap;
 public class Data
 
 {
-    public final Map<String, Location> locationMap = new TreeMap<>();
+    public final Map<String, Location> trainLocationMap = new TreeMap<>();
     public final Map<String, Route>    routeMap    = new TreeMap<>();
-
+    public final Map<String, Location> busLocationMap = new TreeMap<>();
 
     public Data() {
-        /// === Locations A ... F ========
+        // === Trein stations ===
         var location = new Location("Abcoude");
-        locationMap.put(location.getName(), location);
+        trainLocationMap.put(location.getName(), location);
 
         location = new Location("Amersfoort");
-        locationMap.put(location.getName(), location);
+        trainLocationMap.put(location.getName(), location);
 
         location = new Location("Amsterdam");
-        locationMap.put(location.getName(), location);
+        trainLocationMap.put(location.getName(), location);
 
         location = new Location("Arnhem");
-        locationMap.put(location.getName(), location);
+        trainLocationMap.put(location.getName(), location);
 
         location = new Location("Emmen");
-        locationMap.put(location.getName(), location);
+        trainLocationMap.put(location.getName(), location);
 
         location = new Location("Groningen");
-        locationMap.put(location.getName(), location);
+        trainLocationMap.put(location.getName(), location);
 
         location = new Location("Haarlem");
-        locationMap.put(location.getName(), location);
+        trainLocationMap.put(location.getName(), location);
 
         location = new Location("Maastricht");
-        locationMap.put(location.getName(), location);
+        trainLocationMap.put(location.getName(), location);
 
         location = new Location("Nijmegen");
-        locationMap.put(location.getName(), location);
+        trainLocationMap.put(location.getName(), location);
 
         location = new Location("Rotterdam");
-        locationMap.put(location.getName(), location);
+        trainLocationMap.put(location.getName(), location);
 
         location = new Location("Utrecht");
-        locationMap.put(location.getName(), location);
+        trainLocationMap.put(location.getName(), location);
 
         location = new Location("Vlissingen");
-        locationMap.put(location.getName(), location);
+        trainLocationMap.put(location.getName(), location);
 
         location = new Location("Xanten");
-        locationMap.put(location.getName(), location);
+        trainLocationMap.put(location.getName(), location);
 
+        // === Bushaltes ===
+
+        location = new Location("Soesterberg");
+        busLocationMap.put(location.getName(), location);
+
+        location = new Location("Rijnsweerd");
+        busLocationMap.put(location.getName(),location);
         }
-    public String[] getLocationsName() {
-        String[] names= new String[locationMap.size()];
+
+       public String[] getBusLocationName()
+       {
+           String[] names= new String[busLocationMap.size()];
+           int index = 0;
+           for (var e: busLocationMap.values())
+           {
+               names[index++] = e.getName();
+           }
+           return names;
+       }
+
+    public String[] getTrainLocationsName()
+    {
+        String[] names= new String[trainLocationMap.size()];
         int index = 0;
-        for (var e: locationMap.values())
+        for (var e: trainLocationMap.values())
         {
             names[index++] = e.getName();
         }
         return names;
     }
 
+
     public void writeRoutes(String comboA, String comboB)
     {
-
         var count = 0;
         for (var e : routeMap.entrySet())
         {

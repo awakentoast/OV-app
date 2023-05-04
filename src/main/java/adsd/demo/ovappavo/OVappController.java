@@ -40,6 +40,7 @@ public class OVappController
    TripHistory tripHistory = new TripHistory();
 
    Train train = new Train();
+   Bus bus = new Bus();
 
 
    @FXML
@@ -82,7 +83,30 @@ public class OVappController
       if (comboTransport.getValue().equals("Train")||comboTransport.getValue().equals("Trein"))
       {
          System.out.println("treintjee");
-        train.writeRoutes(comboA.getValue(),comboB.getValue());
+         String[] trainlocations = train.getTrainLocationsName();
+
+//         ObservableList<String> locationList = FXCollections.observableArrayList(trainlocations);
+//
+//         comboA.setItems(locationList);
+//         comboA.getSelectionModel().select(0); // i.e. "Amsterdam"
+//
+//         comboB.setItems(locationList);
+//         comboB.getSelectionModel().select(comboB.getItems().size() - 1);
+         train.writeRoutes(comboA.getValue(),comboB.getValue());
+
+      }
+
+      if (comboTransport.getValue().equals("Bus")){
+         System.out.println("busjeee");
+//         String[] buslocations = bus.getBusLocationName();
+//
+//         ObservableList<String> locationList = FXCollections.observableArrayList(buslocations);
+//
+//         comboA.setItems(locationList);
+//         comboA.getSelectionModel().select(0); // i.e. "Amsterdam"
+//
+//         comboB.setItems(locationList);
+//         comboB.getSelectionModel().select(comboB.getItems().size() - 1);
 
 
       }
@@ -105,26 +129,28 @@ public class OVappController
 
 
    // Important method to initialize this Controller object!!!
-   public void initialize()
-   {
+   public void initialize() {
       train.setRoute();
+
       bundle = ResourceBundle.getBundle("languages", new Locale("en"));
       changeTextOfFields();
 
-      System.out.println( "init TransportSelectorController ..." );
+      System.out.println("init TransportSelectorController ...");
 
-      String[] locations = train.getLocationsName();
-      ObservableList<String> locationList = FXCollections.observableArrayList( locations );
-      comboA.setItems( locationList );
-      comboA.getSelectionModel().select( 0 ); // i.e. "Amsterdam"
+      String[] buslocations = bus.getBusLocationName();
+      String[] trainlocations = train.getTrainLocationsName();
 
-      comboB.setItems( locationList );
-      comboB.getSelectionModel().select( comboB.getItems().size() - 1 );
+      ObservableList<String> locationList = FXCollections.observableArrayList(trainlocations);
 
-      System.out.println( "init TransportSelectorController done" );
+      comboA.setItems(locationList);
+      comboA.getSelectionModel().select(0); // i.e. "Amsterdam"
 
+      comboB.setItems(locationList);
+      comboB.getSelectionModel().select(comboB.getItems().size() - 1);
+
+
+      System.out.println("init TransportSelectorController done");
    }
-
 
    @FXML
    public void switchLanguage() {

@@ -65,6 +65,7 @@ public class Route
 
 //        System.out.format( "route: %s, dep. %s at %s; arr. %s at %s\n", getKey(),
 //                first.getName(), first.getDeparture(), last.getName(), last.getArrival() );
+
         String traject = getKey();
         // Zoek de positie van het gewenste woord
         int position = traject.indexOf(comboA);
