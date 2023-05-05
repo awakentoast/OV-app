@@ -2,11 +2,11 @@ package adsd.demo.ovappavo;
 
 import java.time.LocalTime;
 
-public class Train extends Data {
+public class TrainData extends Data {
 
-    // set all train routes
+    // set all trainData routes
     public void setRoute() {
-        /// === Routes Haarlem-Xanten ========
+        /// === Route Haarlem-Xanten ========
         for (int hour = 6; hour <= 19; hour += 1) {
             int hourTraject = hour;
             var departure = LocalTime.of(hour, 0);
@@ -19,7 +19,8 @@ public class Train extends Data {
             route.addEndPoint(trainLocationMap.get("Xanten"), LocalTime.of(hourTraject, 52));
             routeMap.put(route.getKey(), route);
         }
-        //=== Routes Xanten-Nijmegen ===
+
+        //=== Route Xanten-Nijmegen ===
         for (int hour = 6; hour <= 19; hour += 2) {
             int hourTraject = hour;
             var departure = LocalTime.of(hour, 0);
@@ -32,7 +33,8 @@ public class Train extends Data {
             route.addEndPoint(trainLocationMap.get("Haarlem"), LocalTime.of(++hourTraject, 02));
             routeMap.put(route.getKey(), route);
         }
-        // === Routes Groningen-Vlissingen ===
+
+        // === Route Groningen-Vlissingen ===
         for (int hour = 7; hour <= 19; hour += 2) {
             int hourTraject = hour;
             var departure = LocalTime.of(hour, 0);
@@ -43,7 +45,8 @@ public class Train extends Data {
             route.addEndPoint(trainLocationMap.get("Vlissingen"), LocalTime.of(++hourTraject, 58));
             routeMap.put(route.getKey(), route);
         }
-        // === Routes Vlissingen-Groningen ===
+
+        // === Route Vlissingen-Groningen ===
         for (int hour = 8; hour <= 19; hour += 2) {
             int hourTraject = hour;
             var departure = LocalTime.of(hour, 0);
@@ -54,7 +57,7 @@ public class Train extends Data {
             route.addEndPoint(trainLocationMap.get("Groningen"), LocalTime.of(++hourTraject, 46));
             routeMap.put(route.getKey(), route);
         }
-        // === Routes Emmen-Maastricht ===
+        // === Route Emmen-Maastricht ===
         for (int hour = 7; hour <= 19; hour += 2) {
             int hourTraject = hour;
             var departure = LocalTime.of(hour, 0);
@@ -66,7 +69,7 @@ public class Train extends Data {
             routeMap.put(route.getKey(), route);
         }
 
-        // === Routes Maastricht-Groningen ===
+        // === Route Maastricht-Groningen ===
         for (int hour = 7; hour <= 19; hour += 2) {
             int hourTraject = hour;
             var departure = LocalTime.of(hour, 0);

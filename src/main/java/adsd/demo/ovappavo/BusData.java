@@ -2,8 +2,8 @@ package adsd.demo.ovappavo;
 
 import java.time.LocalTime;
 
-public class Bus extends Data{
-    // set all train routes
+public class BusData extends Data{
+    // set all trainData routes
     public void setRoute()
     {
         /// === Routes Haarlem-Xanten ========
