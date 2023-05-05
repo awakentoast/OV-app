@@ -138,6 +138,7 @@ public class OVappController
 
       bundle = ResourceBundle.getBundle("languages", new Locale("nl"));
       changeTextOfFields();
+      comboTransport.getSelectionModel().select(1);
 
       System.out.println("init TransportSelectorController ...");
 
@@ -177,10 +178,10 @@ public class OVappController
    }
 
    private void changeObservableListText(ComboBox<String> comboBox, String key) {
+      int index = comboBox.getSelectionModel().getSelectedIndex();
       String[] vehicleListArray = bundle.getString(key).split(",");
       ObservableList<String> vehicleList = FXCollections.observableArrayList(vehicleListArray);
       comboBox.setItems(FXCollections.observableArrayList(vehicleList));
-      int index = comboBox.getSelectionModel().getSelectedIndex();
       comboBox.getSelectionModel().select(index);
    }
 
