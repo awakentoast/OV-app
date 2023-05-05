@@ -19,7 +19,6 @@ public class OVapp extends Application
       stage.setTitle( "Mijn Prachtige Applicatie" );
       stage.setScene( new Scene(root) );
       stage.show();
-      
    }
 
    public static void main(String[] args )
