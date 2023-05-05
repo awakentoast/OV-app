@@ -1,6 +1,5 @@
 package adsd.demo.ovappavo;
 
-import java.time.LocalTime;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -12,7 +11,7 @@ public class Data
     public final Map<String, Location> busLocationMap = new TreeMap<>();
 
     public Data() {
-        // === Trein stations ===
+        // === Train stations ===
         var location = new Location("Abcoude");
         trainLocationMap.put(location.getName(), location);
 
@@ -52,25 +51,25 @@ public class Data
         location = new Location("Xanten");
         trainLocationMap.put(location.getName(), location);
 
-        // === Bushaltes ===
+        // === Bus stations ===
 
         location = new Location("Soesterberg");
         busLocationMap.put(location.getName(), location);
 
         location = new Location("Rijnsweerd");
         busLocationMap.put(location.getName(),location);
-        }
+    }
 
-       public String[] getBusLocationName()
+    public String[] getBusLocationName()
+    {
+       String[] names= new String[busLocationMap.size()];
+       int index = 0;
+       for (var e: busLocationMap.values())
        {
-           String[] names= new String[busLocationMap.size()];
-           int index = 0;
-           for (var e: busLocationMap.values())
-           {
-               names[index++] = e.getName();
-           }
-           return names;
+           names[index++] = e.getName();
        }
+       return names;
+    }
 
     public String[] getTrainLocationsName()
     {
@@ -111,5 +110,4 @@ public class Data
             }
         }
     }
-
 }
