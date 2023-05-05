@@ -22,11 +22,6 @@ public class OVapp extends Application
       
    }
 
-   @Override
-   public void stop() {
-      //oVappController.saveTripHistory();
-   }
-
    public static void main(String[] args )
    {
       Application.launch();
