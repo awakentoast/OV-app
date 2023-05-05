@@ -5,10 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.scene.Node;
@@ -171,27 +168,42 @@ public class OVappController
       changeTextOfFields();
    }
 
+   private void changeTextOfField(Labeled label, String key) {
+      label.setText(bundle.getString(key));
+   }
+
+   private void changeTextOfFieldWithArray(Labeled label, String key, int index) {
+      label.setText(bundle.getString(key).split(",")[index]);
+   }
+
+   private void changeObservableListText(ComboBox<String> comboBox, String key) {
+      String[] vehicleListArray = bundle.getString(key).split(",");
+      ObservableList<String> vehicleList = FXCollections.observableArrayList(vehicleListArray);
+      comboBox.setItems(FXCollections.observableArrayList(vehicleList));
+      int index = comboBox.getSelectionModel().getSelectedIndex();
+      comboBox.getSelectionModel().select(index);
+   }
+
 
    private void changeTextOfFields() {
-      transportTypeLabel.setText(bundle.getString("transportTypeLabel.text"));
-      planMyTripButton.setText(bundle.getString("planMyTripButton.text"));
-      getFavoriteTripButton.setText(bundle.getString("getFavoriteTripButton.text"));
-      switchLanguageButton.setText(bundle.getString("switchLanguageButton.text"));
+      changeTextOfField(transportTypeLabel, "transportTypeLabel.text");
+      changeTextOfField(planMyTripButton, "planMyTripButton.text");
+      changeTextOfField(getFavoriteTripButton, "getFavoriteTripButton.text");
+      changeTextOfField(switchLanguageButton, "switchLanguageButton.text");
 
       changeTextDarkModeButton();
 
-      String[] vehicleListArray = bundle.getString("transportTypeComboBox.StringArray").split(",");
-      ObservableList<String> vehicleList = FXCollections.observableArrayList(vehicleListArray);
-      comboTransport.setItems(FXCollections.observableArrayList(vehicleList));
-      comboTransport.getSelectionModel().select(1);
+      changeObservableListText(comboTransport, "transportTypeComboBox.StringArray");
    }
 
    private void changeTextDarkModeButton() {
+      //index 0 is the text "switch to dark mode"
+      //index 1 is the text "switch to light mode"
       if (darkMode) {
-         toggleDarkModeButton.setText(bundle.getString("toggleDarkModeButton.StringArray").split(",")[1]);
+         changeTextOfFieldWithArray(toggleDarkModeButton, "toggleDarkModeButton.StringArray", 1);
       }
       else {
-         toggleDarkModeButton.setText(bundle.getString("toggleDarkModeButton.StringArray").split(",")[0]);
+         changeTextOfFieldWithArray(toggleDarkModeButton, "toggleDarkModeButton.StringArray", 0);
       }
    }
 
