@@ -10,9 +10,6 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.scene.Node;
 
-
-
-
 import java.time.LocalTime;
 import java.util.Locale;
 import java.util.Objects;
@@ -22,15 +19,13 @@ import java.util.ResourceBundle;
 @SuppressWarnings("deprecation")
 public class OVappController
 {
-   private boolean closeRequest = false;
 
    @FXML private Button addFavoriteTripButton;
    @FXML private Button getFavoriteTripButton;
    @FXML private Button planMyTripButton;
    @FXML private Button switchLanguageButton;
-   private boolean darkMode = false;
-
    @FXML private Button toggleDarkModeButton;
+
    @FXML private Label  transportTypeLabel;
 
    @FXML private ListView         tripDisplay;
@@ -39,12 +34,15 @@ public class OVappController
    @FXML private ComboBox<String> comboB;
    @FXML private TextArea         textArea;
 
-   private ResourceBundle bundle;
-   private final TripHistory tripHistory = new TripHistory();
 
+   private boolean darkMode = false;
+   private boolean closeRequest = false;
+
+   private ResourceBundle bundle;
+
+   private final TripHistory tripHistory = new TripHistory();
    TrainData trainData = new TrainData();
    BusData busData = new BusData();
-
 
    @FXML
    public void onComboA()
@@ -97,7 +95,6 @@ public class OVappController
 //         comboB.setItems(locationList);
 //         comboB.getSelectionModel().select(comboB.getItems().size() - 1);
          trainData.writeRoutes(comboA.getValue(),comboB.getValue());
-
          // train.writeRoutes(comboA.getValue(),comboB.getValue());
          //trainData.writeAllRoutes();
 
@@ -126,8 +123,7 @@ public class OVappController
       System.out.println("onGetFavorite");
       textArea.setText( tripHistory.getFavoriteTrip() );
    }
-
-
+   
    @FXML
    protected void onAddFavorite() {
       System.out.println("onSetFavorite");

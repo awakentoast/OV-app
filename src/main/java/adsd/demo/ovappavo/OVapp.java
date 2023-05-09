@@ -16,7 +16,7 @@ public class OVapp extends Application
       FXMLLoader languageBundleLoader = new FXMLLoader(getClass().getResource("OVappGUI.fxml"));
       languageBundleLoader.setResources(ResourceBundle.getBundle("languages"));
       Parent root = languageBundleLoader.load();
-      stage.setTitle( "Mijn Prachtige Applicatie" );
+      stage.setTitle( "Mobiliteitsfabriek OV app" );
       stage.setScene( new Scene(root) );
       stage.show();
    }

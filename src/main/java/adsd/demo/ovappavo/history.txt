@@ -8,6 +8,12 @@ Van:     Amersfoort
 Tot:     Vlissingen     
 |1
 
+<<<<<<< HEAD
+OVType:  Trein          
+Van:     Arnhem         
+Tot:     Amsterdam      
+|1
+
 OVType:  Train          
 Van:     null           
 Tot:     null           
@@ -16,7 +22,7 @@ Tot:     null
 OVType:  Trein          
 Van:     Abcoude        
 Tot:     Xanten         
-|1
+|2
 
 OVType:  Train          
 Van:     Xanten         
@@ -38,6 +44,13 @@ Van:     Haarlem
 Tot:     Xanten         
 |3
 
+=======
+>>>>>>> e4ad358d6ae6c5b8b53b3399e4953c9e2a99e1dd
+OVType:  Train          
+Van:     Haarlem        
+Tot:     Xanten         
+|26
+
 OVType:  Train          
 Van:     Nijmegen       
 Tot:     Xanten         
@@ -52,16 +65,6 @@ OVType:  Train
 Van:     Utrecht        
 Tot:     Arnhem         
 |3
-
-OVType:  Trein          
-Van:     Arnhem         
-Tot:     Amsterdam      
-|1
-
-OVType:  Train          
-Van:     Haarlem        
-Tot:     Xanten         
-|26
 
 OVType:  Bus            
 Van:     Rijnsweerd     
