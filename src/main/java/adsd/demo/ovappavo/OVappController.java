@@ -67,7 +67,7 @@ public class OVappController
    protected void onPlanMyTrip() {
       String[] locations = {"eerste", "tweede"};
       ObservableList<String> locationList = FXCollections.observableArrayList(locations);
-      tripDisplay.setItems(locationList);
+     // tripDisplay.setItems(locationList);
       System.out.println("OVappController.onPlanMyTrip");
       System.out.format("OVType: %s\n", comboTransport.getValue());
       System.out.format("Van:   %s\n", comboA.getValue());
