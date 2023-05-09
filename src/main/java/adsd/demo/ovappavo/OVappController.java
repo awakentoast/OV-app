@@ -17,22 +17,28 @@ import java.util.ResourceBundle;
 
 
 @SuppressWarnings("deprecation")
-public class OVappController
-{
+public class OVappController {
 
-   @FXML private Button addFavoriteTripButton;
-   @FXML private Button getFavoriteTripButton;
-   @FXML private Button planMyTripButton;
-   @FXML private Button switchLanguageButton;
-   @FXML private Button toggleDarkModeButton;
+   @FXML
+   private Button getFavoriteTripButton;
+   @FXML
+   private Button planMyTripButton;
+   @FXML
+   private Button switchLanguageButton;
+   @FXML
+   private Button toggleDarkModeButton;
 
-   @FXML private Label  transportTypeLabel;
+   @FXML
+   private Label transportTypeLabel;
 
-   @FXML private ListView         tripDisplay;
-   @FXML private ComboBox<String> comboTransport;
-   @FXML private ComboBox<String> comboA;
-   @FXML private ComboBox<String> comboB;
-   @FXML private TextArea favoriteTrip;
+   @FXML
+   private ComboBox<String> comboTransport;
+   @FXML
+   private ComboBox<String> comboA;
+   @FXML
+   private ComboBox<String> comboB;
+   @FXML
+   private TextArea textArea;
 
 
    private boolean darkMode = false;
@@ -43,31 +49,48 @@ public class OVappController
    private final TripHistory tripHistory = new TripHistory();
    TrainData trainData = new TrainData();
    BusData busData = new BusData();
+   Data data;
+   ObservableList<String> locationList;
 
    @FXML
-   public void onComboA()
-   {
-      System.out.println( "OVappController.onComboA" );
+   public void onComboA() {
+      System.out.println("OVappController.onComboA");
    }
 
    @FXML
-   public void onComboB()
-   {
-      System.out.println( "OVappController.onComboB" );
+   public void onComboB() {
+      System.out.println("OVappController.onComboB");
    }
 
    @FXML
-   protected void onTransport()
-   {
-      System.out.print( "OVappController.onTransportChange" );
+   protected void onTransport() {
+      if (comboTransport.getValue().equals("Train") || comboTransport.getValue().equals("Trein")) {
+         data = trainData;
+         String[] trainlocations = trainData.getTrainLocationsName();
+         locationList = FXCollections.observableArrayList(trainlocations);
+      }
+
+      if (comboTransport.getValue().equals("Bus")) {
+         data = busData;
+         String[] buslocations = busData.getBusLocationName();
+         locationList = FXCollections.observableArrayList(buslocations);
+      }
+
+      comboA.setItems(locationList);
+      comboA.getSelectionModel().select(0); // i.e. "Amsterdam"
+
+      comboB.setItems(locationList);
+      comboB.getSelectionModel().select(comboB.getItems().size() - 1);
+      System.out.print("OVappController.onTransportChange");
+
    }
 
 
    @FXML
    protected void onPlanMyTrip() {
-      String[] locations = {"eerste", "tweede"};
-      ObservableList<String> locationList = FXCollections.observableArrayList(locations);
-     // tripDisplay.setItems(locationList);
+
+
+      // tripDisplay.setItems(locationList);
       System.out.println("OVappController.onPlanMyTrip");
       System.out.format("OVType: %s\n", comboTransport.getValue());
       System.out.format("Van:   %s\n", comboA.getValue());
@@ -77,15 +100,15 @@ public class OVappController
               String.format("%-8s %-15s\n", "Van:", comboA.getValue()) +
               String.format("%-8s %-15s\n", "Tot:", comboB.getValue());
 
-     // favoriteTrip.setText(text);
+      textArea.setText(text);
       tripHistory.addTrip(text);
 
       System.out.println(comboTransport.getValue());
 
-      if (comboTransport.getValue().equals("TrainData")||comboTransport.getValue().equals("Trein"))
-      {
-         System.out.println("treintjee");
-         String[] trainlocations = trainData.getTrainLocationsName();
+//      if (comboTransport.getValue().equals("TrainData")||comboTransport.getValue().equals("Trein"))
+//      {
+//         System.out.println("treintjee");
+//         String[] trainlocations = trainData.getTrainLocationsName();
 
 //         ObservableList<String> locationList = FXCollections.observableArrayList(trainlocations);
 //
@@ -94,14 +117,14 @@ public class OVappController
 //
 //         comboB.setItems(locationList);
 //         comboB.getSelectionModel().select(comboB.getItems().size() - 1);
-         trainData.writeRoutes(comboA.getValue(),comboB.getValue());
-         // train.writeRoutes(comboA.getValue(),comboB.getValue());
-         //trainData.writeAllRoutes();
+//         trainData.writeRoutes(comboA.getValue(),comboB.getValue());
+      // train.writeRoutes(comboA.getValue(),comboB.getValue());
+      //trainData.writeAllRoutes();
 
-      }
 
-      if (comboTransport.getValue().equals("BusData")){
-         System.out.println("busjeee");
+//
+//      if (comboTransport.getValue().equals("BusData")){
+//         System.out.println("busjeee");
 //         String[] buslocations = busData.getBusLocationName();
 //
 //         ObservableList<String> locationList = FXCollections.observableArrayList(buslocations);
@@ -112,16 +135,17 @@ public class OVappController
 //         comboB.setItems(locationList);
 //         comboB.getSelectionModel().select(comboB.getItems().size() - 1);
 
-
-      }
-      setupCloseEvent();
+//setupCloseEvent();
    }
+
+
+
 
 
    @FXML
    protected void onGetFavorite() {
       System.out.println("onGetFavorite");
-      favoriteTrip.setText( tripHistory.getFavoriteTrip() );
+      textArea.setText( tripHistory.getFavoriteTrip() );
    }
    
    @FXML
@@ -147,6 +171,8 @@ public class OVappController
    public void initialize() {
 
       trainData.setRoute();
+     // busData.setRoute();
+      data = trainData;
 
       bundle = ResourceBundle.getBundle("languages", new Locale("nl"));
       changeTextOfFields();
@@ -154,7 +180,6 @@ public class OVappController
 
       System.out.println("init TransportSelectorController ...");
 
-      String[] buslocations = busData.getBusLocationName();
       String[] trainlocations = trainData.getTrainLocationsName();
 
       ObservableList<String> locationList = FXCollections.observableArrayList(trainlocations);
