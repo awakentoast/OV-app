@@ -18,6 +18,7 @@ public class OVapp extends Application
       Parent root = languageBundleLoader.load();
       stage.setTitle( "Mobiliteitsfabriek OV app" );
       stage.setScene( new Scene(root) );
+      stage.setMaximized(true);
       stage.show();
    }
 
