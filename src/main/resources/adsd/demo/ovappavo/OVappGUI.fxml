@@ -12,102 +12,91 @@
             <children>
                 <HBox prefHeight="100.0" prefWidth="200.0">
                     <children>
-                  <ImageView fitHeight="67.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../java/images/OVapp/Logo-ov-app-_los-logo_.jpg" />
-                     </image></ImageView>
-                  <MenuButton mnemonicParsing="false" prefHeight="31.0" prefWidth="72.0" text="Menu" textAlignment="CENTER">
-                    <items>
-                      <MenuItem mnemonicParsing="false">
-                           <graphic>
-                                  <Button fx:id="switchLanguageButton" mnemonicParsing="false" onAction="#switchLanguage" text="%switchLanguageButton.text" />
-                           </graphic></MenuItem>
-                      <MenuItem mnemonicParsing="false">
-                           <graphic>
-                                  <Button fx:id="getFavoriteTripButton" mnemonicParsing="false" onAction="#onGetFavorite" text="%getFavoriteTripButton.text" />
-                           </graphic></MenuItem>
-                    </items>
-                     <HBox.margin>
-                        <Insets left="400.0" top="10.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </MenuButton>
+                        <ImageView fitHeight="67.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../../java/images/OVapp/Logo-ov-app-_los-logo_.jpg" />
+                            </image></ImageView>
+                        <MenuButton mnemonicParsing="false" prefHeight="31.0" prefWidth="72.0" text="Menu" textAlignment="CENTER">
+                            <items>
+                                <MenuItem mnemonicParsing="false">
+                                    <graphic>
+                                        <Button fx:id="switchLanguageButton" mnemonicParsing="false" onAction="#switchLanguage" text="%switchLanguageButton.text" />
+                                    </graphic></MenuItem>
+                                <MenuItem mnemonicParsing="false">
+                                    <graphic>
+                                        <Button fx:id="getFavoriteTripButton" mnemonicParsing="false" onAction="#onGetFavorite" text="%getFavoriteTripButton.text" />
+                                    </graphic></MenuItem>
+                            </items>
+                            <HBox.margin>
+                                <Insets left="400.0" top="10.0" />
+                            </HBox.margin>
+                            <font>
+                                <Font size="13.0" />
+                            </font>
+                        </MenuButton>
                     </children>
                 </HBox>
                 <HBox prefHeight="40.0" prefWidth="597.0">
                     <children>
                         <ComboBox fx:id="comboA" onAction="#onComboA" prefHeight="39.0" prefWidth="162.0">
-                     <HBox.margin>
-                        <Insets left="110.0" />
-                     </HBox.margin></ComboBox>
+                            <HBox.margin>
+                                <Insets left="110.0" />
+                            </HBox.margin></ComboBox>
                         <Label text="---&gt;">
-                     <HBox.margin>
-                        <Insets left="8.0" right="8.0" top="10.0" />
-                     </HBox.margin></Label>
+                            <HBox.margin>
+                                <Insets left="8.0" right="8.0" top="10.0" />
+                            </HBox.margin></Label>
                         <ComboBox fx:id="comboB" onAction="#onComboB" prefHeight="39.0" prefWidth="160.0">
-                     <HBox.margin>
-                        <Insets right="110.0" />
-                     </HBox.margin></ComboBox>
+                            <HBox.margin>
+                                <Insets right="110.0" />
+                            </HBox.margin></ComboBox>
                     </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
                 </HBox>
-            <HBox prefHeight="16.0" prefWidth="597.0">
-               <children>
+                <HBox prefHeight="16.0" prefWidth="597.0">
+                    <children>
                         <Label fx:id="transportTypeLabel" prefHeight="17.0" prefWidth="91.0" text="%transportTypeLabel.text">
-                     <HBox.margin>
-                        <Insets left="97.0" top="15.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox prefHeight="48.0" prefWidth="597.0">
-               <children>
+                            <HBox.margin>
+                                <Insets left="97.0" top="15.0" />
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                </HBox>
+                <HBox prefHeight="48.0" prefWidth="597.0">
+                    <children>
                         <ComboBox fx:id="comboTransport" onAction="#onTransport" prefHeight="34.0" prefWidth="91.0">
-                     <HBox.margin>
-                        <Insets left="97.0" top="10.0" />
-                     </HBox.margin>
-                  </ComboBox>
-               </children>
-            </HBox>
-            <HBox prefHeight="37.0" prefWidth="597.0">
-               <children>
-      
-                      <Button fx:id="planMyTripButton" mnemonicParsing="false" onAction="#onPlanMyTrip" prefHeight="42.0" prefWidth="153.0" text="%planMyTripButton.text">
-                     <HBox.margin>
-                        <Insets left="222.0" right="170.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
-            <HBox prefHeight="84.0" prefWidth="597.0">
-               <children>
-                  <TextArea fx:id="textArea" prefHeight="73.0" prefWidth="238.0">
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="180.0" right="180.0" top="10.0" />
-                     </HBox.margin>
-                  </TextArea>
-               </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </HBox>
+                            <HBox.margin>
+                                <Insets left="97.0" top="10.0" />
+                            </HBox.margin>
+                        </ComboBox>
+                    </children>
+                </HBox>
+                <HBox prefHeight="37.0" prefWidth="597.0">
+                    <children>
+
+                        <Button fx:id="planMyTripButton" mnemonicParsing="false" onAction="#onPlanMyTrip" prefHeight="42.0" prefWidth="153.0" text="%planMyTripButton.text">
+                            <HBox.margin>
+                                <Insets left="222.0" right="170.0" />
+                            </HBox.margin>
+                        </Button>
+                    </children>
+                </HBox>
+                <HBox prefHeight="84.0" prefWidth="597.0">
+                    <children>
+                        <TextArea fx:id="textArea" prefHeight="73.0" prefWidth="238.0">
+                            <HBox.margin>
+                                <Insets bottom="10.0" left="180.0" right="180.0" top="10.0" />
+                            </HBox.margin>
+                        </TextArea>
+                    </children>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                </HBox>
                 <Button fx:id="toggleDarkModeButton" mnemonicParsing="false" onAction="#toggleDarkMode" text="%toggleDarkModeButton.StringArray" />
-                <Button fx:id="planMyTripButton" mnemonicParsing="false" onAction="#onPlanMyTrip" text="%planMyTripButton.text" />
-                <Button fx:id="getFavoriteTripButton" mnemonicParsing="false" onAction="#onGetFavorite" text="%getFavoriteTripButton.text" />
-                <Button fx:id="addFavoriteTripButton" mnemonicParsing="false" onAction="#onAddFavorite" text="%addFavoriteTripButton.text" />
-                <Button fx:id="switchLanguageButton" mnemonicParsing="false" onAction="#switchLanguage" text="%switchLanguageButton.text" />
-                <Button fx:id="toggleDarkModeButton" mnemonicParsing="false" onAction="#toggleDarkMode" text="%toggleDarkModeButton.StringArray" />
-            </children>
-        </VBox>
-        <VBox prefHeight="398.0" prefWidth="248.0">
-            <children>
-                <TextArea fx:id="textArea" prefHeight="200.0" prefWidth="200.0" />
-                <ListView fx:id="tripDisplay" prefHeight="200.0" prefWidth="200.0" />
-                <ListView prefHeight="200.0" prefWidth="200.0" />
+
             </children>
         </VBox>
     </items>
