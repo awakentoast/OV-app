@@ -85,7 +85,7 @@
             </HBox>
             <HBox prefHeight="84.0" prefWidth="597.0">
                <children>
-                  <TextArea prefHeight="73.0" prefWidth="238.0">
+                  <TextArea fx:id="textArea" prefHeight="73.0" prefWidth="238.0">
                      <HBox.margin>
                         <Insets bottom="10.0" left="180.0" right="180.0" top="10.0" />
                      </HBox.margin>
