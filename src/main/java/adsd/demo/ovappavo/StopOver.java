@@ -1,7 +1,5 @@
 package adsd.demo.ovappavo;
 
-import adsd.demo.ovappavo.Location;
-
 import java.time.LocalTime;
 
 public class StopOver extends Location

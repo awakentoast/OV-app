@@ -11,6 +11,8 @@ public final class TripHistory {
 
     Map<String, Integer> tripOccurrences = new HashMap<>();
 
+    List<Trip> favoriteTrips = new ArrayList<>();
+
 
     public TripHistory() {
         try {
@@ -84,6 +86,7 @@ public final class TripHistory {
                     prefix = "Favorite trips:\n";
                 }
             }
+
             return prefix + favorite;
         }
     }
@@ -102,6 +105,12 @@ public final class TripHistory {
         } catch (Exception e) {
             System.out.println("Something wrong when writing to file in save");
             e.printStackTrace();
+        }
+    }
+
+    public void addFavorite(Trip trip) {
+        if (!favoriteTrips.contains(trip)) {
+            favoriteTrips.add(trip);
         }
     }
 }

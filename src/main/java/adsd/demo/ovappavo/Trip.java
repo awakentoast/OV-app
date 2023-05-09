@@ -6,7 +6,7 @@ import java.time.LocalTime;
 
 public class Trip {
     private final LocalTime departure;
-    private final Location locationA;
+    private final Location  locationA;
     private final Location  locationB;
 
     public Trip (LocalTime departure, Location locationA, Location locationB)
@@ -19,8 +19,9 @@ public class Trip {
     {
         return departure;
     }
-    public void write()
-    {
 
-    }
+//    public void write()
+//    {
+//
+//    }
 }
