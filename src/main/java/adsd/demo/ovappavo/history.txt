@@ -1,7 +1,7 @@
 OVType:  Trein          
 Van:     Utrecht        
 Tot:     Xanten         
-|1
+|2
 
 OVType:  Trein          
 Van:     Amersfoort     
@@ -42,7 +42,7 @@ Tot:     Vlissingen
 OVType:  Trein          
 Van:     Haarlem        
 Tot:     Xanten         
-|3
+|4
 
 =======
 >>>>>>> e4ad358d6ae6c5b8b53b3399e4953c9e2a99e1dd

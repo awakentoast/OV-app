@@ -77,7 +77,7 @@ public class OVappController
               String.format("%-8s %-15s\n", "Van:", comboA.getValue()) +
               String.format("%-8s %-15s\n", "Tot:", comboB.getValue());
 
-      favoriteTrip.setText(text);
+     // favoriteTrip.setText(text);
       tripHistory.addTrip(text);
 
       System.out.println(comboTransport.getValue());
