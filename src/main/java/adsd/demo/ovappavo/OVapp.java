@@ -21,11 +21,6 @@ public class OVapp extends Application
       stage.show();
    }
 
-   @Override
-   public void stop() {
-      //oVappController.saveTripHistory();
-   }
-
    public static void main(String[] args )
    {
       Application.launch();

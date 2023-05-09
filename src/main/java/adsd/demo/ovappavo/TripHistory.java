@@ -5,7 +5,7 @@ import java.util.*;
 
 public final class TripHistory {
 
-    private static final String PATH = "src\\main\\java\\adsd\\demo\\ovappavo\\history.txt";
+    private static final String PATH = "src/main/java/adsd/demo/ovappavo/history.txt";
 
     File file = new File(PATH);
 
@@ -90,7 +90,6 @@ public final class TripHistory {
             return prefix + favorite;
         }
     }
-
 
     //when the program stops write the current map to the history file
     public void save() {

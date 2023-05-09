@@ -1,5 +1,120 @@
+OVType:  Trein          
+Van:     Utrecht        
+Tot:     Xanten         
+|1
+
+OVType:  Trein          
+Van:     Amersfoort     
+Tot:     Vlissingen     
+|1
+
+OVType:  Train          
+Van:     null           
+Tot:     null           
+|2
+
+OVType:  Trein          
+Van:     Abcoude        
+Tot:     Xanten         
+|1
+
+OVType:  Train          
+Van:     Xanten         
+Tot:     Nijmegen       
+|1
+
+OVType:  Train          
+Van:     Vlissingen     
+Tot:     Groningen      
+|1
+
+OVType:  Train          
+Van:     Amersfoort     
+Tot:     Vlissingen     
+|2
+
+OVType:  Trein          
+Van:     Haarlem        
+Tot:     Xanten         
+|3
+
+OVType:  Train          
+Van:     Nijmegen       
+Tot:     Xanten         
+|2
+
+OVType:  Train          
+Van:     Amsterdam      
+Tot:     Xanten         
+|1
+
+OVType:  Train          
+Van:     Utrecht        
+Tot:     Arnhem         
+|3
+
+OVType:  Trein          
+Van:     Arnhem         
+Tot:     Amsterdam      
+|1
+
+OVType:  Train          
+Van:     Haarlem        
+Tot:     Xanten         
+|26
+
+OVType:  Bus            
+Van:     Rijnsweerd     
+Tot:     Soesterberg    
+|1
+
+OVType:  Train          
+Van:     Amersfoort     
+Tot:     Xanten         
+|1
+
+OVType:  Bus            
+Van:     Abcoude        
+Tot:     Xanten         
+|1
+
+OVType:  Train          
+Van:     Arnhem         
+Tot:     Xanten         
+|2
+
+OVType:  Train          
+Van:     Arnhem         
+Tot:     Utrecht        
+|1
+
+OVType:  Train          
+Van:     Rijnsweerd     
+Tot:     Soesterberg    
+|3
+
+OVType:  Train          
+Van:     Utrecht        
+Tot:     Xanten         
+|5
+
+OVType:  Bus            
+Van:     Arnhem         
+Tot:     Xanten         
+|1
+
+OVType:  Train          
+Van:     Soesterberg    
+Tot:     Soesterberg    
+|1
+
 OVType:  Train          
 Van:     Abcoude        
 Tot:     Xanten         
 |15
+
+OVType:  Bus            
+Van:     Haarlem        
+Tot:     Xanten         
+|1
 
