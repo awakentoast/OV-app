@@ -32,7 +32,7 @@ public class OVappController
    @FXML private ComboBox<String> comboTransport;
    @FXML private ComboBox<String> comboA;
    @FXML private ComboBox<String> comboB;
-   @FXML private TextArea         textArea;
+   @FXML private TextArea favoriteTrip;
 
 
    private boolean darkMode = false;
@@ -77,7 +77,7 @@ public class OVappController
               String.format("%-8s %-15s\n", "Van:", comboA.getValue()) +
               String.format("%-8s %-15s\n", "Tot:", comboB.getValue());
 
-      textArea.setText(text);
+      favoriteTrip.setText(text);
       tripHistory.addTrip(text);
 
       System.out.println(comboTransport.getValue());
@@ -121,7 +121,7 @@ public class OVappController
    @FXML
    protected void onGetFavorite() {
       System.out.println("onGetFavorite");
-      textArea.setText( tripHistory.getFavoriteTrip() );
+      favoriteTrip.setText( tripHistory.getFavoriteTrip() );
    }
    
    @FXML
