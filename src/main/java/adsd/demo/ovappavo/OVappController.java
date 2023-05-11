@@ -102,40 +102,10 @@ public class OVappController {
 
       textArea.setText(text);
       tripHistory.addTrip(text);
+      data.writeRoutes(comboA.getValue(),comboB.getValue());
 
       System.out.println(comboTransport.getValue());
 
-//      if (comboTransport.getValue().equals("TrainData")||comboTransport.getValue().equals("Trein"))
-//      {
-//         System.out.println("treintjee");
-//         String[] trainlocations = trainData.getTrainLocationsName();
-
-//         ObservableList<String> locationList = FXCollections.observableArrayList(trainlocations);
-//
-//         comboA.setItems(locationList);
-//         comboA.getSelectionModel().select(0); // i.e. "Amsterdam"
-//
-//         comboB.setItems(locationList);
-//         comboB.getSelectionModel().select(comboB.getItems().size() - 1);
-//         trainData.writeRoutes(comboA.getValue(),comboB.getValue());
-      // train.writeRoutes(comboA.getValue(),comboB.getValue());
-      //trainData.writeAllRoutes();
-
-
-//
-//      if (comboTransport.getValue().equals("BusData")){
-//         System.out.println("busjeee");
-//         String[] buslocations = busData.getBusLocationName();
-//
-//         ObservableList<String> locationList = FXCollections.observableArrayList(buslocations);
-//
-//         comboA.setItems(locationList);
-//         comboA.getSelectionModel().select(0); // i.e. "Amsterdam"
-//
-//         comboB.setItems(locationList);
-//         comboB.getSelectionModel().select(comboB.getItems().size() - 1);
-
-//setupCloseEvent();
    }
 
 
