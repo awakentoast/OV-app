@@ -91,22 +91,19 @@ public class Data {
             String startLocation = comboA;
             String endLocation = comboB;
             var route = e.getValue();
-
+          
 
             String patternString = startLocation + ".*?" + endLocation;
             Pattern pattern = Pattern.compile(patternString);
             Matcher matcher = pattern.matcher(key);
-            for (int i = 0; i <= 1; ) {
+
                 // Controleren of er een overeenkomst is gevonden
                 while (matcher.find()) {
                     String filteredRoute = matcher.group(0);
                     route.write(comboA, comboB, filteredRoute, time);
-                    i++;
-                }
-                if (i == 0) {
-                    System.out.println("geen route gevonden");
-                    i++;
-                }
+
+
+
 
             }
         }
