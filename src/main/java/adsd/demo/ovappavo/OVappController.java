@@ -156,7 +156,7 @@ public class OVappController {
       data = trainData;
 
       bundle = ResourceBundle.getBundle("languages", new Locale("nl"));
-
+      changeTextOfFields();
       comboTransport.getSelectionModel().select(1);
 
       System.out.println("init TransportSelectorController ...");
@@ -171,7 +171,7 @@ public class OVappController {
       comboB.setItems(locationList);
       comboB.getSelectionModel().select(comboB.getItems().size() - 1);
       setTime();
-      changeTextOfFields();
+
 //      // Maak een ObservableList met de uren (0 tot 24)
 //      ObservableList<Integer> hours = FXCollections.observableArrayList();
 //      for (int i = 1; i <= 24; i++) {
