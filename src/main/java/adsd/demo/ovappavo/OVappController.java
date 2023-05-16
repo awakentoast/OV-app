@@ -39,6 +39,11 @@ public class OVappController {
    private ComboBox<String> comboB;
    @FXML
    private TextArea textArea;
+   @FXML
+   private ComboBox<Integer> hoursComboBox;
+
+   @FXML
+   private ComboBox<Integer> minutesComboBox;
 
 
    private boolean darkMode = false;
@@ -102,26 +107,23 @@ public class OVappController {
 
       textArea.setText(text);
       tripHistory.addTrip(text);
-      data.writeRoutes(comboA.getValue(),comboB.getValue());
+      data.writeRoutes(comboA.getValue(), comboB.getValue());
 
       System.out.println(comboTransport.getValue());
 
    }
 
 
-
-
-
    @FXML
    protected void onGetFavorite() {
       System.out.println("onGetFavorite");
-      textArea.setText( tripHistory.getFavoriteTrip() );
+      textArea.setText(tripHistory.getFavoriteTrip());
    }
-   
+
    @FXML
    protected void onAddFavorite() {
       System.out.println("onSetFavorite");
-      tripHistory.addFavorite(new Trip(LocalTime.of(10,15),new Location("Utrecht"), new Location("Abcoude")));
+      tripHistory.addFavorite(new Trip(LocalTime.of(10, 15), new Location("Utrecht"), new Location("Abcoude")));
    }
 
 
@@ -141,7 +143,7 @@ public class OVappController {
    public void initialize() {
 
       trainData.setRoute();
-     // busData.setRoute();
+      // busData.setRoute();
       data = trainData;
 
       bundle = ResourceBundle.getBundle("languages", new Locale("nl"));
@@ -160,9 +162,23 @@ public class OVappController {
       comboB.setItems(locationList);
       comboB.getSelectionModel().select(comboB.getItems().size() - 1);
 
+      // Maak een ObservableList met de uren (0 tot 24)
+      ObservableList<Integer> hours = FXCollections.observableArrayList();
+      for (int i = 0; i <= 24; i++) {
+         hours.add(i);
+      }
+      hoursComboBox.setItems(hours);
+
+      // Maak een ObservableList met de minuten (0 tot 59)
+      ObservableList<Integer> minutes = FXCollections.observableArrayList();
+      for (int i = 0; i <= 59; i++) {
+         minutes.add(i);
+      }
+      minutesComboBox.setItems(minutes);
+
 
       System.out.println("init TransportSelectorController done");
-   }
+}
 
 
    @FXML
@@ -227,5 +243,15 @@ public class OVappController {
       }
       darkMode = !darkMode;
       changeTextDarkModeButton();
+   }
+
+   @FXML
+   private void onTimeSelected() {
+      // Haal de geselecteerde uren en minuten op uit de ComboBoxen
+      int selectedHour = hoursComboBox.getSelectionModel().getSelectedItem();
+      int selectedMinute = minutesComboBox.getSelectionModel().getSelectedItem();
+
+      // Doe iets met de geselecteerde tijd (uren en minuten)
+      System.out.println("Geselecteerde tijd: " + selectedHour + ":" + selectedMinute);
    }
 }
