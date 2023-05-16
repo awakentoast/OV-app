@@ -80,7 +80,15 @@ public class Route
         var timeA = getStopOver(comboA).getDeparture();
         var timeB = getStopOver(comboB).getArrival();
         var tripTime =timeA.until(timeB,ChronoUnit.MINUTES);
-        System.out.format("Reisduur: %s minuten\n",tripTime);
+        if (tripTime < 0) {
+            throw new IllegalArgumentException("Het aantal minuten moet een positieve waarde zijn.");
+        }
+
+        long hours = tripTime / 60;
+        long remainingMinutes = tripTime % 60;
+        if(hours > 0){ System.out.format("Reisduur: %s uur en %s minuten\n",hours,remainingMinutes);}
+        else System.out.format("Reisduur: %s minuten\n", tripTime);
+
     }
     public StopOver getStopOver (String locationKey)
     {
