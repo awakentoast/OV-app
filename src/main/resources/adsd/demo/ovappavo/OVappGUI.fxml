@@ -71,6 +71,16 @@
                                 <Insets left="97.0" top="10.0" />
                             </HBox.margin>
                         </ComboBox>
+                  <ComboBox fx:id="hoursComboBox" onAction="#initialize" prefHeight="34.0" prefWidth="91.0">
+                     <HBox.margin>
+                        <Insets left="65.0" top="10.0" />
+                     </HBox.margin>
+                  </ComboBox>
+                  <ComboBox fx:id="minutesComboBox" layoutX="264.0" layoutY="20.0" onAction="#initialize" prefHeight="34.0" prefWidth="91.0">
+                     <HBox.margin>
+                        <Insets left="65.0" top="10.0" />
+                     </HBox.margin>
+                  </ComboBox>
                     </children>
                 </HBox>
                 <HBox prefHeight="37.0" prefWidth="597.0">
