@@ -2,6 +2,7 @@ package adsd.demo.ovappavo;
 
 import javafx.scene.paint.Stop;
 
+import java.time.LocalTime;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
@@ -82,7 +83,7 @@ public class Data {
     }
 
 
-    public void writeRoutes(String comboA, String comboB) {
+    public void writeRoutes(String comboA, String comboB, LocalTime time) {
 
 
         for (var e : routeMap.entrySet()) {
@@ -98,9 +99,8 @@ public class Data {
 
             // Controleren of er een overeenkomst is gevonden
             while (matcher.find()) {
-
                 String filteredRoute = matcher.group(0);
-                route.write(comboA, comboB, filteredRoute);
+                route.write(comboA, comboB, filteredRoute,time);
             }
 
 

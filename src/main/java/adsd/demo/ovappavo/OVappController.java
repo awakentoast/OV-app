@@ -66,6 +66,14 @@ public class OVappController {
    public void onComboB() {
       System.out.println("OVappController.onComboB");
    }
+   @FXML
+   public void onComboHour(){
+      System.out.println("ovappcontroller.Hours");}
+
+      @FXML
+      public void onComboMinutes(){
+         System.out.println("ovappcontroller.Minutes");
+   }
 
    @FXML
    protected void onTransport() {
@@ -86,7 +94,8 @@ public class OVappController {
 
       comboB.setItems(locationList);
       comboB.getSelectionModel().select(comboB.getItems().size() - 1);
-      System.out.print("OVappController.onTransportChange");
+      System.out.print("OVappController.onTransportChange:");
+      System.out.println(comboTransport.getValue());
 
    }
 
@@ -107,7 +116,7 @@ public class OVappController {
 
       textArea.setText(text);
       tripHistory.addTrip(text);
-      data.writeRoutes(comboA.getValue(), comboB.getValue());
+      data.writeRoutes(comboA.getValue(), comboB.getValue(),getTime());
 
       System.out.println(comboTransport.getValue());
 
@@ -147,7 +156,7 @@ public class OVappController {
       data = trainData;
 
       bundle = ResourceBundle.getBundle("languages", new Locale("nl"));
-      changeTextOfFields();
+
       comboTransport.getSelectionModel().select(1);
 
       System.out.println("init TransportSelectorController ...");
@@ -161,25 +170,41 @@ public class OVappController {
 
       comboB.setItems(locationList);
       comboB.getSelectionModel().select(comboB.getItems().size() - 1);
-
-      // Maak een ObservableList met de uren (0 tot 24)
-      ObservableList<Integer> hours = FXCollections.observableArrayList();
-      for (int i = 0; i <= 24; i++) {
-         hours.add(i);
-      }
-      hoursComboBox.setItems(hours);
-
-      // Maak een ObservableList met de minuten (0 tot 59)
-      ObservableList<Integer> minutes = FXCollections.observableArrayList();
-      for (int i = 0; i <= 59; i++) {
-         minutes.add(i);
-      }
-      minutesComboBox.setItems(minutes);
+      setTime();
+      changeTextOfFields();
+//      // Maak een ObservableList met de uren (0 tot 24)
+//      ObservableList<Integer> hours = FXCollections.observableArrayList();
+//      for (int i = 1; i <= 24; i++) {
+//         hours.add(i);
+//      }
+//      hoursComboBox.setItems(hours);
+//
+//      // Maak een ObservableList met de minuten (0 tot 59)
+//      ObservableList<Integer> minutes = FXCollections.observableArrayList();
+//      for (int i = 0; i <= 59; i++) {
+//         minutes.add(i);
+//      }
+//      minutesComboBox.setItems(minutes);
 
 
       System.out.println("init TransportSelectorController done");
 }
 
+public void setTime()
+{
+   ObservableList<Integer> hours = FXCollections.observableArrayList();
+   for (int i = 1; i <= 24; i++) {
+      hours.add(i);
+   }
+   hoursComboBox.setItems(hours);
+
+   // Maak een ObservableList met de minuten (0 tot 59)
+   ObservableList<Integer> minutes = FXCollections.observableArrayList();
+   for (int i = 0; i <= 59; i++) {
+      minutes.add(i);
+   }
+   minutesComboBox.setItems(minutes);
+}
 
    @FXML
    public void switchLanguage() {
@@ -253,5 +278,12 @@ public class OVappController {
 
       // Doe iets met de geselecteerde tijd (uren en minuten)
       System.out.println("Geselecteerde tijd: " + selectedHour + ":" + selectedMinute);
+   }
+
+   private LocalTime getTime()
+   {
+
+     var time = LocalTime.of(hoursComboBox.getValue(),minutesComboBox.getValue());
+      return time;
    }
 }

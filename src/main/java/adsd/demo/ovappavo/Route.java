@@ -61,10 +61,13 @@ public class Route
 
     ///////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////
-    public void write(String comboA, String comboB, String filteredRoute)
+    public void write(String comboA, String comboB, String filteredRoute, LocalTime time)
     {
-            System.out.format("route: %s, dep. %s at %s arr. %s at %s\t", filteredRoute,getStopOver(comboA).getDeparture(),getStopOver(comboA).getName(),getStopOver(comboB).getArrival(),getStopOver(comboB).getName());
-            getTripTime(comboA,comboB);
+            if(getStopOver(comboA).getDeparture().isAfter(time)) {
+                System.out.format("route: %s, dep. %s at %s arr. %s at %s\t", filteredRoute, getStopOver(comboA).getDeparture(), getStopOver(comboA).getName(), getStopOver(comboB).getArrival(), getStopOver(comboB).getName());
+                getTripTime(comboA, comboB);
+            }
+
 
         }
 
