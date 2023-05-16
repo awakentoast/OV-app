@@ -4,7 +4,10 @@ import adsd.demo.ovappavo.Location;
 import adsd.demo.ovappavo.StopOver;
 
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Route
 {
@@ -58,29 +61,26 @@ public class Route
 
     ///////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////
-    public void write(String comboA, String comboB)
+    public void write(String comboA, String comboB, String filteredRoute)
     {
-        var first = stopOvers.get( 0 );
-        var last  = stopOvers.get( stopOvers.size() - 1 );
+            System.out.format("route: %s, dep. %s at %s arr. %s at %s\t", filteredRoute,getStopOver(comboA).getDeparture(),getStopOver(comboA).getName(),getStopOver(comboB).getArrival(),getStopOver(comboB).getName());
+            getTripTime(comboA,comboB);
 
-//        System.out.format( "route: %s, dep. %s at %s; arr. %s at %s\n", getKey(),
-//                first.getName(), first.getDeparture(), last.getName(), last.getArrival() );
-
-        String traject = getKey();
-        // Zoek de positie van het gewenste woord
-        int position = traject.indexOf(comboA);
-        // Gebruik de positie om het gedeelte van de string af te drukken
-        String outputString;
-
-        if(traject.equals(comboA))
-        {
-            outputString  = traject;
         }
 
-        else outputString  = traject.substring(position);
+
+///////////////////////////////
+
+     //   System.out.format("route: %s, dep. %s at %s arr. %s at %s\t", ,getStopOver(comboA).getDeparture(),getStopOver(comboA).getName(),getStopOver(comboB).getArrival(),getStopOver(comboB).getName());
 
 
-        System.out.format("route: %s, dep. %s at %s arr. %s at %s\n", outputString,getStopOver(comboA).getDeparture(),getStopOver(comboA).getName(),getStopOver(comboB).getArrival(),getStopOver(comboB).getName());
+
+    public void getTripTime(String comboA,String comboB)
+    {
+        var timeA = getStopOver(comboA).getDeparture();
+        var timeB = getStopOver(comboB).getArrival();
+        var tripTime =timeA.until(timeB,ChronoUnit.MINUTES);
+        System.out.format("Reisduur: %s minuten\n",tripTime);
     }
     public StopOver getStopOver (String locationKey)
     {
