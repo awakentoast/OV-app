@@ -1,5 +1,6 @@
 package adsd.demo.ovappavo;
 
+import javafx.scene.control.TextArea;
 import javafx.scene.paint.Stop;
 
 import java.time.LocalTime;
@@ -85,7 +86,7 @@ public class Data {
     }
 
 
-    public void writeRoutes(String comboA, String comboB, LocalTime time)
+    public void writeRoutes(String comboA, String comboB, LocalTime time, TextArea textArea)
     {
 
         for (var e : routeMap.entrySet()) {
@@ -104,7 +105,7 @@ public class Data {
             // Controleren of er een overeenkomst is gevonden
             while (matcher.find()) {
                 String filteredRoute = matcher.group(0);
-                route.write(newComboA, newComboB, filteredRoute, time);
+                route.write(newComboA, newComboB, filteredRoute, time,textArea);
             }
 
 

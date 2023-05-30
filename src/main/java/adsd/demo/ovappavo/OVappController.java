@@ -114,9 +114,11 @@ public class OVappController {
               String.format("%-8s %-15s\n", "Van:", comboA.getValue()) +
               String.format("%-8s %-15s\n", "Tot:", comboB.getValue());
 
-      textArea.setText(text);
+
+    //  textArea.setText(text);
+
       tripHistory.addTrip(text);
-      data.writeRoutes(comboA.getValue(), comboB.getValue(),getTime());
+      data.writeRoutes(comboA.getValue(), comboB.getValue(),getTime(),textArea);
 
       System.out.println(comboTransport.getValue());
 
@@ -257,6 +259,7 @@ public void setTime()
          changeTextOfFieldWithArray(toggleDarkModeButton, "toggleDarkModeButton.StringArray", 0);
       }
    }
+   
 
 
    @FXML

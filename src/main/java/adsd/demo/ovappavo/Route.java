@@ -2,6 +2,8 @@ package adsd.demo.ovappavo;
 
 import adsd.demo.ovappavo.Location;
 import adsd.demo.ovappavo.StopOver;
+import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
 
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
@@ -11,7 +13,8 @@ import java.util.regex.Pattern;
 
 public class Route
 {
-
+    @FXML
+    private TextArea textArea;
     private final ArrayList<StopOver> stopOvers = new ArrayList<>();
 
     ///////////////////////////////////////////////////////////////
@@ -62,14 +65,20 @@ public class Route
 
     ///////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////
-    public void write(Location comboA, Location comboB, String filteredRoute, LocalTime time)
+    public void write(Location comboA, Location comboB, String filteredRoute, LocalTime time, TextArea textArea)
     {
             double distance = getDistance(comboA,comboB);
 
             if(getStopOver(comboA.getName()).getDeparture().isAfter(time)) {
                 System.out.format("route: %s, dep. %s at %s arr. %s at %s\n", filteredRoute, getStopOver(comboA.getName()).getDeparture(), comboA.getName(), getStopOver(comboB.getName()).getArrival(), comboB.getName());
-                printTripTime(comboA.getName(), comboB.getName());
+
                 System.out.format("afstand: %.2f km\n\n",distance);
+
+               String message = String.format("route: %s, dep. %s at %s arr. %s at %s\n", filteredRoute, getStopOver(comboA.getName()).getDeparture(), comboA.getName(), getStopOver(comboB.getName()).getArrival(), comboB.getName());
+               textArea.appendText(message);
+               printTripTime(comboA.getName(), comboB.getName(),textArea);
+               message = String.format("afstand: %.2f km\n\n",distance);
+               textArea.appendText(message);
             }
 
 
@@ -82,7 +91,7 @@ public class Route
 
 
 
-    public void printTripTime(String comboA,String comboB)
+    public void printTripTime(String comboA,String comboB,TextArea textArea)
     {
         var timeA = getStopOver(comboA).getDeparture();
         var timeB = getStopOver(comboB).getArrival();
@@ -91,11 +100,12 @@ public class Route
         {
             throw new IllegalArgumentException("Het aantal minuten moet een positieve waarde zijn.");
         }
-
+        String message;
         long hours = tripTime / 60;
         long remainingMinutes = tripTime % 60;
-        if(hours > 0){ System.out.format("Reisduur: %s uur en %s minuten\t",hours,remainingMinutes);}
-        else System.out.format("Reisduur: %s minuten\t", tripTime);
+            message = String.format("Reisduur: %s uur en %s minuten\t",hours,remainingMinutes);
+            textArea.appendText(message);
+
 
 
     }
@@ -135,6 +145,10 @@ public class Route
             double distance = EARTH_RADIUS * c;
             return distance;
 
+    }
+    public void printMessageFromRoute(TextArea textArea) {
+        String message = "Dit is een bericht vanuit de Route";
+        textArea.setText(message + "\n");
     }
 
 }
