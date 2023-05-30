@@ -13,9 +13,9 @@ public class OVapp extends Application
    @Override
    public void start( Stage stage ) throws IOException
    {
-      FXMLLoader languageBundleLoader = new FXMLLoader(getClass().getResource("OVappGUI.fxml"));
-      languageBundleLoader.setResources(ResourceBundle.getBundle("languages"));
-      Parent root = languageBundleLoader.load();
+      FXMLLoader FXMLloader = new FXMLLoader(getClass().getResource("OVappGUI.fxml"));
+      FXMLloader.setResources(ResourceBundle.getBundle("languages"));
+      Parent root = FXMLloader.load();
       stage.setTitle( "Mobiliteitsfabriek OV app" );
       stage.setScene( new Scene(root) );
       stage.show();
