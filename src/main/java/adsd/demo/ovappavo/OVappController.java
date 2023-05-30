@@ -11,9 +11,7 @@ import javafx.stage.WindowEvent;
 import javafx.scene.Node;
 
 import java.time.LocalTime;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
 
 @SuppressWarnings("deprecation")
@@ -57,6 +55,7 @@ public class OVappController {
    Data data;
    ObservableList<String> locationList;
 
+
    @FXML
    public void onComboA() {
       System.out.println("OVappController.onComboA");
@@ -97,6 +96,7 @@ public class OVappController {
       System.out.print("OVappController.onTransportChange:");
       System.out.println(comboTransport.getValue());
 
+
    }
 
 
@@ -132,7 +132,7 @@ public class OVappController {
    @FXML
    protected void onAddFavorite() {
       System.out.println("onSetFavorite");
-      tripHistory.addFavorite(new Trip(LocalTime.of(10, 15), new Location("Utrecht"), new Location("Abcoude")));
+   //   tripHistory.addFavorite(new Trip(LocalTime.of(10, 15), new Location("Utrecht"), new Location("Abcoude")));
    }
 
 
@@ -154,6 +154,8 @@ public class OVappController {
       trainData.setRoute();
       // busData.setRoute();
       data = trainData;
+      data.locations.putAll(trainData.trainLocationMap);
+      data.locations.putAll(busData.busLocationMap);
 
       bundle = ResourceBundle.getBundle("languages", new Locale("nl"));
       changeTextOfFields();
