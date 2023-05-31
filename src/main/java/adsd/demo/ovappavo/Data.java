@@ -60,10 +60,22 @@ public class Data {
 
         // === Bus stations ===
 
+        location = new Location("Amersfoort", 51.180707, 5.137016);
+        busLocationMap.put(location.getName(), location);
+
+        location = new Location("De Bilt", 52.1092717, 5.1809676);
+        busLocationMap.put(location.getName(), location);
+
+        location = new Location("Bilthoven", 52.1307201, 5.2052623);
+        busLocationMap.put(location.getName(), location);
+
         location = new Location("Soesterberg",52.120899,5.283606);
         busLocationMap.put(location.getName(), location);
 
         location = new Location("Rijnsweerd",52.0892,5.150985);
+        busLocationMap.put(location.getName(), location);
+
+        location = new Location("Zeist", 52.1038954, 5.2605939);
         busLocationMap.put(location.getName(), location);
     }
 
