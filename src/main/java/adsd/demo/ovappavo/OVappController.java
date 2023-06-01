@@ -1,21 +1,27 @@
 package adsd.demo.ovappavo;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.scene.Node;
+import javafx.util.Duration;
 
+import java.net.URL;
 import java.time.LocalTime;
 import java.util.*;
 
 
 @SuppressWarnings("deprecation")
-public class OVappController {
+public class OVappController implements Initializable {
 
    @FXML
    private Button getFavoriteTripButton;
@@ -43,6 +49,12 @@ public class OVappController {
    @FXML
    private ComboBox<Integer> minutesComboBox;
 
+   @FXML
+   private TextField alarmTime;
+
+   @FXML
+   private Text timer;
+
 
    private boolean darkMode = false;
    private boolean closeRequest = false;
@@ -53,8 +65,27 @@ public class OVappController {
    TrainData trainData = new TrainData();
    BusData busData = new BusData();
    Data data;
+   Time time = new Time(new CurrentTime().currentTime());
+   //Time time = new Time("12:0:0");
    ObservableList<String> locationList;
 
+   Timeline timeline = new Timeline(
+           new KeyFrame(Duration.seconds(1),
+                   e-> {
+                      if(time.getCurrentTime().equals(alarmTime.getText())) {
+                         System.out.println("alarm");
+                      }
+                      time.oneSecondPassed();
+                      timer.setText(time.getCurrentTime());
+                   }));
+
+
+   public void initialize(URL url, ResourceBundle resourceBundle){
+      timer.setText(time.getCurrentTime());
+
+      timeline.setCycleCount(Timeline.INDEFINITE);
+      timeline.play();
+   }
 
    @FXML
    public void onComboA() {
@@ -148,6 +179,8 @@ public class OVappController {
          closeRequest = true;
       }
    }
+
+
 
 
    // Important method to initialize this Controller object!!!
