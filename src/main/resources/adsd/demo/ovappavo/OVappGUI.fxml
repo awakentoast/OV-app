@@ -58,6 +58,8 @@
                   <Font name="Ebrima" size="14.0" />
                </font>
             </Text>
+            <Text fx:id="timer" layoutX="80.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+            <TextField fx:id="alarmTime" layoutX="109.0" layoutY="95.0" visible="false" />
          </children>
       </AnchorPane>
     </items>

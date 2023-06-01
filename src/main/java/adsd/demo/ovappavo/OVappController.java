@@ -1,9 +1,14 @@
 package adsd.demo.ovappavo;
 
+import javafx.animation.KeyFrame;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.animation.Timeline;
+import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
+import java.util.ResourceBundle;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -12,10 +17,15 @@ import javafx.scene.Node;
 
 import java.time.LocalTime;
 import java.util.*;
+import java.net.URL;
+import java.util.Objects;
+
+import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 
 @SuppressWarnings("deprecation")
-public class OVappController {
+public class OVappController implements Initializable {
 
    @FXML
    private Button getFavoriteTripButton;
@@ -43,6 +53,14 @@ public class OVappController {
    @FXML
    private ComboBox<Integer> minutesComboBox;
 
+   @FXML
+   private TextField alarmTime;
+
+   @FXML
+   private Text timer;
+
+
+
 
    private boolean darkMode = false;
    private boolean closeRequest = false;
@@ -51,6 +69,8 @@ public class OVappController {
 
    private final TripHistory tripHistory = new TripHistory();
    TrainData trainData = new TrainData();
+   Time time = new Time(new CurrentTime().currentTime());
+   //Time time = new Time("12:0:0");
    BusData busData = new BusData();
    Data data;
    ObservableList<String> locationList;
@@ -72,6 +92,24 @@ public class OVappController {
       @FXML
       public void onComboMinutes(){
          System.out.println("ovappcontroller.Minutes");
+   }
+
+   Timeline timeline = new Timeline(
+           new KeyFrame(Duration.seconds(0.1),
+                   e-> {
+                      if(time.getCurrentTime().equals(alarmTime.getText())) {
+                         System.out.println("alarm");
+                      }
+                      time.oneSecondPassed();
+                      timer.setText(time.getCurrentTime());
+                   }));
+
+
+   public void initialize(URL url, ResourceBundle resourceBundle){
+      timer.setText(time.getCurrentTime());
+
+      timeline.setCycleCount(Timeline.INDEFINITE);
+      timeline.play();
    }
 
    @FXML
