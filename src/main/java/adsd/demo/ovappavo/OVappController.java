@@ -43,6 +43,11 @@ public class OVappController {
    private ComboBox<String> comboB;
    @FXML
    private TextArea textArea;
+
+   @FXML
+   private Text hourText;
+   @FXML
+   private Text minuteText;
    @FXML
    private ComboBox<Integer> hoursComboBox;
 
@@ -226,6 +231,7 @@ public class OVappController {
 
 public void setTime()
 {
+   hoursComboBox.setValue(1);
    ObservableList<Integer> hours = FXCollections.observableArrayList();
    for (int i = 1; i <= 24; i++) {
       hours.add(i);
@@ -233,6 +239,7 @@ public void setTime()
    hoursComboBox.setItems(hours);
 
    // Maak een ObservableList met de minuten (0 tot 59)
+   minutesComboBox.setValue(00);
    ObservableList<Integer> minutes = FXCollections.observableArrayList();
    for (int i = 0; i <= 59; i++) {
       minutes.add(i);
@@ -255,6 +262,10 @@ public void setTime()
       label.setText(bundle.getString(key));
    }
 
+   private void changeTextOfText(Text text, String key) {
+      text.setText(bundle.getString(key));
+   }
+
    private void changeTextOfFieldWithArray(Labeled label, String key, int index) {
       label.setText(bundle.getString(key).split(",")[index]);
    }
@@ -273,6 +284,8 @@ public void setTime()
       changeTextOfField(planMyTripButton, "planMyTripButton.text");
       changeTextOfField(getFavoriteTripButton, "getFavoriteTripButton.text");
       changeTextOfField(switchLanguageButton, "switchLanguageButton.text");
+      changeTextOfText(hourText, "hourButtonText.text");
+      changeTextOfText(minuteText, "minuteButtonText.text");
 
       changeTextDarkModeButton();
 
