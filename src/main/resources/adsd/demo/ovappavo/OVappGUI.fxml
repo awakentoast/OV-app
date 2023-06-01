@@ -70,7 +70,7 @@
                <font>
                   <Font name="Ebrima" size="14.0" />
                </font></Button>
-                  <TextArea fx:id="textArea" editable="false" layoutX="582.0" layoutY="62.0" prefHeight="481.0" prefWidth="483.0">
+                  <TextArea fx:id="textArea" editable="false" layoutX="582.0" layoutY="119.0" prefHeight="424.0" prefWidth="483.0">
                <font>
                   <Font name="Ebrima" size="14.0" />
                </font></TextArea>
@@ -84,8 +84,14 @@
                   <Font name="Ebrima" size="14.0" />
                </font>
             </Text>
-             <Text fx:id="timer" layoutX="80.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-             <TextField fx:id="alarmTime" layoutX="109.0" layoutY="95.0" visible="false" />
+             <Text fx:id="timer" layoutX="756.0" layoutY="107.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="134.03222656249994">
+               <font>
+                  <Font name="Ebrima" size="30.0" />
+               </font></Text>
+             <TextField fx:id="alarmTime" layoutX="109.0" layoutY="95.0" opacity="0.0" visible="false">
+               <font>
+                  <Font name="Ebrima" size="14.0" />
+               </font></TextField>
          </children>
       </AnchorPane>
     </items>
