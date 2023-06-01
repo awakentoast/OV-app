@@ -21,7 +21,7 @@ import java.util.*;
 
 
 @SuppressWarnings("deprecation")
-public class OVappController implements Initializable {
+public class OVappController {
 
    @FXML
    private Button getFavoriteTripButton;
@@ -80,12 +80,6 @@ public class OVappController implements Initializable {
                    }));
 
 
-   public void initialize(URL url, ResourceBundle resourceBundle){
-      timer.setText(time.getCurrentTime());
-
-      timeline.setCycleCount(Timeline.INDEFINITE);
-      timeline.play();
-   }
 
    @FXML
    public void onComboA() {
@@ -126,8 +120,6 @@ public class OVappController implements Initializable {
       comboB.getSelectionModel().select(comboB.getItems().size() - 1);
       System.out.print("OVappController.onTransportChange:");
       System.out.println(comboTransport.getValue());
-
-
    }
 
 
@@ -208,6 +200,11 @@ public class OVappController implements Initializable {
       comboB.setItems(locationList);
       comboB.getSelectionModel().select(comboB.getItems().size() - 1);
       setTime();
+
+      timer.setText(time.getCurrentTime());
+
+      timeline.setCycleCount(Timeline.INDEFINITE);
+      timeline.play();
 
 //      // Maak een ObservableList met de uren (0 tot 24)
 //      ObservableList<Integer> hours = FXCollections.observableArrayList();
