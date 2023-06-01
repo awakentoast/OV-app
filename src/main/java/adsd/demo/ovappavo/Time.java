@@ -1,22 +1,21 @@
 package adsd.demo.ovappavo;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Time {
 
     private int hour;
     private int minute;
     private int second;
 
-    public Time(int hour, int minute, int second) {
-        this.hour = hour;
-        this.minute = minute;
-        this.second = second;
-    }
-
-    public Time(String currentTime){
-        String[] time = currentTime.split(":");
-        hour = Integer.parseInt(time[0]);
-        minute = Integer.parseInt(time[1]);
-        second = Integer.parseInt(time[2]);
+    public Time() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String[] times = dtf.format(now).split(":");
+        hour = Integer.parseInt(times[0]);
+        minute = Integer.parseInt(times[1]);
+        second = Integer.parseInt(times[2]);
     }
 
     public String getCurrentTime(){
