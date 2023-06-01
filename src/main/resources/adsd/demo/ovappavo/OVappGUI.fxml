@@ -74,12 +74,12 @@
                <font>
                   <Font name="Ebrima" size="14.0" />
                </font></TextArea>
-            <Text layoutX="266.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Uren">
+            <Text fx:id="hourText" layoutX="266.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\%hourButtonText.text">
                <font>
                   <Font name="Ebrima" size="14.0" />
                </font>
             </Text>
-            <Text layoutX="407.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Minuten">
+            <Text fx:id="minuteText" layoutX="407.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\%minuteButtonText.text">
                <font>
                   <Font name="Ebrima" size="14.0" />
                </font>
