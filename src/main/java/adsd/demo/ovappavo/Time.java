@@ -1,26 +1,31 @@
 package adsd.demo.ovappavo;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Time {
 
     private int hour;
     private int minute;
     private int second;
 
-    public Time(int hour, int minute, int second) {
-        this.hour = hour;
-        this.minute = minute;
-        this.second = second;
+    public Time() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String[] times = dtf.format(now).split(":");
+        hour = Integer.parseInt(times[0]);
+        minute = Integer.parseInt(times[1]);
+        second = Integer.parseInt(times[2]);
     }
 
-    public Time(String currentTime){
-        String[] time = currentTime.split(":");
-        hour = Integer.parseInt(time[0]);
-        minute = Integer.parseInt(time[1]);
-        second = Integer.parseInt(time[2]);
-    }
+    public String getCurrentTime() {
+        String tempHour = hour > 9 ? Integer.toString(hour) : "0" + hour;
+        String tempMinute = minute > 9 ? Integer.toString(minute) : "0" + minute;
+        String tempSecond = second > 9 ? Integer.toString(second) : "0" + second;
+        System.out.println(second > 9 ? "true" : "false");
+        System.out.println(tempSecond);
 
-    public String getCurrentTime(){
-        return  hour + ":" + minute + ":" + second;
+        return  tempHour + ":" + tempMinute + ":" + tempSecond;
     }
 
     public void oneSecondPassed(){
@@ -38,5 +43,4 @@ public class Time {
             }
         }
     }
-
 }

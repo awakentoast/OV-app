@@ -1,12 +1,12 @@
 package adsd.demo.ovappavo;
 
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
@@ -15,7 +15,6 @@ import javafx.stage.WindowEvent;
 import javafx.scene.Node;
 import javafx.util.Duration;
 
-import java.net.URL;
 import java.time.LocalTime;
 import java.util.*;
 
@@ -70,16 +69,13 @@ public class OVappController {
    TrainData trainData = new TrainData();
    BusData busData = new BusData();
    Data data;
-   Time time = new Time(new CurrentTime().currentTime());
+   Time time = new Time();
    //Time time = new Time("12:0:0");
    ObservableList<String> locationList;
 
    Timeline timeline = new Timeline(
            new KeyFrame(Duration.seconds(1),
                    e-> {
-                      if(time.getCurrentTime().equals(alarmTime.getText())) {
-                         System.out.println("alarm");
-                      }
                       time.oneSecondPassed();
                       timer.setText(time.getCurrentTime());
                    }));
@@ -130,9 +126,8 @@ public class OVappController {
 
    @FXML
    protected void onPlanMyTrip() {
-
-
       // tripDisplay.setItems(locationList);
+      textArea.clear();
       System.out.println("OVappController.onPlanMyTrip");
       System.out.format("OVType: %s\n", comboTransport.getValue());
       System.out.format("Van:   %s\n", comboA.getValue());
@@ -150,6 +145,8 @@ public class OVappController {
 
       System.out.println(comboTransport.getValue());
 
+      //tripHistory.addTrip();
+
    }
 
 
@@ -159,10 +156,11 @@ public class OVappController {
       textArea.setText(tripHistory.getFavoriteTrip());
    }
 
+
    @FXML
    protected void onAddFavorite() {
       System.out.println("onSetFavorite");
-   //   tripHistory.addFavorite(new Trip(LocalTime.of(10, 15), new Location("Utrecht"), new Location("Abcoude")));
+      //   tripHistory.addFavorite(new Trip(LocalTime.of(10, 15), new Location("Utrecht"), new Location("Abcoude")));
    }
 
 
@@ -178,10 +176,10 @@ public class OVappController {
    }
 
 
-
-
    // Important method to initialize this Controller object!!!
    public void initialize() {
+      bundle = ResourceBundle.getBundle("languages", new Locale("nl"));
+      changeTextOfFields();
 
       trainData.setRoute();
       // busData.setRoute();
@@ -189,8 +187,6 @@ public class OVappController {
       data.locations.putAll(trainData.trainLocationMap);
       data.locations.putAll(busData.busLocationMap);
 
-      bundle = ResourceBundle.getBundle("languages", new Locale("nl"));
-      changeTextOfFields();
       comboTransport.getSelectionModel().select(1);
 
       System.out.println("init TransportSelectorController ...");
@@ -204,13 +200,13 @@ public class OVappController {
 
       comboB.setItems(locationList);
       comboB.getSelectionModel().select(comboB.getItems().size() - 1);
-      setTime();
 
       timer.setText(time.getCurrentTime());
 
-      timeline.setCycleCount(Timeline.INDEFINITE);
+      timeline.setCycleCount(Animation.INDEFINITE);
       timeline.play();
 
+      setTime();
 //      // Maak een ObservableList met de uren (0 tot 24)
 //      ObservableList<Integer> hours = FXCollections.observableArrayList();
 //      for (int i = 1; i <= 24; i++) {
@@ -227,25 +223,26 @@ public class OVappController {
 
 
       System.out.println("init TransportSelectorController done");
-}
-
-public void setTime()
-{
-   hoursComboBox.setValue(1);
-   ObservableList<Integer> hours = FXCollections.observableArrayList();
-   for (int i = 1; i <= 24; i++) {
-      hours.add(i);
    }
-   hoursComboBox.setItems(hours);
 
-   // Maak een ObservableList met de minuten (0 tot 59)
-   minutesComboBox.setValue(00);
-   ObservableList<Integer> minutes = FXCollections.observableArrayList();
-   for (int i = 0; i <= 59; i++) {
-      minutes.add(i);
+
+   public void setTime() {
+      hoursComboBox.setValue(0);
+      ObservableList<Integer> hours = FXCollections.observableArrayList();
+      for (int i = 1; i <= 24; i++) {
+         hours.add(i);
+      }
+      hoursComboBox.setItems(hours);
+
+      // Maak een ObservableList met de minuten (0 tot 59)
+      minutesComboBox.setValue(1);
+      ObservableList<Integer> minutes = FXCollections.observableArrayList();
+      for (int i = 0; i <= 59; i++) {
+         minutes.add(i);
+      }
+      minutesComboBox.setItems(minutes);
    }
-   minutesComboBox.setItems(minutes);
-}
+
 
    @FXML
    public void switchLanguage() {
@@ -272,8 +269,10 @@ public void setTime()
 
    private void changeObservableListText(ComboBox<String> comboBox, String key) {
       int index = comboBox.getSelectionModel().getSelectedIndex();
+
       String[] vehicleListArray = bundle.getString(key).split(",");
       ObservableList<String> vehicleList = FXCollections.observableArrayList(vehicleListArray);
+
       comboBox.setItems(FXCollections.observableArrayList(vehicleList));
       comboBox.getSelectionModel().select(index);
    }
@@ -330,7 +329,6 @@ public void setTime()
 
    private LocalTime getTime()
    {
-
      var time = LocalTime.of(hoursComboBox.getValue(),minutesComboBox.getValue());
       return time;
    }

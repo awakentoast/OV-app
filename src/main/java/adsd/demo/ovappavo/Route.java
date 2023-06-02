@@ -74,7 +74,11 @@ public class Route
 
                 System.out.format("afstand: %.2f km\n\n",distance);
 
-               String message = String.format("route: %s, dep. %s at %s arr. %s at %s\n", filteredRoute, getStopOver(comboA.getName()).getDeparture(), comboA.getName(), getStopOver(comboB.getName()).getArrival(), comboB.getName());
+
+
+               String message = String.format("dep. %s at %s arr. %s at %s\n",getStopOver(comboA.getName()).getDeparture(), comboA.getName(), getStopOver(comboB.getName()).getArrival(), comboB.getName());
+                textArea.appendText(message);
+               message = String.format("route: %s \n",filteredRoute);
                textArea.appendText(message);
                printTripTime(comboA.getName(), comboB.getName(),textArea);
                message = String.format("afstand: %.2f km\n\n",distance);
