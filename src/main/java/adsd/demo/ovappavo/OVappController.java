@@ -70,7 +70,7 @@ public class OVappController {
    
    private boolean darkMode = false;
    private boolean closeRequest = false;
-   private boolean viewingHistory = false;
+   private boolean tripListEmpty = false;
    
    
    
@@ -84,7 +84,7 @@ public class OVappController {
    
    private ResourceBundle bundle;
    ObservableList<String> locationList;
-   List<Trip> possibleTrips;
+   List<Trip> favoriteTrips;
    
    
    
@@ -132,7 +132,6 @@ public class OVappController {
 
    @FXML
    protected void onPlanMyTrip() {
-      viewingHistory = false;
       // tripDisplay.setItems(locationList);
       System.out.println("OVappController.onPlanMyTrip");
       System.out.format("OVType: %s\n", comboTransport.getValue());
@@ -141,15 +140,23 @@ public class OVappController {
       
       
       //data.writeRoutes(comboA.getValue(), comboB.getValue(),getTime(),textArea);
-      possibleTrips = data.writeRoutes(comboA.getValue(), comboB.getValue(), getTime());
-      List<String> tripStrings = new ArrayList<>(possibleTrips.size());
-      
-      for (Trip trip : possibleTrips) {
-         tripStrings.add(trip.getStringForDisplay());
+      ObservableList<String> observableRouteList;
+      favoriteTrips = data.writeRoutes(comboA.getValue(), comboB.getValue(), getTime());
+      if (favoriteTrips.isEmpty()) {
+            String a = "No trips are found";
+          observableRouteList = FXCollections.observableArrayList(a);
+          tripListEmpty = true;
+      } else {
+         List<String> tripStrings = new ArrayList<>(favoriteTrips.size());
+
+         for (Trip trip : favoriteTrips) {
+            tripStrings.add(trip.getStringForDisplay());
+         }
+
+         observableRouteList = FXCollections.observableArrayList(tripStrings);
+         tripListEmpty = false;
       }
-      
-      ObservableList<String> observableRouteList = FXCollections.observableArrayList(tripStrings);
-      
+
       //tripDisplay = new ListView<>(observableRouteList);
       tripDisplay.setItems(observableRouteList);
       
@@ -161,11 +168,11 @@ public class OVappController {
    
    @FXML
    private void tripSelected() {
-
-      int tripIndex = tripDisplay.getSelectionModel().getSelectedIndex();
-      Trip currentTrip = possibleTrips.get(tripIndex);
-      tripHistory.addTrip(currentTrip);
-
+      if (!tripListEmpty) {
+         int tripIndex = tripDisplay.getSelectionModel().getSelectedIndex();
+         Trip currentTrip = favoriteTrips.get(tripIndex);
+         tripHistory.addTrip(currentTrip);
+      }
    }
 
 
@@ -182,41 +189,57 @@ public class OVappController {
    }
    
    public void displayTripHistory() {
-      viewingHistory = true;
-      List<Trip> travelHistory = tripHistory.getAllTrips();
-      possibleTrips = travelHistory;
-      List<String> travelHistoryStrings = new ArrayList<>(travelHistory.size());
-      
-      for (Trip trip : travelHistory) {
-         travelHistoryStrings.add(trip.getStringForDisplay());
+      favoriteTrips = tripHistory.getAllTrips();
+      ObservableList<String>  travelHistoryStrings;
+
+      if (favoriteTrips.isEmpty()) {
+         String a = "No trips are previously taken";
+         travelHistoryStrings = FXCollections.observableArrayList(a);
+         tripListEmpty = true;
+      } else {
+         List<String> tripStrings = new ArrayList<>(favoriteTrips.size());
+
+         for (Trip trip : favoriteTrips) {
+            tripStrings.add(trip.getStringForDisplay());
+         }
+
+         travelHistoryStrings = FXCollections.observableArrayList(tripStrings);
+         tripListEmpty = false;
       }
-      
-      ObservableList<String> observableTripHistoryList = FXCollections.observableArrayList(travelHistoryStrings);
-      
+
       //tripDisplay = new ListView<>(observableRouteList);
-      tripDisplay.setItems(observableTripHistoryList);
+      tripDisplay.setItems(travelHistoryStrings);
    }
    
    @FXML
    private void onFavoriteTripButton() {
-      Trip trip = possibleTrips.get(tripDisplay.getSelectionModel().getSelectedIndex());
+      Trip trip = favoriteTrips.get(tripDisplay.getSelectionModel().getSelectedIndex());
       favoriteTrip.addFavorite(trip);
+      setupCloseEvent();
    }
    
    @FXML
    private void displayFavoriteTrips() {
-      List<Trip> travelHistory = favoriteTrip.getAllTrips();
-      possibleTrips = travelHistory;
-      List<String> travelHistoryStrings = new ArrayList<>(travelHistory.size());
-      
-      for (Trip trip : travelHistory) {
-         travelHistoryStrings.add(trip.getStringForDisplay());
+      favoriteTrips = favoriteTrip.getAllTrips();
+      ObservableList<String>  favoriteTripsStrings;
+
+      if (favoriteTrips.isEmpty()) {
+         String a = "No favorite trips are selected";
+         favoriteTripsStrings = FXCollections.observableArrayList(a);
+         tripListEmpty = true;
+      } else {
+         List<String> tripStrings = new ArrayList<>(favoriteTrips.size());
+
+         for (Trip trip : favoriteTrips) {
+            tripStrings.add(trip.getStringForDisplay());
+         }
+
+         favoriteTripsStrings = FXCollections.observableArrayList(tripStrings);
+         tripListEmpty = false;
       }
-      
-      ObservableList<String> observableTripHistoryList = FXCollections.observableArrayList(travelHistoryStrings);
-      
+
       //tripDisplay = new ListView<>(observableRouteList);
-      tripDisplay.setItems(observableTripHistoryList);
+      tripDisplay.setItems(favoriteTripsStrings);
    }
    
    @FXML
