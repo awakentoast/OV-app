@@ -127,6 +127,7 @@ public class OVappController {
    @FXML
    protected void onPlanMyTrip() {
       // tripDisplay.setItems(locationList);
+      textArea.clear();
       System.out.println("OVappController.onPlanMyTrip");
       System.out.format("OVType: %s\n", comboTransport.getValue());
       System.out.format("Van:   %s\n", comboA.getValue());

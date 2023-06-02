@@ -1,0 +1,25 @@
+OVType:  Trein          
+Van:     Utrecht        
+Tot:     Xanten         
+|2
+
+OVType:  Bus            
+Van:     Rijnsweerd     
+Tot:     Soesterberg    
+|1
+
+OVType:  Train          
+Van:     Utrecht        
+Tot:     Xanten         
+|1
+
+OVType:  Trein          
+Van:     Haarlem        
+Tot:     Xanten         
+|6
+
+OVType:  Bus            
+Van:     Haarlem        
+Tot:     Xanten         
+|1
+
