@@ -134,6 +134,7 @@ public class OVappController {
    protected void onPlanMyTrip() {
       viewingHistory = false;
       // tripDisplay.setItems(locationList);
+      textArea.clear();
       System.out.println("OVappController.onPlanMyTrip");
       System.out.format("OVType: %s\n", comboTransport.getValue());
       System.out.format("Van:   %s\n", comboA.getValue());
