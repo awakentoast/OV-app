@@ -19,19 +19,17 @@ public class Trip {
         this.duration = duration;
         this.transportType = transportType;
     }
-    
-    public LocalTime getDeparture()
-    {
-        return departure;
-    }
 
     public String getStringForDisplay() {
+        int hours   = duration / 60;   // since both are ints, you get an int
+        int minutes = duration % 60;
+        String durationString = String.format("%d:%02d", hours, minutes);
+        System.out.printf("%d:%02d", hours, minutes);
         return  String.format("Van: " + locationA.getName()) +
-                String.format("%29s", "Vervoerstype: " + transportType + "\n") +
+                String.format("%24s", "Vertrek: " + departure + "\n") +
                 String.format("Tot: " + locationB.getName()) +
-                String.format("%27s", "Reisduur: " + duration + "\n") +
-                String.format("Vertrek: " + departure) +
-                String.format("%25s", "Distance: " + distance + "\n");
+                String.format("%27s", "Reisduur: " + durationString + "\n") +
+                String.format("Distance: " + distance + " km" + "\n");
     }
     
     public String getStringForSaving() {

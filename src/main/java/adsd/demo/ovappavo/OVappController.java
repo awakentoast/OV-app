@@ -110,14 +110,14 @@ public class OVappController {
    protected void onTransport() {
       if (comboTransport.getValue().equals("Train") || comboTransport.getValue().equals("Trein")) {
          data = trainData;
-         String[] trainlocations = trainData.getTrainLocationsName();
-         locationList = FXCollections.observableArrayList(trainlocations);
+         String[] trainLocations = trainData.getLocationNames();
+         locationList = FXCollections.observableArrayList(trainLocations);
       }
 
       if (comboTransport.getValue().equals("Bus")) {
          data = busData;
-         String[] buslocations = busData.getBusLocationName();
-         locationList = FXCollections.observableArrayList(buslocations);
+         String[] busLocations = busData.getLocationNames();
+         locationList = FXCollections.observableArrayList(busLocations);
       }
 
       comboA.setItems(locationList);
@@ -134,7 +134,6 @@ public class OVappController {
    protected void onPlanMyTrip() {
       viewingHistory = false;
       // tripDisplay.setItems(locationList);
-      textArea.clear();
       System.out.println("OVappController.onPlanMyTrip");
       System.out.format("OVType: %s\n", comboTransport.getValue());
       System.out.format("Van:   %s\n", comboA.getValue());
@@ -142,7 +141,7 @@ public class OVappController {
       
       
       //data.writeRoutes(comboA.getValue(), comboB.getValue(),getTime(),textArea);
-      possibleTrips = data.writeRoutes(comboA.getValue(), comboB.getValue(),getTime());
+      possibleTrips = data.writeRoutes(comboA.getValue(), comboB.getValue(), getTime());
       List<String> tripStrings = new ArrayList<>(possibleTrips.size());
       
       for (Trip trip : possibleTrips) {
@@ -243,16 +242,16 @@ public class OVappController {
       bundle = ResourceBundle.getBundle("languages", new Locale("nl"));
       changeTextOfFields();
       trainData.setRoute();
-      // busData.setRoute();
+      busData.setRoute();
       data = trainData;
-      //data.locations.putAll(trainData.trainLocationMap);
-      //data.locations.putAll(busData.busLocationMap);
+      //data.locations.putAll(trainData.locationMap);
+      //data.locations.putAll(busData.locationMap);
 
       comboTransport.getSelectionModel().select(1);
 
       System.out.println("init TransportSelectorController ...");
 
-      String[] trainLocations = trainData.getTrainLocationsName();
+      String[] trainLocations = trainData.getLocationNames();
       
 
       locationList = FXCollections.observableArrayList(trainLocations);

@@ -9,9 +9,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class Data {
-    public final Map<String, Location> trainLocationMap = new TreeMap<>();
+    public final Map<String, Location> locationMap = new TreeMap<>();
     public final Map<String, Route> routeMap = new TreeMap<>();
-    public final Map<String, Location> busLocationMap = new TreeMap<>();
     //public Map<String, Location> locations = new TreeMap<>();
     protected String transportType;
     Route route;
@@ -19,20 +18,12 @@ public abstract class Data {
     protected Data(String transportType) {
         this.transportType = transportType;
     }
+
     
-    public String[] getBusLocationName() {
-        String[] names = new String[busLocationMap.size()];
+    public String[] getLocationNames() {
+        String[] names = new String[locationMap.size()];
         int index = 0;
-        for (var e : busLocationMap.values()) {
-            names[index++] = e.getName();
-        }
-        return names;
-    }
-    
-    public String[] getTrainLocationsName() {
-        String[] names = new String[trainLocationMap.size()];
-        int index = 0;
-        for (var e : trainLocationMap.values()) {
+        for (var e : locationMap.values()) {
             names[index++] = e.getName();
         }
         return names;
@@ -59,17 +50,18 @@ public abstract class Data {
             while (matcher.find()) {
                 //String filteredRoute = matcher.group(0);
                 LocalTime departure = LocalTime.parse(key.split("\\|")[1]);
-                double distance = route.getDistance(newComboA, newComboB);
-                distance = Math.round(distance * 100.0) / 100.0;
-                int duration = route.getTripTime(newComboA, newComboB);
-                trips.add(new Trip(departure, newComboA, newComboB, distance, duration, transportType));
-                //route.write(newComboA, newComboB, filteredRoute, time,textArea);
+                if (departure.isAfter(time)) {
+                    double distance = route.getDistance(newComboA, newComboB);
+                    distance = Math.round(distance * 100.0) / 100.0;
+                    int duration = route.getTripTime(newComboA, newComboB);
+                    trips.add(new Trip(departure, newComboA, newComboB, distance, duration, transportType));
+                    //route.write(newComboA, newComboB, filteredRoute, time,textArea);
+                }
             }
             
             
         }
         return trips;
-        
     }
     
     public abstract Location findLocation(String locationName);

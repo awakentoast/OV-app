@@ -14,104 +14,96 @@ public class BusData extends Data {
         // === Bus stations ===
         Location location;
         location = new Location("Amersfoort", 51.180707, 5.137016);
-        busLocationMap.put(location.getName(), location);
-        
+        locationMap.put(location.getName(), location);
+
+        location = new Location("Spakenburg", 52.25, 5.3666667);
+        locationMap.put(location.getName(), location);
+
         location = new Location("De Bilt", 52.1092717, 5.1809676);
-        busLocationMap.put(location.getName(), location);
-        
+        locationMap.put(location.getName(), location);
+
         location = new Location("Bilthoven", 52.1307201, 5.2052623);
-        busLocationMap.put(location.getName(), location);
-        
-        location = new Location("Soesterberg", 52.120899, 5.283606);
-        busLocationMap.put(location.getName(), location);
-        
-        location = new Location("Rijnsweerd", 52.0892, 5.150985);
-        busLocationMap.put(location.getName(), location);
-        
+        locationMap.put(location.getName(), location);
+
+        location = new Location("Soesterberg",52.120899,5.283606);
+        locationMap.put(location.getName(), location);
+
+        location = new Location("Rijnsweerd",52.0892,5.150985);
+        locationMap.put(location.getName(), location);
+
+        location = new Location("Utrecht",52.080952,5.12768);
+        locationMap.put(location.getName(), location);
+
         location = new Location("Zeist", 52.1038954, 5.2605939);
-        busLocationMap.put(location.getName(), location);
-        
+        locationMap.put(location.getName(), location);
         
     }
     
     // set all trainData routes
-    public void setRoute() {
-        /// === Routes Amersfoort-Utrecht ========
-        for (int hour = 6; hour <= 19; hour += 1) {
+    public void setRoute()
+    {
+        // Spakenburg, amersfoort, de bilt, bilthoven, soesterberg, rijnsweerd, zeist, Utrecht
+        for (int hour = 7; hour <= 21; hour += 1) {
             int hourTraject = hour;
             var departure = LocalTime.of(hour, 0);
-            var route = new Route(busLocationMap.get("Haarlem"), departure);
-            route.addStopOver(busLocationMap.get("Amsterdam"), LocalTime.of(hourTraject, 18), LocalTime.of(hourTraject, 23));
-            route.addStopOver(busLocationMap.get("Utrecht"), LocalTime.of(hourTraject, 49), LocalTime.of(hourTraject, 51));
-            route.addStopOver(busLocationMap.get("Arnhem"), LocalTime.of(++hourTraject, 25), LocalTime.of(hourTraject, 27));
-            route.addStopOver(busLocationMap.get("Nijmegen"), LocalTime.of(hourTraject, 37), LocalTime.of(hourTraject, 39));
-            hourTraject = hourTraject + 3;
-            route.addEndPoint(busLocationMap.get("Xanten"), LocalTime.of(hourTraject, 52));
+            var route = new Route(locationMap.get("Spakenburg"), departure);
+            route.addStopOver(locationMap.get("Amersfoort"), LocalTime.of(hourTraject, 22), LocalTime.of(hourTraject, 24));
+            route.addStopOver(locationMap.get("Soesterberg"), LocalTime.of(hourTraject, 35), LocalTime.of(hourTraject, 36));
+            route.addEndPoint(locationMap.get("Rijnsweerd"), LocalTime.of(hourTraject, 53));
             routeMap.put(route.getKey(), route);
         }
         //=== Routes Utrecht-Amersfoort ===
-        for (int hour = 6; hour <= 19; hour += 2) {
+        for (int hour = 7; hour <= 21; hour += 2) {
             int hourTraject = hour;
             var departure = LocalTime.of(hour, 0);
-            var route = new Route(busLocationMap.get("Xanten"), departure);
-            hourTraject = hourTraject + 3;
-            route.addStopOver(busLocationMap.get("Nijmegen"), LocalTime.of(hourTraject, 30), LocalTime.of(hourTraject, 33));
-            route.addStopOver(busLocationMap.get("Arnhem"), LocalTime.of(hourTraject, 45), LocalTime.of(hourTraject, 47));
-            route.addStopOver(busLocationMap.get("Utrecht"), LocalTime.of(++hourTraject, 15), LocalTime.of(hourTraject, 17));
-            route.addStopOver(busLocationMap.get("Amsterdam"), LocalTime.of(hourTraject, 45), LocalTime.of(hourTraject, 47));
-            route.addEndPoint(busLocationMap.get("Haarlem"), LocalTime.of(++hourTraject, 02));
+            var route = new Route(locationMap.get("Rijnsweerd"), departure);
+            route.addStopOver(locationMap.get("Soesterberg"), LocalTime.of(hourTraject, 20), LocalTime.of(hourTraject, 23));
+            route.addStopOver(locationMap.get("Amersfoort"), LocalTime.of(hourTraject, 32), LocalTime.of(hourTraject, 34));
+            route.addEndPoint(locationMap.get("Spakenburg"), LocalTime.of(hourTraject, 53));
             routeMap.put(route.getKey(), route);
         }
-        //        // === Routes Groningen-Vlissingen ===
-        //        for (int hour = 7; hour <= 19; hour += 2) {
-        //            int hourTraject = hour;
-        //            var departure = LocalTime.of(hour, 0);
-        //            var route = new Route(busLocationMap.get("Groningen"), departure);
-        //            route.addStopOver(busLocationMap.get("Amersfoort"), LocalTime.of(++hourTraject, 30), LocalTime.of(hourTraject, 33));
-        //            route.addStopOver(busLocationMap.get("Utrecht"), LocalTime.of(hourTraject, 49), LocalTime.of(hourTraject, 52));
-        //            route.addStopOver(busLocationMap.get("Rotterdam"), LocalTime.of(++hourTraject, 30), LocalTime.of(hourTraject, 33));
-        //            route.addEndPoint(busLocationMap.get("Vlissingen"), LocalTime.of(++hourTraject, 58));
-        //            routeMap.put(route.getKey(), route);
-        //        }
-        //        // === Routes Vlissingen-Groningen ===
-        //        for (int hour = 8; hour <= 19; hour += 2) {
-        //            int hourTraject = hour;
-        //            var departure = LocalTime.of(hour, 0);
-        //            var route = new Route(busLocationMap.get("Vlissingen"), departure);
-        //            route.addStopOver(busLocationMap.get("Rotterdam"), LocalTime.of(++hourTraject, 8), LocalTime.of(hourTraject, 10));
-        //            route.addStopOver(busLocationMap.get("Utrecht"), LocalTime.of(hourTraject, 49), LocalTime.of(hourTraject, 52));
-        //            route.addStopOver(busLocationMap.get("Amersfoort"), LocalTime.of(++hourTraject, 5), LocalTime.of(hourTraject, 8));
-        //            route.addEndPoint(busLocationMap.get("Groningen"), LocalTime.of(++hourTraject, 46));
-        //            routeMap.put(route.getKey(), route);
-        //        }
-        //        // === Routes Emmen-Maastricht ===
-        //        for (int hour = 7; hour <= 19; hour += 2) {
-        //            int hourTraject = hour;
-        //            var departure = LocalTime.of(hour, 0);
-        //            var route = new Route(busLocationMap.get("Emmen"), departure);
-        //            hourTraject = hourTraject + 2;
-        //            route.addStopOver(busLocationMap.get("Arnhem"), LocalTime.of(hourTraject, 8), LocalTime.of(hourTraject, 10));
-        //            route.addStopOver(busLocationMap.get("Nijmegen"), LocalTime.of(hourTraject, 28), LocalTime.of(hourTraject, 30));
-        //            route.addEndPoint(busLocationMap.get("Maastricht"), LocalTime.of(++hourTraject, 22));
-        //            routeMap.put(route.getKey(), route);
-        //        }
-        //
-        //        // === Routes Maastricht-Groningen ===
-        //        for (int hour = 7; hour <= 19; hour += 2) {
-        //            int hourTraject = hour;
-        //            var departure = LocalTime.of(hour, 0);
-        //            var route = new Route(busLocationMap.get("Maastricht"), departure);
-        //            route.addStopOver(busLocationMap.get("Nijmegen"), LocalTime.of(++hourTraject, 51), LocalTime.of(hourTraject, 55));
-        //            route.addStopOver(busLocationMap.get("Arnhem"), LocalTime.of(++hourTraject, 8), LocalTime.of(hourTraject, 10));
-        //            route.addEndPoint(busLocationMap.get("Emmen"), LocalTime.of(hourTraject, 48));
-        //            routeMap.put(route.getKey(), route);
-        //        }
+        for (int hour = 7; hour <= 21; hour += 2) {
+            int hourTraject = hour;
+            var departure = LocalTime.of(hour, 30);
+            var route = new Route(locationMap.get("Zeist"), departure);
+            route.addEndPoint(locationMap.get("Utrecht"), LocalTime.of(++hourTraject,0 ));
+            route.addStopOver(locationMap.get("Rijnsweerd"), LocalTime.of(hourTraject, 24), LocalTime.of(hourTraject, 25));
+            route.addStopOver(locationMap.get("De Bilt"), LocalTime.of(hourTraject, 55), LocalTime.of(hourTraject, 56));
+            route.addEndPoint(locationMap.get("Bilthoven"), LocalTime.of(++hourTraject, 06));
+            routeMap.put(route.getKey(), route);
+        }
+        for (int hour = 7; hour <= 21; hour += 2) {
+            int hourTraject = hour;
+            var departure = LocalTime.of(hour, 0);
+            var route = new Route(locationMap.get("Bilthoven"), departure);
+            route.addStopOver(locationMap.get("De Bilt"), LocalTime.of(hourTraject, 10), LocalTime.of(hourTraject, 11));
+            route.addStopOver(locationMap.get("Rijnsweerd"), LocalTime.of(hourTraject, 43), LocalTime.of(hourTraject, 44));
+            route.addStopOver(locationMap.get("Utrecht"), LocalTime.of(++hourTraject, 9), LocalTime.of(hourTraject, 10));
+            route.addEndPoint(locationMap.get("Zeist"), LocalTime.of(hourTraject,40 ));
+            routeMap.put(route.getKey(), route);
+        }
+        for (int hour = 7; hour <= 21; hour += 2) {
+            int hourTraject = hour;
+            var departure = LocalTime.of(hour, 0);
+            var route = new Route(locationMap.get("Spakenburg"), departure);
+            route.addStopOver(locationMap.get("Amersfoort"), LocalTime.of(hourTraject, 20), LocalTime.of(hourTraject, 22));
+            route.addEndPoint(locationMap.get("Utrecht"), LocalTime.of(hourTraject,55 ));
+            routeMap.put(route.getKey(), route);
+        }
+        for (int hour = 7; hour <= 21; hour += 2) {
+            int hourTraject = hour;
+            var departure = LocalTime.of(hour, 0);
+            var route = new Route(locationMap.get("Utrecht"), departure);
+            route.addStopOver(locationMap.get("Amersfoort"), LocalTime.of(hourTraject, 30), LocalTime.of(hourTraject, 33));
+            route.addEndPoint(locationMap.get("Spakenburg"), LocalTime.of(hourTraject,53 ));
+            routeMap.put(route.getKey(), route);
+        }
     }
     
     @Override
     public Location findLocation(String locationName) {
         Location foundLocation = null;
-        for (Map.Entry<String, Location> entry : busLocationMap.entrySet()) {
+        for (Map.Entry<String, Location> entry : locationMap.entrySet()) {
             Location location = entry.getValue();
             
             if (location.getName().equals(locationName)) {

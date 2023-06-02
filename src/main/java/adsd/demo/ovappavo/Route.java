@@ -60,55 +60,55 @@ public class Route
     ///////////////////////////////////////////////////////////////
     public void write(Location comboA, Location comboB, String filteredRoute, LocalTime time)
     {
-        double distance = getDistance(comboA,comboB);
-
-<<<<<<< HEAD
-        if(getStopOver(comboA.getName()).getDeparture().isAfter(time)) {
-            System.out.format("route: %s, dep. %s at %s arr. %s at %s\n", filteredRoute, getStopOver(comboA.getName()).getDeparture(), comboA.getName(), getStopOver(comboB.getName()).getArrival(), comboB.getName());
-=======
-            if(getStopOver(comboA.getName()).getDeparture().isAfter(time)) {
-                System.out.format("route: %s, dep. %s at %s arr. %s at %s\n", filteredRoute, getStopOver(comboA.getName()).getDeparture(), comboA.getName(), getStopOver(comboB.getName()).getArrival(), comboB.getName());
-
-                System.out.format("afstand: %.2f km\n\n",distance);
-
-
-
-               String message = String.format("dep. %s at %s arr. %s at %s\n",getStopOver(comboA.getName()).getDeparture(), comboA.getName(), getStopOver(comboB.getName()).getArrival(), comboB.getName());
-                textArea.appendText(message);
-               message = String.format("route: %s \n",filteredRoute);
-               textArea.appendText(message);
-               printTripTime(comboA.getName(), comboB.getName(),textArea);
-               message = String.format("afstand: %.2f km\n\n",distance);
-               textArea.appendText(message);
-            }
->>>>>>> e7f3710fcf5d6ec4a53165ea5a73edb3543639d8
-
-            System.out.format("afstand: %.2f km\n\n",distance);
-
-           String message = String.format("route: %s, dep. %s at %s arr. %s at %s\n", filteredRoute, getStopOver(comboA.getName()).getDeparture(), comboA.getName(), getStopOver(comboB.getName()).getArrival(), comboB.getName());
-           textArea.appendText(message);
-           //getTripTime(comboA.getName(), comboB.getName());
-           message = String.format("afstand: %.2f km\n\n",distance);
-           textArea.appendText(message);
-        }
-
-        double distance = getDistance(comboA,comboB);
-
-        if(getStopOver(comboA.getName()).getDeparture().isAfter(time)) {
-            System.out.format("route: %s, dep. %s at %s arr. %s at %s\n", filteredRoute, getStopOver(comboA.getName()).getDeparture(), comboA.getName(), getStopOver(comboB.getName()).getArrival(), comboB.getName());
-
-            System.out.format("afstand: %.2f km\n\n",distance);
-
-
-
-            String message = String.format("dep. %s at %s arr. %s at %s\n",getStopOver(comboA.getName()).getDeparture(), comboA.getName(), getStopOver(comboB.getName()).getArrival(), comboB.getName());
-            textArea.appendText(message);
-            message = String.format("route: %s \n",filteredRoute);
-            textArea.appendText(message);
-            printTripTime(comboA.getName(), comboB.getName(),textArea);
-            message = String.format("afstand: %.2f km\n\n",distance);
-            textArea.appendText(message);
-        }
+//        double distance = getDistance(comboA,comboB);
+//
+//<<<<<<< HEAD
+//        if(getStopOver(comboA.getName()).getDeparture().) {
+//            System.out.format("route: %s, dep. %s at %s arr. %s at %s\n", filteredRoute, getStopOver(comboA.getName()).getDeparture(), comboA.getName(), getStopOver(comboB.getName()).getArrival(), comboB.getName());
+//=======
+//            if(getStopOver(comboA.getName()).getDeparture().isAfter(time)) {
+//                System.out.format("route: %s, dep. %s at %s arr. %s at %s\n", filteredRoute, getStopOver(comboA.getName()).getDeparture(), comboA.getName(), getStopOver(comboB.getName()).getArrival(), comboB.getName());
+//
+//                System.out.format("afstand: %.2f km\n\n",distance);
+//
+//
+//
+//               String message = String.format("dep. %s at %s arr. %s at %s\n",getStopOver(comboA.getName()).getDeparture(), comboA.getName(), getStopOver(comboB.getName()).getArrival(), comboB.getName());
+//                textArea.appendText(message);
+//               message = String.format("route: %s \n",filteredRoute);
+//               textArea.appendText(message);
+//               printTripTime(comboA.getName(), comboB.getName(),textArea);
+//               message = String.format("afstand: %.2f km\n\n",distance);
+//               textArea.appendText(message);
+//            }
+//>>>>>>> e7f3710fcf5d6ec4a53165ea5a73edb3543639d8
+//
+//            System.out.format("afstand: %.2f km\n\n",distance);
+//
+//           String message = String.format("route: %s, dep. %s at %s arr. %s at %s\n", filteredRoute, getStopOver(comboA.getName()).getDeparture(), comboA.getName(), getStopOver(comboB.getName()).getArrival(), comboB.getName());
+//           textArea.appendText(message);
+//           //getTripTime(comboA.getName(), comboB.getName());
+//           message = String.format("afstand: %.2f km\n\n",distance);
+//           textArea.appendText(message);
+//        }
+//
+//        double distance = getDistance(comboA,comboB);
+//
+//        if(getStopOver(comboA.getName()).getDeparture().isAfter(time)) {
+//            System.out.format("route: %s, dep. %s at %s arr. %s at %s\n", filteredRoute, getStopOver(comboA.getName()).getDeparture(), comboA.getName(), getStopOver(comboB.getName()).getArrival(), comboB.getName());
+//
+//            System.out.format("afstand: %.2f km\n\n",distance);
+//
+//
+//
+//            String message = String.format("dep. %s at %s arr. %s at %s\n",getStopOver(comboA.getName()).getDeparture(), comboA.getName(), getStopOver(comboB.getName()).getArrival(), comboB.getName());
+//
+//            message = String.format("route: %s \n",filteredRoute);
+//
+//            printTripTime(comboA.getName(), comboB.getName(),textArea);
+//            message = String.format("afstand: %.2f km\n\n",distance);
+//
+//        }
 
     }
 
