@@ -25,7 +25,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false">
                      <graphic>
-                                  <Button fx:id="getFavoriteTripButton" mnemonicParsing="false" onAction="#onGetFavorite" text="%getFavoriteTripButton.text" textAlignment="CENTER">
+                          <Button fx:id="getFavoriteTripButton" mnemonicParsing="false" onMouseClicked="#displayFavoriteTrips" text="\%getFavoriteTripsButton.text" textAlignment="CENTER">
                            <font>
                               <Font name="Ebrima" size="14.0" />
                            </font>
@@ -70,10 +70,7 @@
                <font>
                   <Font name="Ebrima" size="14.0" />
                </font></Button>
-                  <TextArea fx:id="textArea" editable="false" layoutX="582.0" layoutY="119.0" prefHeight="424.0" prefWidth="483.0">
-               <font>
-                  <Font name="Ebrima" size="14.0" />
-               </font></TextArea>
+            <ListView fx:id="tripDisplay" layoutX="582.0" layoutY="119.0" onMouseClicked="#tripSelected" prefHeight="424.0" prefWidth="483.0" />
             <Text fx:id="hourText" layoutX="266.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\%hourButtonText.text">
                <font>
                   <Font name="Ebrima" size="14.0" />
@@ -92,6 +89,9 @@
                <font>
                   <Font name="Ebrima" size="14.0" />
                </font></TextField>
+            <Button fx:id="tripHistoryButton" mnemonicParsing="false" onMouseClicked="#displayTripHistory" text="\%tripHistoryButton.text" />
+            <Button fx:id="addFavoriteTripButton" layoutX="200.0" mnemonicParsing="false" onMouseClicked="#onFavoriteTripButton" text="\\%addFavoriteTripButton.text" />
+            <Button fx:id="retourButton" layoutX="500.0" mnemonicParsing="false" onMouseClicked="#retourTrip" text="\\\%retourTripButton.text" />
          </children>
       </AnchorPane>
     </items>

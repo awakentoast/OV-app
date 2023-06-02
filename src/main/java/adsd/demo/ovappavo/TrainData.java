@@ -1,8 +1,53 @@
 package adsd.demo.ovappavo;
 
 import java.time.LocalTime;
+import java.util.Map;
 
 public class TrainData extends Data {
+    
+    public TrainData() {
+        super("Train");
+        // === Train stations ===
+        var location = new Location("Abcoude",52.270281,4.971043);
+        trainLocationMap.put(location.getName(), location);
+        
+        location = new Location("Amersfoort",52.15625,5.389694);
+        trainLocationMap.put(location.getName(), location);
+        
+        location = new Location("Amsterdam",52.37276,4.893604);
+        trainLocationMap.put(location.getName(), location);
+        
+        location = new Location("Arnhem",51.985103,5.89873);
+        trainLocationMap.put(location.getName(), location);
+        
+        location = new Location("Emmen",52.788937,6.8939);
+        trainLocationMap.put(location.getName(), location);
+        
+        location = new Location("Groningen",53.219065,6.568008);
+        trainLocationMap.put(location.getName(), location);
+        
+        location = new Location("Haarlem",52.388532,4.638805);
+        trainLocationMap.put(location.getName(), location);
+        
+        location = new Location("Maastricht",50.857985,5.696988);
+        trainLocationMap.put(location.getName(), location);
+        
+        location = new Location("Nijmegen",51.844884,5.842828);
+        trainLocationMap.put(location.getName(), location);
+        
+        location = new Location("Rotterdam",51.922896,4.463173);
+        trainLocationMap.put(location.getName(), location);
+        
+        location = new Location("Utrecht",52.080952,5.12768);
+        trainLocationMap.put(location.getName(), location);
+        
+        location = new Location("Vlissingen",51.448093,3.569799);
+        trainLocationMap.put(location.getName(), location);
+        
+        location = new Location("Xanten",51.661519,6.45432);
+        trainLocationMap.put(location.getName(), location);
+        
+    }
 
     // set all trainData routes
     public void setRoute() {
@@ -57,6 +102,7 @@ public class TrainData extends Data {
             route.addEndPoint(trainLocationMap.get("Groningen"), LocalTime.of(++hourTraject, 46));
             routeMap.put(route.getKey(), route);
         }
+        
         // === Route Emmen-Maastricht ===
         for (int hour = 7; hour <= 19; hour += 2) {
             int hourTraject = hour;
@@ -79,6 +125,21 @@ public class TrainData extends Data {
             route.addEndPoint(trainLocationMap.get("Emmen"), LocalTime.of(hourTraject, 48));
             routeMap.put(route.getKey(), route);
         }
+    }
+    
+    @Override
+    public Location findLocation(String locationName)
+    {
+        Location foundLocation= null;
+        for (Map.Entry<String, Location> entry : trainLocationMap.entrySet()) {
+            Location location = entry.getValue();
+            
+            if (location.getName().equals(locationName)) {
+                foundLocation = location;
+                return foundLocation;
+            }
+        }return null;
+        
     }
 }
 
