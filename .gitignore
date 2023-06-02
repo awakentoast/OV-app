@@ -1,4 +1,5 @@
 target
 .idea
 out
-history.txt
+tripHistory.txt
+favoriteTrips.txt

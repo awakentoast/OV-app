@@ -22,8 +22,6 @@ public class Time {
         String tempHour = hour > 9 ? Integer.toString(hour) : "0" + hour;
         String tempMinute = minute > 9 ? Integer.toString(minute) : "0" + minute;
         String tempSecond = second > 9 ? Integer.toString(second) : "0" + second;
-        System.out.println(second > 9 ? "true" : "false");
-        System.out.println(tempSecond);
 
         return  tempHour + ":" + tempMinute + ":" + tempSecond;
     }
