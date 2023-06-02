@@ -161,11 +161,11 @@ public class OVappController {
    
    @FXML
    private void tripSelected() {
-      if (!viewingHistory) {
-         int tripIndex = tripDisplay.getSelectionModel().getSelectedIndex();
-         Trip currentTrip = possibleTrips.get(tripIndex);
-         tripHistory.addTrip(currentTrip);
-      }
+
+      int tripIndex = tripDisplay.getSelectionModel().getSelectedIndex();
+      Trip currentTrip = possibleTrips.get(tripIndex);
+      tripHistory.addTrip(currentTrip);
+
    }
 
 
@@ -175,6 +175,7 @@ public class OVappController {
          Stage stage = (Stage) planMyTripButton.getScene().getWindow();
          stage.setOnCloseRequest((WindowEvent event) -> {
             tripHistory.save();
+            favoriteTrip.save();
          });
          closeRequest = true;
       }
@@ -183,6 +184,7 @@ public class OVappController {
    public void displayTripHistory() {
       viewingHistory = true;
       List<Trip> travelHistory = tripHistory.getAllTrips();
+      possibleTrips = travelHistory;
       List<String> travelHistoryStrings = new ArrayList<>(travelHistory.size());
       
       for (Trip trip : travelHistory) {
