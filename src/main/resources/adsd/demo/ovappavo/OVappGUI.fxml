@@ -25,7 +25,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false">
                      <graphic>
-                                  <Button fx:id="getFavoriteTripButton" mnemonicParsing="false" onAction="#onGetFavorite" text="%getFavoriteTripButton.text" textAlignment="CENTER">
+                          <Button fx:id="getFavoriteTripButton" mnemonicParsing="false" onMouseClicked="#displayFavoriteTrips" text="\%getFavoriteTripsButton.text" textAlignment="CENTER">
                            <font>
                               <Font name="Ebrima" size="14.0" />
                            </font>
@@ -52,7 +52,7 @@
                   <Insets />
                </opaqueInsets>
                <padding>
-                  <Insets left="560.0" />
+                  <Insets left="525.0" />
                </padding>
             </MenuBar>
                   <ComboBox fx:id="comboB" layoutX="316.0" layoutY="303.0" onAction="#onComboB" prefHeight="39.0" prefWidth="162.0" />
@@ -70,10 +70,7 @@
                <font>
                   <Font name="Ebrima" size="14.0" />
                </font></Button>
-                  <TextArea fx:id="textArea" editable="false" layoutX="582.0" layoutY="119.0" prefHeight="424.0" prefWidth="483.0">
-               <font>
-                  <Font name="Ebrima" size="14.0" />
-               </font></TextArea>
+            <ListView fx:id="tripDisplay" layoutX="582.0" layoutY="119.0" onMouseClicked="#tripSelected" prefHeight="424.0" prefWidth="483.0" />
             <Text fx:id="hourText" layoutX="266.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\%hourButtonText.text">
                <font>
                   <Font name="Ebrima" size="14.0" />
@@ -92,6 +89,12 @@
                <font>
                   <Font name="Ebrima" size="14.0" />
                </font></TextField>
+            <Button fx:id="tripHistoryButton" layoutX="53.0" layoutY="501.0" mnemonicParsing="false" onMouseClicked="#displayTripHistory" prefHeight="34.0" prefWidth="145.0" text="\%tripHistoryButton.text" />
+            <Button fx:id="addFavoriteTripButton" layoutX="360.0" layoutY="501.0" mnemonicParsing="false" onMouseClicked="#onFavoriteTripButton" prefHeight="34.0" prefWidth="145.0" text="\\%addFavoriteTripButton.text" textAlignment="CENTER">
+               <font>
+                  <Font name="Ebrima" size="12.0" />
+               </font></Button>
+            <Button fx:id="retourButton" layoutX="236.0" layoutY="501.0" mnemonicParsing="false" onMouseClicked="#retourTrip" prefHeight="34.0" prefWidth="91.0" text="\\\%retourTripButton.text" />
          </children>
       </AnchorPane>
     </items>

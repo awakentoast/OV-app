@@ -18,8 +18,12 @@ public class Time {
         second = Integer.parseInt(times[2]);
     }
 
-    public String getCurrentTime(){
-        return  hour + ":" + minute + ":" + second;
+    public String getCurrentTime() {
+        String tempHour = hour > 9 ? Integer.toString(hour) : "0" + hour;
+        String tempMinute = minute > 9 ? Integer.toString(minute) : "0" + minute;
+        String tempSecond = second > 9 ? Integer.toString(second) : "0" + second;
+
+        return  tempHour + ":" + tempMinute + ":" + tempSecond;
     }
 
     public void oneSecondPassed(){
@@ -37,5 +41,4 @@ public class Time {
             }
         }
     }
-
 }
