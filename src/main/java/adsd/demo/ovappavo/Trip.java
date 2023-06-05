@@ -1,41 +1,63 @@
 package adsd.demo.ovappavo;
 
 import java.time.LocalTime;
+import java.util.Objects;
+import java.util.ResourceBundle;
 
 public class Trip {
     private final LocalTime departure;
-    private final Location  locationA;
-    private final Location  locationB;
+    private final Location  start;
+    private final Location  destination;
     private final double distance;
     private final int duration;
     private final String transportType;
     
     
-    public Trip(LocalTime departure, Location locationA, Location locationB, double distance, int duration, String transportType) {
+    public Trip(LocalTime departure, Location start, Location destination, double distance, int duration, String transportType) {
         this.departure = departure;
-        this.locationA = locationA;
-        this.locationB = locationB;
+        this.start = start;
+        this.destination = destination;
         this.distance = distance;
         this.duration = duration;
         this.transportType = transportType;
     }
-
-    public String getStringForDisplay() {
-        int hours   = duration / 60;   // since both are ints, you get an int
+    
+    public LocalTime getDeparture() {
+        return departure;
+    }
+    
+    public Location getStart() {
+        return start;
+    }
+    
+    public Location getDestination() {
+        return destination;
+    }
+    
+    public String getStringForDisplay(ResourceBundle bundle) {
+        int hours   = duration / 60;
         int minutes = duration % 60;
         String durationString = String.format("%d:%02d", hours, minutes);
-        System.out.printf("%d:%02d", hours, minutes);
-        return  String.format("Van: " + locationA.getName()) +
-                String.format("%24s", "Vertrek: " + departure + "\n") +
-                String.format("Tot: " + locationB.getName()) +
-                String.format("%27s", "Reisduur: " + durationString + "\n") +
-                String.format("Distance: " + distance + " km" + "\n");
+        
+        if (Objects.equals(bundle.getLocale().getLanguage(), "nl")) {
+            return String.format("Van: " + start.getName()) +
+                    String.format("%24s", "Vertrek: " + departure + "\n") +
+                    String.format("Tot: " + destination.getName()) +
+                    String.format("%27s", "Reisduur: " + durationString + "\n") +
+                    String.format("Afstand: " + distance + " km" + "\n");
+        } else {
+            return String.format("From: " + start.getName()) +
+                    String.format("%28s", "Departure: " + departure + "\n") +
+                    String.format("To: " + destination.getName()) +
+                    String.format("%32s", "Duration: " + durationString + "\n") +
+                    String.format("Distance: " + distance + " km" + "\n");
+        }
     }
     
     public String getStringForSaving() {
         return  departure.toString() + "-" +
-                locationA.getName() + "-" +
-                locationB.getName() + "-" +
+                start.getName() + "-" +
+                destination.getName() + "-" +
                 distance + "-" +
                 duration + "-" +
                 transportType;

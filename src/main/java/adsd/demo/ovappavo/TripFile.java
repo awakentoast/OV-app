@@ -6,43 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class TripFile {
-    Data dataHelper;
+public class TripFile extends CustomFile {
     protected List<Trip> allTrips = new ArrayList<>();
-    protected File file;
     
-    public TripFile(String filepath) {
-        file = new File(filepath);
-        try {
-            if (file.createNewFile()) {
-                System.out.println("file has been created");
-            } else {
-                System.out.println("file already exists");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("IO error in TripHistory constructor");
-            System.out.println(filepath);
-        }
+    protected TripFile(String filepath) {
+        super(filepath);
         readTripsFromFile();
     }
     
     private void readTripsFromFile() {
-        if (file.length() != 0) {
-            StringBuilder data = new StringBuilder();
-            
-            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                String line;
-                while ((line = br.readLine()) != null) {
-                    //appending \n to make it nicer in the file, and be able top slit on the \n character
-                    data.append(line).append("\n");
-                }
-            } catch (Exception e) {
-                System.out.println("Something wrong when reading file in getFavoriteTrip");
-                e.printStackTrace();
-            }
-            
-            String[] trips = data.toString().split("\n");
+        String data = read();
+        if (data != null) {
+            String[] trips = data.split("\n");
             
             for (String trip : trips) {
                 allTrips.add(stringToTripFromFile(trip));
@@ -52,11 +27,14 @@ public class TripFile {
     
     public Trip stringToTripFromFile(String tripString)
     {
+        Data dataHelper;
+        
         if (Objects.equals(tripString.split("-")[5], "Train")) {
             dataHelper = new TrainData();
         } else {
             dataHelper = new BusData();
         }
+        
         String[] tripData = tripString.split("-");
         
         LocalTime departure = LocalTime.parse(tripData[0]);
