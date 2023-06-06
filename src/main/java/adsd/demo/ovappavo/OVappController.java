@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -166,7 +167,7 @@ public class OVappController {
          for (Trip trip : shownTrips) {
             boolean[] servicesStart = trip.getStart().getServices();
             boolean[] servicesEnd = trip.getDestination().getServices();
-            displayTrips.add(new DisplayTrip(trip.getStringForDisplay(bundle), servicesStart, servicesEnd));
+            displayTrips.add(new DisplayTripCell(new DisplayTrip(trip.getStringForDisplay(bundle), servicesStart, servicesEnd)));
          }
          
          observableRouteList = FXCollections.observableArrayList(displayTrips);
@@ -275,50 +276,7 @@ public class OVappController {
       final ImageView imageView = new ImageView("file:src/main/java/images/OVapp/toiletIcon.jpeg");
 
       final GridPane gridPane = new GridPane();
-      gridPane.setHgap(4);
-      gridPane.setVgap(4);
-      gridPane.setLayoutX(220);
-      gridPane.setLayoutY(20);
 
-
-      tripDisplay.setCellFactory(new Callback<>() {
-         @Override
-         public ListCell<DisplayTrip> call(ListView<DisplayTrip> param) {
-            return new ListCell<DisplayTrip>() {
-               @Override
-               protected void updateItem(DisplayTrip displayTrip, boolean empty) {
-                  super.updateItem(displayTrip, empty);
-                  if (empty || displayTrip == null) {
-                     setGraphic(null);
-                  } else {
-                     text.setY(10);
-
-                     int[] verticalPos = {0, 0, 1, 1, 0, 0, 1, 1};
-                     int[] horizontalPos = {0, 1, 0, 1, 6, 7, 6, 7};
-
-
-                     int count = -1;
-                     for (Image image : displayTrip.getIconsStart()) {
-                        ImageView imageView1 = new ImageView(image);
-                        ++count;
-                        gridPane.add(imageView1, horizontalPos[count], verticalPos[count]);
-                     }
-
-                     for (Image image : displayTrip.getIconsEnd()) {
-                        ImageView imageView1 = new ImageView(image);
-                        ++count;
-                        gridPane.add(imageView1, horizontalPos[count], verticalPos[count]);
-                     }
-
-                     text.setText(displayTrip.getDisplayString());
-                     //              setGraphic(new Pane(text, gridPane));
-
-                     setGraphic(new Pane(text, imageView));
-                  }
-               }
-            };
-         }
-      });
    }
 
 

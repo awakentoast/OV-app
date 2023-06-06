@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DisplayTrip {
-    private String displayString;
-    private List<Image> iconsStart;
-    private List<Image> iconsEnd;
-    private String[] iconPaths = {"src/main/java/images/OVapp/rampIcon.png",
+    private final String displayString;
+    private List<Image> iconsStart = new ArrayList<>();
+    private List<Image> iconsEnd = new ArrayList<>();
+    private final String[] iconPaths = {"src/main/java/images/OVapp/rampIcon.png",
             "src/main/java/images/OVapp/toiletIcon.jpeg",
             "src/main/java/images/OVapp/serviceEmployeeIcon.png",
             "src/main/java/images/OVapp/AEDIcon.jpeg"};
