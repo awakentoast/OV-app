@@ -9,8 +9,6 @@ public class BusData extends Data {
     
     
     public BusData() {
-        super("Bus");
-        
         // === Bus stations ===
         Location location;
         location = new Location("Amersfoort", 51.180707, 5.137016);
@@ -112,6 +110,10 @@ public class BusData extends Data {
             }
         }
         return null;
-        
+    }
+    
+    @Override
+    public String getTransportType() {
+        return "Bus";
     }
 }

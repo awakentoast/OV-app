@@ -1,11 +1,8 @@
 package adsd.demo.ovappavo;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class FavoriteTrip extends TripFile {
+public class FavoriteTripFile extends TripFile {
     
-    public FavoriteTrip() {
+    public FavoriteTripFile() {
         super("src/main/java/adsd/demo/ovappavo/favoriteTrips.txt");
     }
     

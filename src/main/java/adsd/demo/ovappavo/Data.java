@@ -9,16 +9,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class Data {
-    public final Map<String, Location> locationMap = new TreeMap<>();
-    public final Map<String, Route> routeMap = new TreeMap<>();
-    //public Map<String, Location> locations = new TreeMap<>();
-    protected String transportType;
-    Route route;
-    
-    protected Data(String transportType) {
-        this.transportType = transportType;
-    }
-
+    protected final Map<String, Location> locationMap = new TreeMap<>();
+    protected final Map<String, Route> routeMap = new TreeMap<>();
     
     public String[] getLocationNames() {
         String[] names = new String[locationMap.size()];
@@ -30,41 +22,36 @@ public abstract class Data {
     }
     
     
-    public List<Trip> writeRoutes(String comboA, String comboB, LocalTime time) {
+    public List<Trip> getValidRoutes(Location start, Location destination, LocalTime departure) {
         List<Trip> trips = new ArrayList<>();
         
         for (var e : routeMap.entrySet()) {
             String key = e.getKey();
-            String startLocation = comboA;
-            String endLocation = comboB;
-            var route = e.getValue();
             
-            String patternString = startLocation + ".*?" + endLocation;
+            String patternString = start.getName() + ".*?" + destination.getName();
             Pattern pattern = Pattern.compile(patternString);
             Matcher matcher = pattern.matcher(key);
-            Location newComboA = findLocation(comboA);
-            Location newComboB = findLocation(comboB);
-            
+            var route = e.getValue();
             
             // Controleren of er een overeenkomst is gevonden
             while (matcher.find()) {
                 //String filteredRoute = matcher.group(0);
-                LocalTime departure = LocalTime.parse(key.split("\\|")[1]);
-                if (departure.isAfter(time)) {
-                    double distance = route.getDistance(newComboA, newComboB);
+                LocalTime departureTimeTrip = LocalTime.parse(key.split("\\|")[1]);
+                if (departureTimeTrip.isAfter(departure)) {
+                    double distance = route.getDistance(start, destination);
                     distance = Math.round(distance * 100.0) / 100.0;
-                    int duration = route.getTripTime(newComboA, newComboB);
-                    trips.add(new Trip(departure, newComboA, newComboB, distance, duration, transportType));
+                    int duration = route.getTripTime(start, destination);
+                    trips.add(new Trip(departureTimeTrip, start, destination, distance, duration, getTransportType()));
                     //route.write(newComboA, newComboB, filteredRoute, time,textArea);
                 }
             }
-            
-            
         }
         return trips;
     }
     
     public abstract Location findLocation(String locationName);
+    
+    public abstract String getTransportType();
 }
 
 

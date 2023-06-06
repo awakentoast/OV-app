@@ -1,9 +1,9 @@
 package adsd.demo.ovappavo;
 
 
-public class TripHistory extends TripFile {
+public class TripHistoryFile extends TripFile {
 
-    public TripHistory() {
+    public TripHistoryFile() {
         super("src/main/java/adsd/demo/ovappavo/tripHistory.txt");
     }
     

@@ -46,9 +46,9 @@ public class OVappController {
    @FXML
    private ComboBox<String> comboTransport;
    @FXML
-   private ComboBox<String> comboA;
+   private ComboBox<String> startLocationsCombo;
    @FXML
-   private ComboBox<String> comboB;
+   private ComboBox<String> destinationLocationsCombo;
    
    @FXML
    private ComboBox<Integer> hoursComboBox;
@@ -71,39 +71,41 @@ public class OVappController {
    private boolean darkMode = false;
    private boolean closeRequest = false;
    private boolean tripListEmpty = false;
+   private boolean favoriteTripsAreShown = false;
    
    
    
-   Data data;
-   BusData busData = new BusData();
-   TrainData trainData = new TrainData();
+   private Data data;
+   private final BusData busData = new BusData();
+   private final TrainData trainData = new TrainData();
    
-   Time time = new Time();
-   private final TripHistory tripHistory = new TripHistory();
-   private final FavoriteTrip favoriteTrip = new FavoriteTrip();
+   private final Time time = new Time();
+   private final TripHistoryFile tripHistory = new TripHistoryFile();
+   private final FavoriteTripFile favoriteTrip = new FavoriteTripFile();
    
    private ResourceBundle bundle;
-   ObservableList<String> locationList;
-   List<Trip> favoriteTrips;
+   private ObservableList<String> locationList;
+   private List<Trip> shownTrips;
    
    
    
    @FXML
-   public void onComboA() {
-      System.out.println("OVappController.onComboA");
+   public void onStartLocationsCombo() {
+      System.out.println("OVappController.onStartLocationsCombo");
    }
 
    @FXML
-   public void onComboB() {
-      System.out.println("OVappController.onComboB");
+   public void onDestinationLocationsCombo() {
+      System.out.println("OVappController.onDestinationLocationsCombo");
    }
    @FXML
-   public void onComboHour(){
-      System.out.println("ovappcontroller.Hours");}
+   public void onComboHour() {
+      System.out.println("OVappController.Hours");
+   }
 
-      @FXML
-      public void onComboMinutes(){
-         System.out.println("ovappcontroller.Minutes");
+   @FXML
+   public void onComboMinutes() {
+      System.out.println("OVappController.Minutes");
    }
 
    @FXML
@@ -120,11 +122,11 @@ public class OVappController {
          locationList = FXCollections.observableArrayList(busLocations);
       }
 
-      comboA.setItems(locationList);
-      comboA.getSelectionModel().select(0); // i.e. "Amsterdam"
+      startLocationsCombo.setItems(locationList);
+      startLocationsCombo.getSelectionModel().select(0); // i.e. "Amsterdam"
       
-      comboB.setItems(locationList);
-      comboB.getSelectionModel().select(comboB.getItems().size() - 1);
+      destinationLocationsCombo.setItems(locationList);
+      destinationLocationsCombo.getSelectionModel().select(destinationLocationsCombo.getItems().size() - 1);
       System.out.print("OVappController.onTransportChange:");
       System.out.println(comboTransport.getValue());
    }
@@ -132,51 +134,58 @@ public class OVappController {
 
    @FXML
    protected void onPlanMyTrip() {
-      // tripDisplay.setItems(locationList);
       System.out.println("OVappController.onPlanMyTrip");
       System.out.format("OVType: %s\n", comboTransport.getValue());
-      System.out.format("Van:   %s\n", comboA.getValue());
-      System.out.format("Tot:      %s\n", comboB.getValue());
+      System.out.format("Van:   %s\n", startLocationsCombo.getValue());
+      System.out.format("Tot:      %s\n", destinationLocationsCombo.getValue());
       
+      changeTripsOnDisplay(data.getValidRoutes(data.findLocation(startLocationsCombo.getValue()), data.findLocation(destinationLocationsCombo.getValue()), getTime()));
       
-      //data.writeRoutes(comboA.getValue(), comboB.getValue(),getTime(),textArea);
+      System.out.println(comboTransport.getValue());
+   }
+   
+   private void displayValidTripsForFavoriteTrip(Trip trip) {
+      changeTripsOnDisplay(data.getValidRoutes(trip.getStart(), trip.getDestination(), trip.getDeparture()));
+   }
+   
+   private void changeTripsOnDisplay(List<Trip> trips) {
+      shownTrips = trips;
       ObservableList<String> observableRouteList;
-      favoriteTrips = data.writeRoutes(comboA.getValue(), comboB.getValue(), getTime());
-      if (favoriteTrips.isEmpty()) {
-            String a = "No trips are found";
-          observableRouteList = FXCollections.observableArrayList(a);
-          tripListEmpty = true;
+      
+      if (shownTrips.isEmpty()) {
+         observableRouteList = FXCollections.observableArrayList("No trips are found");
+         tripListEmpty = true;
       } else {
-         List<String> tripStrings = new ArrayList<>(favoriteTrips.size());
-
-         for (Trip trip : favoriteTrips) {
-            tripStrings.add(trip.getStringForDisplay());
+         List<String> tripStrings = new ArrayList<>(shownTrips.size());
+         
+         for (Trip trip : shownTrips) {
+            tripStrings.add(trip.getStringForDisplay(bundle));
          }
-
+         
          observableRouteList = FXCollections.observableArrayList(tripStrings);
          tripListEmpty = false;
       }
-
-      //tripDisplay = new ListView<>(observableRouteList);
-      tripDisplay.setItems(observableRouteList);
       
-      System.out.println(comboTransport.getValue());
-
-      //tripHistory.addTrip();
-      setupCloseEvent();
+      tripDisplay.setItems(observableRouteList);
    }
    
    @FXML
    private void tripSelected() {
+      setupCloseEvent();
       if (!tripListEmpty) {
          int tripIndex = tripDisplay.getSelectionModel().getSelectedIndex();
-         Trip currentTrip = favoriteTrips.get(tripIndex);
-         tripHistory.addTrip(currentTrip);
+         Trip currentTrip = shownTrips.get(tripIndex);
+         if (favoriteTripsAreShown) {
+            displayValidTripsForFavoriteTrip(currentTrip);
+            favoriteTripsAreShown = false;
+         } else {
+            tripHistory.addTrip(currentTrip);
+         }
       }
    }
 
 
-   //perform the actions after stage.setOnCloseRequest((WindowEvent event) if plan my trip has been used or set favorite trip has been used
+   //perform the actions after stage.setOnCloseRequest() if plan my trip has been used or set favorite trip has been used
    private void setupCloseEvent() {
       if (!closeRequest) {
          Stage stage = (Stage) planMyTripButton.getScene().getWindow();
@@ -188,65 +197,28 @@ public class OVappController {
       }
    }
    
-   public void displayTripHistory() {
-      favoriteTrips = tripHistory.getAllTrips();
-      ObservableList<String>  travelHistoryStrings;
-
-      if (favoriteTrips.isEmpty()) {
-         String a = "No trips are previously taken";
-         travelHistoryStrings = FXCollections.observableArrayList(a);
-         tripListEmpty = true;
-      } else {
-         List<String> tripStrings = new ArrayList<>(favoriteTrips.size());
-
-         for (Trip trip : favoriteTrips) {
-            tripStrings.add(trip.getStringForDisplay());
-         }
-
-         travelHistoryStrings = FXCollections.observableArrayList(tripStrings);
-         tripListEmpty = false;
-      }
-
-      //tripDisplay = new ListView<>(observableRouteList);
-      tripDisplay.setItems(travelHistoryStrings);
+   @FXML
+   public void onDisplayTripHistory() {
+      changeTripsOnDisplay(tripHistory.getAllTrips());
    }
    
    @FXML
-   private void onFavoriteTripButton() {
-      Trip trip = favoriteTrips.get(tripDisplay.getSelectionModel().getSelectedIndex());
+   private void onAddFavoriteTripButton() {
+      Trip trip = shownTrips.get(tripDisplay.getSelectionModel().getSelectedIndex());
       favoriteTrip.addFavorite(trip);
-      setupCloseEvent();
    }
    
    @FXML
-   private void displayFavoriteTrips() {
-      favoriteTrips = favoriteTrip.getAllTrips();
-      ObservableList<String>  favoriteTripsStrings;
-
-      if (favoriteTrips.isEmpty()) {
-         String a = "No favorite trips are selected";
-         favoriteTripsStrings = FXCollections.observableArrayList(a);
-         tripListEmpty = true;
-      } else {
-         List<String> tripStrings = new ArrayList<>(favoriteTrips.size());
-
-         for (Trip trip : favoriteTrips) {
-            tripStrings.add(trip.getStringForDisplay());
-         }
-
-         favoriteTripsStrings = FXCollections.observableArrayList(tripStrings);
-         tripListEmpty = false;
-      }
-
-      //tripDisplay = new ListView<>(observableRouteList);
-      tripDisplay.setItems(favoriteTripsStrings);
+   private void onDisplayFavoriteTrips() {
+      changeTripsOnDisplay(favoriteTrip.getAllTrips());
+      favoriteTripsAreShown = true;
    }
    
    @FXML
-   private void retourTrip() {
-      int beginIndex = comboA.getSelectionModel().getSelectedIndex();
-      comboA.getSelectionModel().select(comboB.getSelectionModel().getSelectedIndex());
-      comboB.getSelectionModel().select(beginIndex);
+   private void onRetourTrip() {
+      int beginIndex = startLocationsCombo.getSelectionModel().getSelectedIndex();
+      startLocationsCombo.getSelectionModel().select(destinationLocationsCombo.getSelectionModel().getSelectedIndex());
+      destinationLocationsCombo.getSelectionModel().select(beginIndex);
       
       onPlanMyTrip();
    }
@@ -267,9 +239,7 @@ public class OVappController {
       trainData.setRoute();
       busData.setRoute();
       data = trainData;
-      //data.locations.putAll(trainData.locationMap);
-      //data.locations.putAll(busData.locationMap);
-
+      
       comboTransport.getSelectionModel().select(1);
 
       System.out.println("init TransportSelectorController ...");
@@ -279,11 +249,11 @@ public class OVappController {
 
       locationList = FXCollections.observableArrayList(trainLocations);
 
-      comboA.setItems(locationList);
-      comboA.getSelectionModel().select(0); // i.e. "Amsterdam"
+      startLocationsCombo.setItems(locationList);
+      startLocationsCombo.getSelectionModel().select(0); // i.e. "Amsterdam"
 
-      comboB.setItems(locationList);
-      comboB.getSelectionModel().select(comboB.getItems().size() - 1);
+      destinationLocationsCombo.setItems(locationList);
+      destinationLocationsCombo.getSelectionModel().select(destinationLocationsCombo.getItems().size() - 1);
 
       timer.setText(time.getCurrentTime());
 
@@ -291,21 +261,7 @@ public class OVappController {
       timeline.play();
 
       setTime();
-//      // Maak een ObservableList met de uren (0 tot 24)
-//      ObservableList<Integer> hours = FXCollections.observableArrayList();
-//      for (int i = 1; i <= 24; i++) {
-//         hours.add(i);
-//      }
-//      hoursComboBox.setItems(hours);
-//
-//      // Maak een ObservableList met de minuten (0 tot 59)
-//      ObservableList<Integer> minutes = FXCollections.observableArrayList();
-//      for (int i = 0; i <= 59; i++) {
-//         minutes.add(i);
-//      }
-//      minutesComboBox.setItems(minutes);
-
-
+      
       System.out.println("init TransportSelectorController done");
    }
 
@@ -329,7 +285,7 @@ public class OVappController {
 
 
    @FXML
-   public void switchLanguage() {
+   public void onSwitchLanguage() {
       if (Objects.equals(bundle.getLocale().getLanguage(), "en")) {
          bundle = ResourceBundle.getBundle("languages", new Locale("nl"));
       }
@@ -337,6 +293,7 @@ public class OVappController {
          bundle = ResourceBundle.getBundle("languages", new Locale("en"));
       }
       changeTextOfFields();
+      changeTripsOnDisplay(shownTrips);
    }
 
    private void changeTextOfField(Labeled label, String key) {

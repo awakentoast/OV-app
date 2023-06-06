@@ -6,7 +6,6 @@ import java.util.Map;
 public class TrainData extends Data {
     
     public TrainData() {
-        super("Train");
         // === Train stations ===
         var location = new Location("Abcoude",52.270281,4.971043);
         locationMap.put(location.getName(), location);
@@ -138,8 +137,13 @@ public class TrainData extends Data {
                 foundLocation = location;
                 return foundLocation;
             }
-        }return null;
-        
+        }
+        return null;
+    }
+    
+    @Override
+    public String getTransportType() {
+        return "Train";
     }
 }
 
