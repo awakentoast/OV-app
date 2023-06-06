@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class TripFile extends CustomFile {
-    protected List<Trip> allTrips = new ArrayList<>();
+    private List<Trip> allTrips = new ArrayList<>();
     
-    protected TripFile(String filepath) {
+    public TripFile(String filepath) {
         super(filepath);
         readTripsFromFile();
     }
@@ -61,7 +61,10 @@ public class TripFile extends CustomFile {
             e.printStackTrace();
         }
     }
-    
+
+    public void addTrip(Trip trip) {
+        allTrips.add(trip);
+    }
     public List<Trip> getAllTrips() {
         return allTrips;
     }

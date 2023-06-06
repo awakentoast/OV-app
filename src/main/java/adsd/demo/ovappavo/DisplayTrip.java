@@ -5,19 +5,24 @@ import javafx.scene.image.Image;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DisplayItem {
-    String displayString;
-    List<Image> iconsStart;
-    List<Image> iconsEnd;
-    String[] iconPaths = {"src/main/java/images/OVapp/rampIcon.png",
+public class DisplayTrip {
+    private String displayString;
+    private List<Image> iconsStart;
+    private List<Image> iconsEnd;
+    private String[] iconPaths = {"src/main/java/images/OVapp/rampIcon.png",
             "src/main/java/images/OVapp/toiletIcon.jpeg",
             "src/main/java/images/OVapp/serviceEmployeeIcon.png",
             "src/main/java/images/OVapp/AEDIcon.jpeg"};
 
-    public DisplayItem(String displayString, boolean[] iconsStart, boolean[] iconsEnd) {
+    public DisplayTrip(String displayString, boolean[] iconsStart, boolean[] iconsEnd) {
         this.displayString = displayString;
-        this.iconsStart = getIcons(iconsStart);
-        this.iconsEnd = getIcons(iconsEnd);
+        if (iconsStart != null) {
+            this.iconsStart = getIcons(iconsStart);
+        }
+
+        if (iconsEnd != null) {
+            this.iconsEnd = getIcons(iconsEnd);
+        }
     }
 
     private List<Image> getIcons(boolean[] services) {
@@ -34,6 +39,14 @@ public class DisplayItem {
 
     public String getDisplayString() {
         return displayString;
+    }
+
+    public List<Image> getIconsStart() {
+        return iconsStart;
+    }
+
+    public List<Image> getIconsEnd() {
+        return iconsEnd;
     }
 }
 

@@ -70,7 +70,7 @@
                <font>
                   <Font name="Ebrima" size="14.0" />
                </font></Button>
-            <ListView fx:id="tripDisplay" layoutX="582.0" layoutY="119.0" onMouseClicked="#tripSelected" prefHeight="424.0" prefWidth="483.0" />
+            <ListView fx:id="tripDisplay" layoutX="582.0" layoutY="119.0" onMouseClicked="#tripSelected" prefHeight="424.0" prefWidth="600.0" />
             <Text fx:id="hourText" layoutX="266.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\%hourButtonText.text">
                <font>
                   <Font name="Ebrima" size="14.0" />

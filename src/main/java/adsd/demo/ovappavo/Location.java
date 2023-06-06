@@ -10,7 +10,7 @@ public class Location
     private boolean hasServiceEmployee;
     private boolean hasAED;
 
-    private String[] services = {"toilet.string", "EAD.string", "ramp.string", "serviceEmployee.string"};
+    private final String[] services = {"toilet.string", "EAD.string", "ramp.string", "serviceEmployee.string"};
 
     public Location(String name, double latitude, double longitude)
     {

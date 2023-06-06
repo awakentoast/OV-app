@@ -11,12 +11,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.scene.Node;
 import javafx.util.Duration;
+import javafx.util.Callback;
+
 
 import java.time.LocalTime;
 import java.util.*;
@@ -68,7 +71,7 @@ public class OVappController {
    
    
    @FXML
-   private ListView<DisplayItem> tripDisplay;
+   private ListView<DisplayTrip> tripDisplay;
    
    
    private boolean darkMode = false;
@@ -83,8 +86,8 @@ public class OVappController {
    private final TrainData trainData = new TrainData();
    
    private final Time time = new Time();
-   private final TripHistoryFile tripHistory = new TripHistoryFile();
-   private final FavoriteTripFile favoriteTrip = new FavoriteTripFile();
+   private final TripFile tripHistory = new TripFile("src/main/java/adsd/demo/ovappavo/tripHistory.txt");
+   private final TripFile favoriteTrip = new TripFile("src/main/java/adsd/demo/ovappavo/favoriteTrips.txt");
    
    private ResourceBundle bundle;
    private ObservableList<String> locationList;
@@ -153,28 +156,26 @@ public class OVappController {
    
    private void changeTripsOnDisplay(List<Trip> trips) {
       shownTrips = trips;
-      ObservableList<DisplayItem> observableRouteList;
+      ObservableList<DisplayTrip> observableRouteList;
       
       if (shownTrips.isEmpty()) {
-         observableRouteList = FXCollections.observableArrayList(new DisplayItem("No trips are found", null, null));
+         observableRouteList = FXCollections.observableArrayList(new DisplayTrip("No trips are found", null, null));
          tripListEmpty = true;
       } else {
-         List<String> tripStrings = new ArrayList<>(shownTrips.size());
-         List<DisplayItem> displayItems = new ArrayList<>();
+         List<DisplayTrip> displayTrips = new ArrayList<>();
          for (Trip trip : shownTrips) {
-            tripStrings.add(trip.getStringForDisplay(bundle));
             boolean[] servicesStart = trip.getStart().getServices();
             boolean[] servicesEnd = trip.getDestination().getServices();
-            displayItems.add(new DisplayItem(trip.getStringForDisplay(bundle), servicesStart, servicesEnd));
+            displayTrips.add(new DisplayTrip(trip.getStringForDisplay(bundle), servicesStart, servicesEnd));
          }
          
-         observableRouteList = FXCollections.observableArrayList(displayItems);
+         observableRouteList = FXCollections.observableArrayList(displayTrips);
          tripListEmpty = false;
       }
       
       tripDisplay.setItems(observableRouteList);
    }
-   
+
    @FXML
    private void tripSelected() {
       setupCloseEvent();
@@ -211,7 +212,7 @@ public class OVappController {
    @FXML
    private void onAddFavoriteTripButton() {
       Trip trip = shownTrips.get(tripDisplay.getSelectionModel().getSelectedIndex());
-      favoriteTrip.addFavorite(trip);
+      favoriteTrip.addTrip(trip);
    }
    
    @FXML
@@ -238,14 +239,14 @@ public class OVappController {
                          time.oneSecondPassed();
                          timer.setText(time.getCurrentTime());
                       }));
-      
-      
+
+
       bundle = ResourceBundle.getBundle("languages", new Locale("nl"));
       changeTextOfFields();
       trainData.setRoute();
       busData.setRoute();
       data = trainData;
-      
+
       comboTransport.getSelectionModel().select(1);
 
       System.out.println("init TransportSelectorController ...");
@@ -270,28 +271,57 @@ public class OVappController {
 
       System.out.println("init TransportSelectorController done");
 
-      tripDisplay.setCellFactory(temp -> new ListCell<>() {
-         private final ImageView imageView = new ImageView();
-         private final Text text = new Text();
+      final Text text = new Text();
+      final ImageView imageView = new ImageView("file:src/main/java/images/OVapp/toiletIcon.jpeg");
 
+      final GridPane gridPane = new GridPane();
+      gridPane.setHgap(4);
+      gridPane.setVgap(4);
+      gridPane.setLayoutX(220);
+      gridPane.setLayoutY(20);
+
+
+      tripDisplay.setCellFactory(new Callback<>() {
          @Override
-         protected void updateItem(DisplayItem displayItem, boolean empty) {
-            super.updateItem(displayItem, empty);
+         public ListCell<DisplayTrip> call(ListView<DisplayTrip> param) {
+            return new ListCell<DisplayTrip>() {
+               @Override
+               protected void updateItem(DisplayTrip displayTrip, boolean empty) {
+                  super.updateItem(displayTrip, empty);
+                  if (empty || displayTrip == null) {
+                     setGraphic(null);
+                  } else {
+                     text.setY(10);
 
-            if (empty || displayItem == null) {
-               setGraphic(null);
-            } else {
-               text.setY(10);
-               imageView.setX(200);
-               imageView.setY(20);
+                     int[] verticalPos = {0, 0, 1, 1, 0, 0, 1, 1};
+                     int[] horizontalPos = {0, 1, 0, 1, 6, 7, 6, 7};
 
-               text.setText(displayItem.getDisplayString());
-               //imageView.setImage(displayItem.icon());
-               setGraphic(new Pane(text, imageView));
-            }
+
+                     int count = -1;
+                     for (Image image : displayTrip.getIconsStart()) {
+                        ImageView imageView1 = new ImageView(image);
+                        ++count;
+                        gridPane.add(imageView1, horizontalPos[count], verticalPos[count]);
+                     }
+
+                     for (Image image : displayTrip.getIconsEnd()) {
+                        ImageView imageView1 = new ImageView(image);
+                        ++count;
+                        gridPane.add(imageView1, horizontalPos[count], verticalPos[count]);
+                     }
+
+                     text.setText(displayTrip.getDisplayString());
+                     //              setGraphic(new Pane(text, gridPane));
+
+                     setGraphic(new Pane(text, imageView));
+                  }
+               }
+            };
          }
       });
    }
+
+
 
 
    public void setTime() {
@@ -409,6 +439,5 @@ public class OVappController {
    {
       return LocalTime.of(hoursComboBox.getValue(),minutesComboBox.getValue());
    }
-   
    
 }
