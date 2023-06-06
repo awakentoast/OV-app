@@ -6,16 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DisplayItem {
-    String name;
+    String displayString;
     List<Image> iconsStart;
     List<Image> iconsEnd;
     String[] iconPaths = {"src/main/java/images/OVapp/rampIcon.png",
-            "src/main/java/images/OVapp/toiletIcon.png",
+            "src/main/java/images/OVapp/toiletIcon.jpeg",
             "src/main/java/images/OVapp/serviceEmployeeIcon.png",
-            "src/main/java/images/OVapp/AEDIcon.png"};
+            "src/main/java/images/OVapp/AEDIcon.jpeg"};
 
-    public DisplayItem(String name, boolean[] iconsStart, boolean[] iconsEnd) {
-        this.name = name;
+    public DisplayItem(String displayString, boolean[] iconsStart, boolean[] iconsEnd) {
+        this.displayString = displayString;
         this.iconsStart = getIcons(iconsStart);
         this.iconsEnd = getIcons(iconsEnd);
     }
@@ -30,6 +30,10 @@ public class DisplayItem {
             }
         }
         return icons;
+    }
+
+    public String getDisplayString() {
+        return displayString;
     }
 }
 

@@ -38,49 +38,31 @@ public class Trip {
     public String getStringForDisplay(ResourceBundle bundle) {
         int hours   = duration / 60;
         int minutes = duration % 60;
+
         String durationString = String.format("%d:%02d", hours, minutes);
-        int margin = 20;
+        int margin = 30;
 
-        List<String> startStationServices = new ArrayList<>();
-        List<String> endStationServices = new ArrayList<>();
-        String[] serviceStrings = start.getServiceStrings();
-        String[] printArray = new String[5];
+        String fromPrefix = bundle.getString("begin.string");
+        String toPrefix = bundle.getString("destination.string");
+        String durationPrefix = bundle.getString("duration.string");
+        String distancePrefix = bundle.getString("distance.string");
+        String departurePrefix = bundle.getString("departure.string");
 
-        int index = -1;
-        for (boolean service : start.getServices()) {
-            index++;
-            if (service) {
-                startStationServices.add(serviceStrings[index]);
-            }
-        }
 
-        index = -1;
-        for (boolean service : start.getServices()) {
-            index++;
-            if (service) {
-                endStationServices.add(serviceStrings[index]);
-            }
-        }
 
-        if (!startStationServices.isEmpty()) {
 
-        }
-        printArray[0] = " ".repeat(60) + bundle.getString("beginStationServices.string") + " ".repeat(20) + bundle.getString("endStationServices.string");
-
-        String first = bundle.getString("destination.string") + ": " + destination.getName();
-        String last = bundle.getString("duration.string") + ": " + durationString;
+        String first =  + ": " + destination.getName();
+        String last =  + ": " + durationString;
         String fullString = first + " ".repeat(margin - first.length()) + last + "\n";
 
         margin--;
         first = bundle.getString("begin.string") + ": " + start.getName();
-        last = bundle.getString("departure.string") + ": " + departure;
+        last =  + ": " + departure;
         String fullString2 = first + " ".repeat(--margin - first.length()) + last + "\n";
-
-        first = bundle.getString("distance.string") + ": " +  distance + " km";
 
         return String.format(fullString) +
                 String.format(fullString2) +
-                String.format(bundle.getString("distance.string") + " " +  distance + " km" + "\n");
+                String.format( + " " +  distance + " km" + "\n");
     }
     
     public String getStringForSaving() {

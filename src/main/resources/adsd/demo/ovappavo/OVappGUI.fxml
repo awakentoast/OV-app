@@ -62,7 +62,7 @@
                <font>
                   <Font name="Ebrima" size="14.0" />
                </font></Label>
-                  <ComboBox fx:id="comboTransport" layoutX="80.0" layoutY="172.0" onHiding="#onTransport" prefHeight="34.0" prefWidth="91.0" />
+                  <ComboBox fx:id="comboTransport" layoutX="80.0" layoutY="172.0" onHiding="#onTransportType" prefHeight="34.0" prefWidth="91.0" />
             <ComboBox fx:id="hoursComboBox" layoutX="235.0" layoutY="172.0" onAction="#onComboHour" prefHeight="34.0" prefWidth="91.0" />
             <ComboBox fx:id="minutesComboBox" layoutX="387.0" layoutY="172.0" onAction="#onComboMinutes" prefHeight="34.0" prefWidth="91.0" />
 

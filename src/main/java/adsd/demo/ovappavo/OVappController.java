@@ -112,7 +112,7 @@ public class OVappController {
    }
 
    @FXML
-   protected void onTransport() {
+   protected void onTransportType() {
       if (comboTransport.getValue().equals("Train") || comboTransport.getValue().equals("Trein")) {
          data = trainData;
          String[] trainLocations = trainData.getLocationNames();
@@ -145,12 +145,6 @@ public class OVappController {
       changeTripsOnDisplay(data.getValidRoutes(data.findLocation(startLocationsCombo.getValue()), data.findLocation(destinationLocationsCombo.getValue()), getTime()));
 
       System.out.println(comboTransport.getValue());
-
-
-
-      Image icon1 = new Image("file:src/main/java/images/OVapp/coolIcon.png");
-      DisplayItem displayItem1 = new DisplayItem("yodayo", icon1);
-      tripDisplay.setItems(FXCollections.observableArrayList(displayItem1));
    }
    
    private void displayValidTripsForFavoriteTrip(Trip trip) {
@@ -162,20 +156,19 @@ public class OVappController {
       ObservableList<DisplayItem> observableRouteList;
       
       if (shownTrips.isEmpty()) {
-         observableRouteList = FXCollections.observableArrayList(new DisplayItem("No trips are found", null));
+         observableRouteList = FXCollections.observableArrayList(new DisplayItem("No trips are found", null, null));
          tripListEmpty = true;
       } else {
          List<String> tripStrings = new ArrayList<>(shownTrips.size());
-         List<Image[]> imageList = new ArrayList<>();
          List<DisplayItem> displayItems = new ArrayList<>();
          for (Trip trip : shownTrips) {
             tripStrings.add(trip.getStringForDisplay(bundle));
             boolean[] servicesStart = trip.getStart().getServices();
             boolean[] servicesEnd = trip.getDestination().getServices();
-            displayItems.add(new DisplayItem(trip.getStringForDisplay(bundle), servicesStart, servicesEnd);
+            displayItems.add(new DisplayItem(trip.getStringForDisplay(bundle), servicesStart, servicesEnd));
          }
          
-         observableRouteList = FXCollections.observableArrayList(tripStrings);
+         observableRouteList = FXCollections.observableArrayList(displayItems);
          tripListEmpty = false;
       }
       
@@ -288,11 +281,12 @@ public class OVappController {
             if (empty || displayItem == null) {
                setGraphic(null);
             } else {
+               text.setY(10);
                imageView.setX(200);
                imageView.setY(20);
 
-               imageView.setImage(displayItem.icon());
-               text.setText(displayItem.name());
+               text.setText(displayItem.getDisplayString());
+               //imageView.setImage(displayItem.icon());
                setGraphic(new Pane(text, imageView));
             }
          }
