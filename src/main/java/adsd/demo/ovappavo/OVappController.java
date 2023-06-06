@@ -9,6 +9,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -65,12 +68,12 @@ public class OVappController {
    
    
    @FXML
-   private ListView<String> tripDisplay;
+   private ListView<DisplayItem> tripDisplay;
    
    
    private boolean darkMode = false;
    private boolean closeRequest = false;
-   private boolean tripListEmpty = false;
+   private boolean tripListEmpty = true;
    private boolean favoriteTripsAreShown = false;
    
    
@@ -85,7 +88,7 @@ public class OVappController {
    
    private ResourceBundle bundle;
    private ObservableList<String> locationList;
-   private List<Trip> shownTrips;
+   private List<Trip> shownTrips = new ArrayList<>();
    
    
    
@@ -138,10 +141,16 @@ public class OVappController {
       System.out.format("OVType: %s\n", comboTransport.getValue());
       System.out.format("Van:   %s\n", startLocationsCombo.getValue());
       System.out.format("Tot:      %s\n", destinationLocationsCombo.getValue());
-      
+
       changeTripsOnDisplay(data.getValidRoutes(data.findLocation(startLocationsCombo.getValue()), data.findLocation(destinationLocationsCombo.getValue()), getTime()));
-      
+
       System.out.println(comboTransport.getValue());
+
+
+
+      Image icon1 = new Image("file:src/main/java/images/OVapp/coolIcon.png");
+      DisplayItem displayItem1 = new DisplayItem("yodayo", icon1);
+      tripDisplay.setItems(FXCollections.observableArrayList(displayItem1));
    }
    
    private void displayValidTripsForFavoriteTrip(Trip trip) {
@@ -150,16 +159,20 @@ public class OVappController {
    
    private void changeTripsOnDisplay(List<Trip> trips) {
       shownTrips = trips;
-      ObservableList<String> observableRouteList;
+      ObservableList<DisplayItem> observableRouteList;
       
       if (shownTrips.isEmpty()) {
-         observableRouteList = FXCollections.observableArrayList("No trips are found");
+         observableRouteList = FXCollections.observableArrayList(new DisplayItem("No trips are found", null));
          tripListEmpty = true;
       } else {
          List<String> tripStrings = new ArrayList<>(shownTrips.size());
-         
+         List<Image[]> imageList = new ArrayList<>();
+         List<DisplayItem> displayItems = new ArrayList<>();
          for (Trip trip : shownTrips) {
             tripStrings.add(trip.getStringForDisplay(bundle));
+            boolean[] servicesStart = trip.getStart().getServices();
+            boolean[] servicesEnd = trip.getDestination().getServices();
+            displayItems.add(new DisplayItem(trip.getStringForDisplay(bundle), servicesStart, servicesEnd);
          }
          
          observableRouteList = FXCollections.observableArrayList(tripStrings);
@@ -245,7 +258,6 @@ public class OVappController {
       System.out.println("init TransportSelectorController ...");
 
       String[] trainLocations = trainData.getLocationNames();
-      
 
       locationList = FXCollections.observableArrayList(trainLocations);
 
@@ -261,8 +273,30 @@ public class OVappController {
       timeline.play();
 
       setTime();
-      
+
+
       System.out.println("init TransportSelectorController done");
+
+      tripDisplay.setCellFactory(temp -> new ListCell<>() {
+         private final ImageView imageView = new ImageView();
+         private final Text text = new Text();
+
+         @Override
+         protected void updateItem(DisplayItem displayItem, boolean empty) {
+            super.updateItem(displayItem, empty);
+
+            if (empty || displayItem == null) {
+               setGraphic(null);
+            } else {
+               imageView.setX(200);
+               imageView.setY(20);
+
+               imageView.setImage(displayItem.icon());
+               text.setText(displayItem.name());
+               setGraphic(new Pane(text, imageView));
+            }
+         }
+      });
    }
 
 
@@ -293,7 +327,9 @@ public class OVappController {
          bundle = ResourceBundle.getBundle("languages", new Locale("en"));
       }
       changeTextOfFields();
-      changeTripsOnDisplay(shownTrips);
+      if (!shownTrips.isEmpty()) {
+         changeTripsOnDisplay(shownTrips);
+      }
    }
 
    private void changeTextOfField(Labeled label, String key) {

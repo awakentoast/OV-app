@@ -1,7 +1,8 @@
 package adsd.demo.ovappavo;
 
 import java.time.LocalTime;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Trip {
@@ -38,20 +39,48 @@ public class Trip {
         int hours   = duration / 60;
         int minutes = duration % 60;
         String durationString = String.format("%d:%02d", hours, minutes);
-        
-        if (Objects.equals(bundle.getLocale().getLanguage(), "nl")) {
-            return String.format("Van: " + start.getName()) +
-                    String.format("%24s", "Vertrek: " + departure + "\n") +
-                    String.format("Tot: " + destination.getName()) +
-                    String.format("%27s", "Reisduur: " + durationString + "\n") +
-                    String.format("Afstand: " + distance + " km" + "\n");
-        } else {
-            return String.format("From: " + start.getName()) +
-                    String.format("%28s", "Departure: " + departure + "\n") +
-                    String.format("To: " + destination.getName()) +
-                    String.format("%32s", "Duration: " + durationString + "\n") +
-                    String.format("Distance: " + distance + " km" + "\n");
+        int margin = 20;
+
+        List<String> startStationServices = new ArrayList<>();
+        List<String> endStationServices = new ArrayList<>();
+        String[] serviceStrings = start.getServiceStrings();
+        String[] printArray = new String[5];
+
+        int index = -1;
+        for (boolean service : start.getServices()) {
+            index++;
+            if (service) {
+                startStationServices.add(serviceStrings[index]);
+            }
         }
+
+        index = -1;
+        for (boolean service : start.getServices()) {
+            index++;
+            if (service) {
+                endStationServices.add(serviceStrings[index]);
+            }
+        }
+
+        if (!startStationServices.isEmpty()) {
+
+        }
+        printArray[0] = " ".repeat(60) + bundle.getString("beginStationServices.string") + " ".repeat(20) + bundle.getString("endStationServices.string");
+
+        String first = bundle.getString("destination.string") + ": " + destination.getName();
+        String last = bundle.getString("duration.string") + ": " + durationString;
+        String fullString = first + " ".repeat(margin - first.length()) + last + "\n";
+
+        margin--;
+        first = bundle.getString("begin.string") + ": " + start.getName();
+        last = bundle.getString("departure.string") + ": " + departure;
+        String fullString2 = first + " ".repeat(--margin - first.length()) + last + "\n";
+
+        first = bundle.getString("distance.string") + ": " +  distance + " km";
+
+        return String.format(fullString) +
+                String.format(fullString2) +
+                String.format(bundle.getString("distance.string") + " " +  distance + " km" + "\n");
     }
     
     public String getStringForSaving() {
@@ -62,11 +91,5 @@ public class Trip {
                 duration + "-" +
                 transportType;
     }
-    
-//    public Trip getTripFromSave(String tripString) {
-//        Data dataHelper = new Data();
-//        String[] tripData = tripString.split("-");
-//        //return new Trip(LocalTime.of()tripData[2], new Location(tripData[0]), new Location(tripData[1]));
-//        return
-//    }
 }
+
