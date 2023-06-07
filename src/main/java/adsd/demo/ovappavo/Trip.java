@@ -45,8 +45,10 @@ public class Trip {
         String toPrefix = bundle.getString("destination.string") + ": " + destination.getName();
         String distancePrefix = bundle.getString("distance.string") + ": " + distance + " km";
         String departurePrefix = bundle.getString("departure.string") + ": " + departure;
+        
         String servicesStart = bundle.getString("beginStationServices.string");
         String servicesEnd = bundle.getString("endStationServices.string");
+        
         durationString = bundle.getString("duration.string") + ": " + durationString;
 
 
@@ -54,10 +56,12 @@ public class Trip {
         line = line.substring(0,50) + servicesStart + line.substring(50 + servicesStart.length());
         line = line.substring(0, 20) + toPrefix + line.substring(20 + toPrefix.length());
         line = fromPrefix + line.substring(fromPrefix.length()) + "\n";
-
-        String line2 = " ".repeat(20) + distancePrefix;
+        
+        String line2 = " ".repeat(24) + distancePrefix;
         line2 = durationString + line2.substring(durationString.length()) + "\n";
+        
         System.out.println(line);
+        
         return line + line2 + departurePrefix;
     }
     

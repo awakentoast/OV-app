@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class TripFile extends CustomFile {
-    private List<Trip> allTrips = new ArrayList<>();
+    private final List<Trip> allTrips = new ArrayList<>();
     
     public TripFile(String filepath) {
         super(filepath);
