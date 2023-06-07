@@ -4,10 +4,6 @@ import java.time.LocalTime;
 import java.util.Map;
 
 public class BusData extends Data {
-    
-    
-    
-    
     public BusData() {
         // === Bus stations ===
         Location location;
@@ -34,7 +30,6 @@ public class BusData extends Data {
 
         location = new Location("Zeist", 52.1038954, 5.2605939);
         locationMap.put(location.getName(), location);
-        
     }
     
     // set all trainData routes
@@ -100,7 +95,7 @@ public class BusData extends Data {
     
     @Override
     public Location findLocation(String locationName) {
-        Location foundLocation = null;
+        Location foundLocation;
         for (Map.Entry<String, Location> entry : locationMap.entrySet()) {
             Location location = entry.getValue();
             
