@@ -46,7 +46,7 @@ public abstract class Data {
                 if (departureTimeTrip.isAfter(departure)) {
                     double distance = route.getDistance(start, destination);
                     distance = Math.round(distance * 100.0) / 100.0;
-                    int duration = route.getTripTime(start, destination);
+                    int duration = route.getTripTime();
                     List<Location> locationList = route.getLocationList();
                     trips.add(new Trip(departureTimeTrip, start, destination, distance, duration, getTransportType(), locationList));
                 }

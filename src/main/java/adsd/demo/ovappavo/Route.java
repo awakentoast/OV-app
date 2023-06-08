@@ -15,7 +15,7 @@ public class Route
     ///////////////////////////////////////////////////////////////
     public Route(Location beginLocation, LocalTime departure )
     {
-        var stopover = new StopOver(beginLocation.getName(), null, departure, beginLocation.getLatitude(), beginLocation.getLongitude());
+        StopOver stopover = new StopOver(beginLocation, null, departure);
         stopOvers.add(stopover);
     }
     
@@ -23,7 +23,7 @@ public class Route
     ///////////////////////////////////////////////////////////////
     public void addStopOver(Location beginLocation, LocalTime arrival, LocalTime departure) {
         
-        var stopover = new StopOver(beginLocation.getName(), arrival, departure, beginLocation.getLatitude(), beginLocation.getLongitude());
+        StopOver stopover = new StopOver(beginLocation, arrival, departure);
         stopOvers.add(stopover);
     }
     
@@ -31,7 +31,7 @@ public class Route
     ///////////////////////////////////////////////////////////////
     public void addEndPoint(Location beginLocation, LocalTime arrival) {
         
-        var stopover = new StopOver(beginLocation.getName(), arrival, null, beginLocation.getLatitude(), beginLocation.getLongitude());
+        StopOver stopover = new StopOver(beginLocation, arrival, null);
         stopOvers.add(stopover);
     }
 
@@ -61,12 +61,11 @@ public class Route
     }
 
 
-    public int getTripTime(Location comboA, Location comboB)
+    public int getTripTime()
     {
-        LocalTime timeA = getStopOver(comboA.getName()).getDeparture();
-        LocalTime timeB = getStopOver(comboB.getName()).getArrival();
-        int tripTime = (int) timeA.until(timeB, ChronoUnit.MINUTES);
-        
+        LocalTime departure = stopOvers.get(0).getDeparture();
+        LocalTime arrival = stopOvers.get(stopOvers.size() - 1).getArrival();
+        int tripTime = (int) departure.until(arrival, ChronoUnit.MINUTES);
         
         if (tripTime < 0)
         {
@@ -74,20 +73,6 @@ public class Route
         }
         
         return tripTime;
-    }
-    
-    
-    public StopOver getStopOver (String locationKey)
-    {
-        for (var h : stopOvers)
-        {
-            if (h.getName().equals(locationKey))
-            {
-                return h;
-            }
-        }
-
-        return null;
     }
     
     public double getDistance(Location start, Location destination)
