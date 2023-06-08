@@ -58,7 +58,7 @@ public class Trip {
         line = line.substring(0, 20) + toPrefix + line.substring(20 + toPrefix.length());
         line = fromPrefix + line.substring(fromPrefix.length()) + "\n";
         
-        String line2 = " ".repeat(24) + distancePrefix;
+        String line2 = " ".repeat(21) + distancePrefix;
         line2 = durationString + line2.substring(durationString.length()) + "\n";
         
         //System.out.println(line);

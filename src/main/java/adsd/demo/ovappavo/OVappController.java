@@ -164,7 +164,6 @@ public class OVappController {
    
    
    private void changeTripsOnDisplay(List<Trip> trips) {
-      System.out.println(trips + "tripsss");
       shownTrips = trips;
       ObservableList<TripDisplayCell> observableTripList;
       
