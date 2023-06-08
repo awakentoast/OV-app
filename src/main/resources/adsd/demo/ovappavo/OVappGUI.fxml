@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.canvas.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<SplitPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="adsd.demo.ovappavo.OVappController">
+<SplitPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="adsd.demo.ovappavo.OVappController">
     <items>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane prefHeight="1000.0" prefWidth="1920.0">
          <children>
             <MenuBar blendMode="MULTIPLY" cache="true" layoutX="960.0" layoutY="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                  <opaqueInsets>
@@ -60,6 +61,12 @@
 
             <ComboBox fx:id="destinationLocationsCombo" layoutX="316.0" layoutY="303.0" onAction="#onDestinationLocationsCombo" prefHeight="39.0" prefWidth="162.0" />
             <ComboBox fx:id="startLocationsCombo" layoutX="80.0" layoutY="303.0" onAction="#onStartLocationsCombo" prefHeight="39.0" prefWidth="162.0" />
+            <ComboBox fx:id="comboTransport" layoutX="80.0" layoutY="172.0" onHiding="#onTransportType" prefHeight="34.0" prefWidth="91.0" />
+            <ComboBox fx:id="hoursComboBox" layoutX="235.0" layoutY="172.0" onAction="#onComboHour" prefHeight="34.0" prefWidth="91.0" />
+            <ComboBox fx:id="minutesComboBox" layoutX="387.0" layoutY="172.0" onAction="#onComboMinutes" prefHeight="34.0" prefWidth="91.0" />
+            <ListView fx:id="tripDisplay" layoutX="582.0" layoutY="80.0" onMouseClicked="#tripSelected" prefHeight="800.0" prefWidth="600.0" />
+            <Canvas fx:id="mapDisplay" height="880.0" layoutX="1200.0" layoutY="80.0" width="700.0" />
+
             <Label layoutX="267.0" layoutY="314.0" text="----&gt;" />
 
             <Text fx:id="transportTypeText" layoutX="80.0" layoutY="160.0" text="%transportTypeLabel.text">
@@ -68,17 +75,11 @@
                </font>
             </Text>
 
-            <ComboBox fx:id="comboTransport" layoutX="80.0" layoutY="172.0" onHiding="#onTransportType" prefHeight="34.0" prefWidth="91.0" />
-            <ComboBox fx:id="hoursComboBox" layoutX="235.0" layoutY="172.0" onAction="#onComboHour" prefHeight="34.0" prefWidth="91.0" />
-            <ComboBox fx:id="minutesComboBox" layoutX="387.0" layoutY="172.0" onAction="#onComboMinutes" prefHeight="34.0" prefWidth="91.0" />
-
             <Button fx:id="planMyTripButton" layoutX="204.0" layoutY="411.0" mnemonicParsing="false" onAction="#onPlanMyTrip" prefHeight="42.0" prefWidth="153.0" text="%planMyTripButton.text">
                <font>
                   <Font name="Ebrima" size="14.0" />
                </font>
             </Button>
-
-            <ListView fx:id="tripDisplay" layoutX="582.0" layoutY="119.0" onMouseClicked="#tripSelected" prefHeight="424.0" prefWidth="600.0" />
 
             <Text fx:id="hourText" layoutX="266.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\%hourButtonText.text">
                <font>
@@ -98,15 +99,22 @@
                </font>
             </Text>
 
-            <Button fx:id="tripHistoryButton" layoutX="53.0" layoutY="501.0" mnemonicParsing="false" onMouseClicked="#onDisplayTripHistory" prefHeight="34.0" prefWidth="145.0" text="\%tripHistoryButton.text" />
-
-            <Button fx:id="addFavoriteTripButton" layoutX="360.0" layoutY="501.0" mnemonicParsing="false" onMouseClicked="#onAddFavoriteTripButton" prefHeight="34.0" prefWidth="145.0" text="\\%addFavoriteTripButton.text" textAlignment="CENTER">
+            <Button fx:id="tripHistoryButton" layoutX="53.0" layoutY="501.0" mnemonicParsing="false" onMouseClicked="#onDisplayTripHistory" prefHeight="34.0" prefWidth="145.0" text="%tripHistoryButton.text">
+                <font>
+                    <Font name="Ebrima" size="12.0" />
+                </font>
+            </Button>
+            <Button fx:id="addFavoriteTripButton" layoutX="360.0" layoutY="501.0" mnemonicParsing="false" onMouseClicked="#onAddFavoriteTripButton" prefHeight="34.0" prefWidth="145.0" text="\%addFavoriteTripButton.text" textAlignment="CENTER">
                <font>
                   <Font name="Ebrima" size="12.0" />
                </font>
             </Button>
              
-            <Button fx:id="retourButton" layoutX="236.0" layoutY="501.0" mnemonicParsing="false" onMouseClicked="#onRetourTrip" prefHeight="34.0" prefWidth="91.0" text="\\\%retourTripButton.text" />
+            <Button fx:id="retourButton" layoutX="236.0" layoutY="501.0" mnemonicParsing="false" onMouseClicked="#onRetourTrip" prefHeight="34.0" prefWidth="91.0" text="%retourTripButton.text">
+                <font>
+                    <Font name="Ebrima" size="12.0" />
+                </font>
+            </Button>
          </children>
       </AnchorPane>
     </items>

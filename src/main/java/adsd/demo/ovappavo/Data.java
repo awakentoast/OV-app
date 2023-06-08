@@ -15,10 +15,19 @@ public abstract class Data {
     public String[] getLocationNames() {
         String[] names = new String[locationMap.size()];
         int index = 0;
-        for (var e : locationMap.values()) {
-            names[index++] = e.getName();
+        for (String locationName : locationMap.keySet()) {
+            names[index++] = locationName;
         }
         return names;
+    }
+
+    public Location[] getLocations() {
+        Location[] locations = new Location[locationMap.size()];
+        int index = 0;
+        for (Location location : locationMap.values()) {
+            locations[index++] = location;
+        }
+        return locations;
     }
     
     

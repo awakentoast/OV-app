@@ -8,7 +8,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -68,6 +72,10 @@ public class OVappController {
    
    @FXML
    private ListView<TripDisplayCell> tripDisplay;
+
+   @FXML
+   private Canvas mapDisplay;
+   GraphicsContext mapDraw;
    
    
    
@@ -181,19 +189,22 @@ public class OVappController {
       setupCloseEvent();
       if (!tripListEmpty) {
          int tripIndex = tripDisplay.getSelectionModel().getSelectedIndex();
-         //if (tripIndex >= 0) {
-            Trip currentTrip = shownTrips.get(tripIndex);
-            if (favoriteTripsAreShown) {
-               changeTripsOnDisplay(data.getValidRoutes(currentTrip.getStart(), currentTrip.getDestination(), currentTrip.getDeparture()));
-               favoriteTripsAreShown = false;
-            } else {
-               tripHistory.addTrip(currentTrip);
-            }
-         //}
+         Trip currentTrip = shownTrips.get(tripIndex);
+         if (favoriteTripsAreShown) {
+            changeTripsOnDisplay(data.getValidRoutes(currentTrip.getStart(), currentTrip.getDestination(), currentTrip.getDeparture()));
+            favoriteTripsAreShown = false;
+         } else {
+            tripHistory.addTrip(currentTrip);
+
+            drawTrip();
+         }
       }
    }
 
 
+   private void drawTrip() {
+
+   }
    //perform the actions after stage.setOnCloseRequest() if plan my trip has been used or set favorite trip has been used
    private void setupCloseEvent() {
       if (!closeRequest) {
@@ -238,6 +249,8 @@ public class OVappController {
       Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1),e -> {time.oneSecondPassed(); timer.setText(time.getCurrentTime());} ));
       bundle = ResourceBundle.getBundle("languages", new Locale("nl"));
       changeTextOfFields();
+
+      mapDraw = mapDisplay.getGraphicsContext2D();
       
       trainData.setRoute();
       busData.setRoute();
@@ -268,6 +281,28 @@ public class OVappController {
       tripDisplay.setCellFactory(param -> new TripDisplayCellFactory());
       
       System.out.println("init TransportSelectorController done");
+
+      setupMap();
+   }
+
+   private void setupMap() {
+      mapDraw.drawImage(new Image("file:src/main/java/images/OVapp/123456789.png", mapDisplay.getWidth(), mapDisplay.getHeight(), true, true), 0, 0);
+      mapDraw.setFill(Color.BLACK);
+      mapDraw.setStroke(Color.BLACK);
+      mapDraw.strokeRect(0,0, mapDisplay.getWidth(), mapDisplay.getHeight());
+      //mapDraw.fillRect(280, 340, 10, 10);
+      //mapDraw.fillRect(330, 420, 10, 10);
+      drawAllPlaces();
+   }
+
+   private void drawAllPlaces() {
+      for (Location location : data.getLocations()) {
+         double x = location.getLocationX();
+         double y = mapDisplay.getHeight() - location.getLocationY();
+         System.out.println("Location: " + location.getName() + " x: " + (int) x + " y: " + (int) y);
+         mapDraw.fillRect(x, y, 10, 10);
+         mapDraw.strokeText(location.getName(), x, y);
+      }
    }
 
 
