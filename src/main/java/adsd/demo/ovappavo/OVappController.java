@@ -13,6 +13,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Stop;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -162,6 +164,7 @@ public class OVappController {
    
    
    private void changeTripsOnDisplay(List<Trip> trips) {
+      System.out.println(trips + "tripsss");
       shownTrips = trips;
       ObservableList<TripDisplayCell> observableTripList;
       
@@ -195,16 +198,19 @@ public class OVappController {
             favoriteTripsAreShown = false;
          } else {
             tripHistory.addTrip(currentTrip);
-
-            drawTrip();
+            drawTrip(currentTrip);
          }
       }
    }
 
 
-   private void drawTrip() {
-
+   private void drawTrip(Trip trip) {
+      setupMap();
+      mapDraw.setFill(Color.RED);
+      mapDraw.setStroke(Color.RED);
+      drawAllPlaces(trip.getLocationList(), true);
    }
+   
    //perform the actions after stage.setOnCloseRequest() if plan my trip has been used or set favorite trip has been used
    private void setupCloseEvent() {
       if (!closeRequest) {
@@ -288,24 +294,35 @@ public class OVappController {
    private void setupMap() {
       mapDraw.drawImage(new Image("file:src/main/java/images/OVapp/123456789.png", mapDisplay.getWidth(), mapDisplay.getHeight(), true, true), 0, 0);
       mapDraw.setFill(Color.BLACK);
-      mapDraw.setStroke(Color.BLACK);
-      mapDraw.strokeRect(0,0, mapDisplay.getWidth(), mapDisplay.getHeight());
-      //mapDraw.fillRect(280, 340, 10, 10);
-      //mapDraw.fillRect(330, 420, 10, 10);
-      drawAllPlaces();
+      drawAllPlaces(data.getLocations(), false);
    }
 
-   private void drawAllPlaces() {
-      for (Location location : data.getLocations()) {
+   private void drawAllPlaces(List<Location> locations, boolean drawLines) {
+      double previousX = 0;
+      double previousY = 0;
+      boolean firstLocation = true;
+      
+      for (Location location : locations) {
          double x = location.getLocationX();
          double y = mapDisplay.getHeight() - location.getLocationY();
-         System.out.println("Location: " + location.getName() + " x: " + (int) x + " y: " + (int) y);
+         
+         //System.out.println("Location: " + location.getName() + " x: " + (int) x + " y: " + (int) y);
+         
          mapDraw.fillRect(x, y, 10, 10);
-         mapDraw.strokeText(location.getName(), x, y);
+         mapDraw.setLineWidth(1);
+         mapDraw.strokeText(location.getName(), x - (location.getName().length() / 2.0) * 5, y - 3, 200);
+         
+         if (drawLines && !firstLocation) {
+            mapDraw.setLineWidth(2);
+            mapDraw.strokeLine(x + 5,y + 5, previousX + 5, previousY + 5);
+         }
+         previousX = x;
+         previousY = y;
+         
+         //this way we don't draw from 0,0 to the first location
+         firstLocation = false;
       }
    }
-
-
 
 
    public void setTime() {

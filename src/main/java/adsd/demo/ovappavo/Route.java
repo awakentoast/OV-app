@@ -5,6 +5,7 @@ import javafx.scene.control.TextArea;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Route
 {
@@ -14,24 +15,24 @@ public class Route
     ///////////////////////////////////////////////////////////////
     public Route(Location beginLocation, LocalTime departure )
     {
-        var stopover = new StopOver( beginLocation.getName(), null, departure );
-        stopOvers.add( stopover );
+        var stopover = new StopOver(beginLocation.getName(), null, departure, beginLocation.getLatitude(), beginLocation.getLongitude());
+        stopOvers.add(stopover);
     }
-
+    
     ///////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////
-    public void addStopOver( Location loc, LocalTime arrival, LocalTime departure )
-    {
-        var stopover = new StopOver( loc.getName(), arrival, departure );
-        stopOvers.add( stopover );
+    public void addStopOver(Location beginLocation, LocalTime arrival, LocalTime departure) {
+        
+        var stopover = new StopOver(beginLocation.getName(), arrival, departure, beginLocation.getLatitude(), beginLocation.getLongitude());
+        stopOvers.add(stopover);
     }
-
+    
     ///////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////
-    public void addEndPoint( Location loc, LocalTime arrival )
-    {
-        var stopover = new StopOver( loc.getName(), arrival, null );
-        stopOvers.add( stopover );
+    public void addEndPoint(Location beginLocation, LocalTime arrival) {
+        
+        var stopover = new StopOver(beginLocation.getName(), arrival, null, beginLocation.getLatitude(), beginLocation.getLongitude());
+        stopOvers.add(stopover);
     }
 
     ///////////////////////////////////////////////////////////////
@@ -53,6 +54,10 @@ public class Route
         key += stopOvers.get( 0 ).getDeparture();
 
         return key;
+    }
+    
+    public List<Location> getLocationList() {
+        return new ArrayList<>(stopOvers);
     }
 
 

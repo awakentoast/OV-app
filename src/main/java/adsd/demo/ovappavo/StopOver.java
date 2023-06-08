@@ -8,9 +8,9 @@ public class StopOver extends Location
     private final LocalTime departure;
 
 
-    public StopOver( String name,LocalTime arrival, LocalTime departure )
+    public StopOver( String name, LocalTime arrival, LocalTime departure, double latitude, double longitude)
     {
-        super(name);
+        super(name, latitude, longitude);
         this.arrival   = arrival;
         this.departure = departure;
     }

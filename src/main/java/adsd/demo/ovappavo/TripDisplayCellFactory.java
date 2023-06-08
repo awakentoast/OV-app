@@ -42,7 +42,7 @@ public class TripDisplayCellFactory extends ListCell<TripDisplayCell> {
     
     @Override
     protected void updateItem(TripDisplayCell tripDisplayCell, boolean empty) {
-        System.out.println(tripDisplayCell);
+        //System.out.println(tripDisplayCell);
         super.updateItem(tripDisplayCell, empty);
         
         gridPaneStart.getChildren().clear();

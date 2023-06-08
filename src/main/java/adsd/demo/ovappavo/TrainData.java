@@ -19,7 +19,7 @@ public class TrainData extends Data {
         location = new Location("Arnhem",51.985103,5.89873, false, true, true, true);
         locationMap.put(location.getName(), location);
         
-        location = new Location("Emmen",52.788937,6.8939, false, true, false, true);
+        location = new Location("Emmen",52.788937,6.6939, false, true, false, true);
         locationMap.put(location.getName(), location);
         
         location = new Location("Groningen",53.219065,6.568008, false, true, false, false);
@@ -31,7 +31,7 @@ public class TrainData extends Data {
         location = new Location("Maastricht",50.857985,5.696988, true, true, true, false);
         locationMap.put(location.getName(), location);
         
-        location = new Location("Nijmegen",51.844884,5.842828, true, true, true, true);
+        location = new Location("Nijmegen",51.844884,5.742828, true, true, true, true);
         locationMap.put(location.getName(), location);
         
         location = new Location("Rotterdam",51.922896,4.463173, false, true, true, true);
@@ -40,7 +40,7 @@ public class TrainData extends Data {
         location = new Location("Utrecht",52.080952,5.12768, false, true, false, false);
         locationMap.put(location.getName(), location);
         
-        location = new Location("Vlissingen",51.448093,3.569799, false, true, false, false);
+        location = new Location("Vlissingen",51.418093,3.579799, false, true, false, false);
         locationMap.put(location.getName(), location);
         
         location = new Location("Xanten",51.661519,6.45432, true, true, false, false);
@@ -57,10 +57,9 @@ public class TrainData extends Data {
             var route = new Route(locationMap.get("Haarlem"), departure);
             route.addStopOver(locationMap.get("Amsterdam"), LocalTime.of(hourTraject, 18), LocalTime.of(hourTraject, 23));
             route.addStopOver(locationMap.get("Utrecht"), LocalTime.of(hourTraject, 49), LocalTime.of(hourTraject, 51));
-            route.addStopOver(locationMap.get("Arnhem"), LocalTime.of(++hourTraject, 25), LocalTime.of(hourTraject, 27));
-            route.addStopOver(locationMap.get("Nijmegen"), LocalTime.of(hourTraject, 37), LocalTime.of(hourTraject, 39));
+            route.addStopOver(locationMap.get("Nijmegen"), LocalTime.of(hourTraject, 25), LocalTime.of(hourTraject, 27));
             hourTraject = hourTraject + 3;
-            route.addEndPoint(locationMap.get("Xanten"), LocalTime.of(hourTraject, 52));
+            route.addEndPoint(locationMap.get("Xanten"), LocalTime.of(hourTraject, 40));
             routeMap.put(route.getKey(), route);
         }
 

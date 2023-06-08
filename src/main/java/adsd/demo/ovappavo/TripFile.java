@@ -28,7 +28,7 @@ public class TripFile extends CustomFile {
     public Trip stringToTripFromFile(String tripString)
     {
         Data data;
-        String[] tripData = tripString.split("-");
+        String[] tripData = tripString.split(",");
 
         if (Objects.equals(tripData[5], "Train")) {
             data = new TrainData();
@@ -42,8 +42,13 @@ public class TripFile extends CustomFile {
         double distance = Double.parseDouble(tripData[3]);
         int duration = Integer.parseInt(tripData[4]);
         String transportType = tripData[5];
+        List<Location> locationList = new ArrayList<>();
+        
+        for (String locationString : tripData[6].split("-")) {
+            locationList.add(data.findLocation(locationString));
+        }
 
-        return new Trip(departure, begin, end, distance, duration, transportType);
+        return new Trip(departure, begin, end, distance, duration, transportType, locationList);
     }
     
     
@@ -52,6 +57,7 @@ public class TripFile extends CustomFile {
         
         for (Trip trip : allTrips) {
             data.append(trip.getStringForSaving()).append("\n");
+            System.out.println(data);
         }
         
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
@@ -63,6 +69,7 @@ public class TripFile extends CustomFile {
     }
 
     public void addTrip(Trip trip) {
+        System.out.println(trip);
         allTrips.add(trip);
     }
     public List<Trip> getAllTrips() {

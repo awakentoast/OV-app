@@ -4,6 +4,9 @@ import java.util.Objects;
 
 public class Location
 {
+    
+    Data data;
+    
     private final String name;
     private final double latitude;
     private final double longitude;
@@ -11,14 +14,12 @@ public class Location
     private double locationY = 0;
 
 
-
-    private boolean hasRamp;
-    private boolean hasToilet;
-    private boolean hasServiceEmployee;
-    private boolean hasAED;
-
-    private final String[] services = {"toilet.string", "EAD.string", "ramp.string", "serviceEmployee.string"};
-
+    private final boolean hasRamp;
+    private final boolean hasToilet;
+    private final boolean hasServiceEmployee;
+    private final boolean hasAED;
+    
+    
     public Location(String name, double latitude, double longitude)
     {
         this.name = name;
@@ -52,32 +53,19 @@ public class Location
         double y0 = 50.4871;
 
         double xStepDelta = 0.004967;
-        double yStepDelta = 0.003645;
+        double yStepDelta = 0.003545;
 
         if (Objects.equals(typeEarthLine, "longitude")) {
             return (earthLineValue - x0) / xStepDelta + 20;
         } else {
             return (earthLineValue - y0) / yStepDelta;
         }
-
-
     }
-
-    public Location (String name)
-    {
-       this.name = name;
-       latitude = getLatitude();
-       longitude = getLongitude();
-    }
+    
 
     public boolean[] getServices() {
         return new boolean[]{hasRamp, hasToilet, hasServiceEmployee, hasAED};
     }
-
-    public String[] getServiceStrings() {
-        return services;
-    }
-
 
     public String getName()
     {
