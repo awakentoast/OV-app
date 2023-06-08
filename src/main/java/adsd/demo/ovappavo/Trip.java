@@ -1,7 +1,8 @@
 package adsd.demo.ovappavo;
 
 import java.time.LocalTime;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Trip {
@@ -37,21 +38,31 @@ public class Trip {
     public String getStringForDisplay(ResourceBundle bundle) {
         int hours   = duration / 60;
         int minutes = duration % 60;
+
         String durationString = String.format("%d:%02d", hours, minutes);
+
+        String fromPrefix = bundle.getString("begin.string") + ": " + start.getName();
+        String toPrefix = bundle.getString("destination.string") + ": " + destination.getName();
+        String distancePrefix = bundle.getString("distance.string") + ": " + distance + " km";
+        String departurePrefix = bundle.getString("departure.string") + ": " + departure;
         
-        if (Objects.equals(bundle.getLocale().getLanguage(), "nl")) {
-            return String.format("Van: " + start.getName()) +
-                    String.format("%24s", "Vertrek: " + departure + "\n") +
-                    String.format("Tot: " + destination.getName()) +
-                    String.format("%27s", "Reisduur: " + durationString + "\n") +
-                    String.format("Afstand: " + distance + " km" + "\n");
-        } else {
-            return String.format("From: " + start.getName()) +
-                    String.format("%28s", "Departure: " + departure + "\n") +
-                    String.format("To: " + destination.getName()) +
-                    String.format("%32s", "Duration: " + durationString + "\n") +
-                    String.format("Distance: " + distance + " km" + "\n");
-        }
+        String servicesStart = bundle.getString("beginStationServices.string");
+        String servicesEnd = bundle.getString("endStationServices.string");
+        
+        durationString = bundle.getString("duration.string") + ": " + durationString;
+
+
+        String line = " ".repeat(85) + servicesEnd;
+        line = line.substring(0,50) + servicesStart + line.substring(50 + servicesStart.length());
+        line = line.substring(0, 20) + toPrefix + line.substring(20 + toPrefix.length());
+        line = fromPrefix + line.substring(fromPrefix.length()) + "\n";
+        
+        String line2 = " ".repeat(24) + distancePrefix;
+        line2 = durationString + line2.substring(durationString.length()) + "\n";
+        
+        System.out.println(line);
+        
+        return line + line2 + departurePrefix;
     }
     
     public String getStringForSaving() {
@@ -62,11 +73,5 @@ public class Trip {
                 duration + "-" +
                 transportType;
     }
-    
-//    public Trip getTripFromSave(String tripString) {
-//        Data dataHelper = new Data();
-//        String[] tripData = tripString.split("-");
-//        //return new Trip(LocalTime.of()tripData[2], new Location(tripData[0]), new Location(tripData[1]));
-//        return
-//    }
 }
+

@@ -31,18 +31,17 @@ public abstract class Data {
             String patternString = start.getName() + ".*?" + destination.getName();
             Pattern pattern = Pattern.compile(patternString);
             Matcher matcher = pattern.matcher(key);
-            var route = e.getValue();
+
             
             // Controleren of er een overeenkomst is gevonden
             while (matcher.find()) {
-                //String filteredRoute = matcher.group(0);
+                var route = e.getValue();
                 LocalTime departureTimeTrip = LocalTime.parse(key.split("\\|")[1]);
                 if (departureTimeTrip.isAfter(departure)) {
                     double distance = route.getDistance(start, destination);
                     distance = Math.round(distance * 100.0) / 100.0;
                     int duration = route.getTripTime(start, destination);
                     trips.add(new Trip(departureTimeTrip, start, destination, distance, duration, getTransportType()));
-                    //route.write(newComboA, newComboB, filteredRoute, time,textArea);
                 }
             }
         }

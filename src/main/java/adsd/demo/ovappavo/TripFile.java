@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class TripFile extends CustomFile {
-    protected List<Trip> allTrips = new ArrayList<>();
+    private final List<Trip> allTrips = new ArrayList<>();
     
-    protected TripFile(String filepath) {
+    public TripFile(String filepath) {
         super(filepath);
         readTripsFromFile();
     }
@@ -27,23 +27,22 @@ public class TripFile extends CustomFile {
     
     public Trip stringToTripFromFile(String tripString)
     {
-        Data dataHelper;
-        
-        if (Objects.equals(tripString.split("-")[5], "Train")) {
-            dataHelper = new TrainData();
-        } else {
-            dataHelper = new BusData();
-        }
-        
+        Data data;
         String[] tripData = tripString.split("-");
-        
+
+        if (Objects.equals(tripData[5], "Train")) {
+            data = new TrainData();
+        } else {
+            data = new BusData();
+        }
+
         LocalTime departure = LocalTime.parse(tripData[0]);
-        Location begin = dataHelper.findLocation(tripData[1]);
-        Location end = dataHelper.findLocation(tripData[2]);
+        Location begin = data.findLocation(tripData[1]);
+        Location end = data.findLocation(tripData[2]);
         double distance = Double.parseDouble(tripData[3]);
         int duration = Integer.parseInt(tripData[4]);
         String transportType = tripData[5];
-        
+
         return new Trip(departure, begin, end, distance, duration, transportType);
     }
     
@@ -62,7 +61,10 @@ public class TripFile extends CustomFile {
             e.printStackTrace();
         }
     }
-    
+
+    public void addTrip(Trip trip) {
+        allTrips.add(trip);
+    }
     public List<Trip> getAllTrips() {
         return allTrips;
     }

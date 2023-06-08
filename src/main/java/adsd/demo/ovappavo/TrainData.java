@@ -7,43 +7,43 @@ public class TrainData extends Data {
     
     public TrainData() {
         // === Train stations ===
-        var location = new Location("Abcoude",52.270281,4.971043);
+        var location = new Location("Abcoude",52.270281,4.971043, true, true, false, false);
         locationMap.put(location.getName(), location);
         
-        location = new Location("Amersfoort",52.15625,5.389694);
+        location = new Location("Amersfoort",52.15625,5.389694, true, true, true, false);
         locationMap.put(location.getName(), location);
         
-        location = new Location("Amsterdam",52.37276,4.893604);
+        location = new Location("Amsterdam",52.37276,4.893604, true, true, true, true);
         locationMap.put(location.getName(), location);
         
-        location = new Location("Arnhem",51.985103,5.89873);
+        location = new Location("Arnhem",51.985103,5.89873, false, true, true, true);
         locationMap.put(location.getName(), location);
         
-        location = new Location("Emmen",52.788937,6.8939);
+        location = new Location("Emmen",52.788937,6.8939, false, true, false, true);
         locationMap.put(location.getName(), location);
         
-        location = new Location("Groningen",53.219065,6.568008);
+        location = new Location("Groningen",53.219065,6.568008, false, true, false, false);
         locationMap.put(location.getName(), location);
         
-        location = new Location("Haarlem",52.388532,4.638805);
+        location = new Location("Haarlem",52.388532,4.638805, true, true, false, false);
         locationMap.put(location.getName(), location);
         
-        location = new Location("Maastricht",50.857985,5.696988);
+        location = new Location("Maastricht",50.857985,5.696988, true, true, true, false);
         locationMap.put(location.getName(), location);
         
-        location = new Location("Nijmegen",51.844884,5.842828);
+        location = new Location("Nijmegen",51.844884,5.842828, true, true, true, true);
         locationMap.put(location.getName(), location);
         
-        location = new Location("Rotterdam",51.922896,4.463173);
+        location = new Location("Rotterdam",51.922896,4.463173, false, true, true, true);
         locationMap.put(location.getName(), location);
         
-        location = new Location("Utrecht",52.080952,5.12768);
+        location = new Location("Utrecht",52.080952,5.12768, false, true, false, false);
         locationMap.put(location.getName(), location);
         
-        location = new Location("Vlissingen",51.448093,3.569799);
+        location = new Location("Vlissingen",51.448093,3.569799, false, true, false, false);
         locationMap.put(location.getName(), location);
         
-        location = new Location("Xanten",51.661519,6.45432);
+        location = new Location("Xanten",51.661519,6.45432, true, true, false, false);
         locationMap.put(location.getName(), location);
         
     }
