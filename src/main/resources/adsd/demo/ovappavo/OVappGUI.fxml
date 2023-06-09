@@ -93,7 +93,7 @@
                </font>
             </Text>
 
-            <Text fx:id="timer" layoutX="756.0" layoutY="107.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="12:34:56" textAlignment="CENTER" wrappingWidth="134.03222656249994">
+            <Text fx:id="timer" layoutX="200.0" layoutY="92.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="12:34:56" textAlignment="CENTER" wrappingWidth="134.03222656249994">
                <font>
                   <Font name="Ebrima" size="30.0" />
                </font>
