@@ -15,10 +15,16 @@ public abstract class Data {
     public String[] getLocationNames() {
         String[] names = new String[locationMap.size()];
         int index = 0;
-        for (var e : locationMap.values()) {
-            names[index++] = e.getName();
+        for (String locationName : locationMap.keySet()) {
+            names[index++] = locationName;
         }
         return names;
+    }
+
+    public List<Location> getLocations() {
+        List<Location> locationList = new ArrayList<>(locationMap.size());
+        locationList.addAll(locationMap.values());
+        return locationList;
     }
     
     
@@ -35,13 +41,14 @@ public abstract class Data {
             
             // Controleren of er een overeenkomst is gevonden
             while (matcher.find()) {
-                var route = e.getValue();
+                Route route = e.getValue();
                 LocalTime departureTimeTrip = LocalTime.parse(key.split("\\|")[1]);
                 if (departureTimeTrip.isAfter(departure)) {
                     double distance = route.getDistance(start, destination);
                     distance = Math.round(distance * 100.0) / 100.0;
-                    int duration = route.getTripTime(start, destination);
-                    trips.add(new Trip(departureTimeTrip, start, destination, distance, duration, getTransportType()));
+                    int duration = route.getTripTime();
+                    List<Location> locationList = route.getLocationList();
+                    trips.add(new Trip(departureTimeTrip, start, destination, distance, duration, getTransportType(), locationList));
                 }
             }
         }
