@@ -11,8 +11,11 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.control.Tooltip;
 import javafx.scene.paint.Stop;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -20,6 +23,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.scene.Node;
 import javafx.util.Duration;
+
 
 
 import java.time.LocalTime;
@@ -288,6 +292,44 @@ public class OVappController {
       System.out.println("init TransportSelectorController done");
 
       setupMap();
+
+      Tooltip tripHistoryTooltip = new Tooltip("bekijk hier je reisgeschiedenis");
+      tripHistoryButton.setTooltip(tripHistoryTooltip);
+
+      Tooltip addFavoriteTooltip = new Tooltip("voeg via hier je favoriete reis");
+      addFavoriteTripButton.setTooltip(addFavoriteTooltip);
+
+      Tooltip retourTooltip = new Tooltip("plan met dit knop je terug reis");
+      retourButton.setTooltip(retourTooltip);
+
+      Tooltip planmytripTooltip = new Tooltip("Plan met dit knop je reis");
+      planMyTripButton.setTooltip(planmytripTooltip);
+
+      Tooltip switchLanguageTooltip = new Tooltip("verander hier de taal");
+      switchLanguageButton.setTooltip(switchLanguageTooltip);
+
+      Tooltip getFavoriteTripTooltip = new Tooltip("druk hier op om je favoriete reizen te zien");
+      getFavoriteTripButton.setTooltip(getFavoriteTripTooltip);
+
+      Tooltip toggleDarkModeTooltip = new Tooltip("verander het naar donkere modus");
+      toggleDarkModeButton.setTooltip(toggleDarkModeTooltip);
+
+      Tooltip tooltip = new Tooltip("kies met dit knop een begin locatie");
+      startLocationsCombo.setTooltip(tooltip);
+
+      Tooltip destinationTooltip = new Tooltip("kies met dit knop je eind locatie");
+      destinationLocationsCombo.setTooltip(destinationTooltip);
+
+      Tooltip minutesTooltip = new Tooltip("kies met dit knop hoelaat je wilt vertrekken");
+      minutesComboBox.setTooltip(minutesTooltip);
+
+      Tooltip hoursTooltip = new Tooltip("kies met dit knop hoelaat je wilt vertrekken");
+      hoursComboBox.setTooltip(hoursTooltip);
+
+      Tooltip transportTooltip = new Tooltip("kies met dit knop je vervoer type");
+      comboTransport.setTooltip(transportTooltip);
+
+
    }
 
    private void setupMap() {
