@@ -299,10 +299,10 @@ public class OVappController {
       Tooltip addFavoriteTooltip = new Tooltip("voeg via hier je favoriete reis");
       addFavoriteTripButton.setTooltip(addFavoriteTooltip);
 
-      Tooltip retourTooltip = new Tooltip("plan met dit knop je terug reis");
+      Tooltip retourTooltip = new Tooltip("plan met deze knop je terug reis");
       retourButton.setTooltip(retourTooltip);
 
-      Tooltip planmytripTooltip = new Tooltip("Plan met dit knop je reis");
+      Tooltip planmytripTooltip = new Tooltip("Plan met deze knop je reis");
       planMyTripButton.setTooltip(planmytripTooltip);
 
       Tooltip switchLanguageTooltip = new Tooltip("verander hier de taal");
@@ -314,19 +314,19 @@ public class OVappController {
       Tooltip toggleDarkModeTooltip = new Tooltip("verander het naar donkere modus");
       toggleDarkModeButton.setTooltip(toggleDarkModeTooltip);
 
-      Tooltip tooltip = new Tooltip("kies met dit knop een begin locatie");
+      Tooltip tooltip = new Tooltip("kies met deze knop een begin locatie");
       startLocationsCombo.setTooltip(tooltip);
 
-      Tooltip destinationTooltip = new Tooltip("kies met dit knop je eind locatie");
+      Tooltip destinationTooltip = new Tooltip("kies met deze knop je eind locatie");
       destinationLocationsCombo.setTooltip(destinationTooltip);
 
-      Tooltip minutesTooltip = new Tooltip("kies met dit knop hoelaat je wilt vertrekken");
+      Tooltip minutesTooltip = new Tooltip("kies met deze knop hoelaat je wilt vertrekken");
       minutesComboBox.setTooltip(minutesTooltip);
 
-      Tooltip hoursTooltip = new Tooltip("kies met dit knop hoelaat je wilt vertrekken");
+      Tooltip hoursTooltip = new Tooltip("kies met deze knop hoelaat je wilt vertrekken");
       hoursComboBox.setTooltip(hoursTooltip);
 
-      Tooltip transportTooltip = new Tooltip("kies met dit knop je vervoer type");
+      Tooltip transportTooltip = new Tooltip("kies met deze knop je vervoer type");
       comboTransport.setTooltip(transportTooltip);
 
 
