@@ -1,6 +1,7 @@
 package adsd.demo.ovappavo;
 
 import javafx.scene.control.TextArea;
+import javafx.scene.paint.Stop;
 
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
@@ -26,11 +27,14 @@ public class Route
         StopOver stopover = new StopOver(beginLocation, arrival, departure);
         stopOvers.add(stopover);
     }
+
+    public void addStopOver(StopOver stopOver) {
+        stopOvers.add(stopOver);
+    }
     
     ///////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////
     public void addEndPoint(Location beginLocation, LocalTime arrival) {
-        
         StopOver stopover = new StopOver(beginLocation, arrival, null);
         stopOvers.add(stopover);
     }
@@ -60,19 +64,41 @@ public class Route
         return new ArrayList<>(stopOvers);
     }
 
+    public Route getSubRoute(int startIndex, int endIndex, boolean reversed) {
+        StopOver stopOver = stopOvers.get(startIndex);
+
+        Route route;
+
+        if (!reversed) {
+            route = new Route(stopOver, stopOver.getDeparture());
+
+            startIndex++;
+            for (; startIndex < endIndex; startIndex++) {
+                route.addStopOver(stopOvers.get(startIndex));
+            }
+
+            route.addEndPoint(stopOvers.get(startIndex), stopOvers.get(startIndex).getArrival());
+        } else {
+            route = new Route(stopOver, stopOver.getArrival());
+
+            startIndex--;
+            for (; startIndex > endIndex; startIndex--) {
+                route.addStopOver(stopOvers.get(startIndex));
+            }
+
+            route.addEndPoint(stopOvers.get(startIndex), stopOvers.get(startIndex).getDeparture());
+        }
+        return route;
+    }
+
 
     public int getTripTime()
     {
         LocalTime departure = stopOvers.get(0).getDeparture();
         LocalTime arrival = stopOvers.get(stopOvers.size() - 1).getArrival();
-        int tripTime = (int) departure.until(arrival, ChronoUnit.MINUTES);
-        
-        if (tripTime < 0)
-        {
-            throw new IllegalArgumentException("Het aantal minuten moet een positieve waarde zijn.");
-        }
-        
-        return tripTime;
+
+        //if it's a reverse trip the time is negative
+        return Math.abs((int) departure.until(arrival, ChronoUnit.MINUTES));
     }
     
     public double getDistance(Location start, Location destination)
@@ -101,6 +127,5 @@ public class Route
         String message = "Dit is een bericht vanuit de Route";
         textArea.setText(message + "\n");
     }
-
 }
 

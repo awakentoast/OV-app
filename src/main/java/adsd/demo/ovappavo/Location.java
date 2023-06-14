@@ -4,7 +4,6 @@ import java.util.Objects;
 
 public class Location
 {
-    
     Data data;
     
     private final String name;

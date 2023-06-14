@@ -1,10 +1,7 @@
 package adsd.demo.ovappavo;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,17 +29,40 @@ public abstract class Data {
         List<Trip> trips = new ArrayList<>();
         
         for (var e : routeMap.entrySet()) {
-            String key = e.getKey();
-            
-            String patternString = start.getName() + ".*?" + destination.getName();
-            Pattern pattern = Pattern.compile(patternString);
-            Matcher matcher = pattern.matcher(key);
+//            String patternString = start.getName() + ".*?" + destination.getName();
+//            Pattern pattern = Pattern.compile(patternString);
+//            Matcher matcher = pattern.matcher(key);
+//            while (matcher.find()) {}
 
-            
-            // Controleren of er een overeenkomst is gevonden
-            while (matcher.find()) {
-                Route route = e.getValue();
+            String key = e.getKey();
+            String stringRoute = e.getKey().split("\\|")[0];
+            Route route = e.getValue();
+            String[] locationStrings = stringRoute.split("-");
+
+            int startIndex = -1;
+            int endIndex = -1;
+
+            for (int index = 0; index < locationStrings.length; index++) {
+                if (Objects.equals(locationStrings[index], start.getName())) {
+                    startIndex = index;
+                }
+                else if (Objects.equals(locationStrings[index], destination.getName())) {
+                    endIndex = index;
+                }
+            }
+
+            //both locations are found in route
+            if (startIndex >= 0 && endIndex >= 0) {
+                if (startIndex > endIndex) {
+                    route = route.getSubRoute(startIndex, endIndex, true);
+                }
+                if (endIndex > startIndex) {
+                    route = route.getSubRoute(startIndex, endIndex, false);
+                }
+                System.out.println(route);
+
                 LocalTime departureTimeTrip = LocalTime.parse(key.split("\\|")[1]);
+
                 if (departureTimeTrip.isAfter(departure)) {
                     double distance = route.getDistance(start, destination);
                     distance = Math.round(distance * 100.0) / 100.0;
@@ -52,6 +72,7 @@ public abstract class Data {
                 }
             }
         }
+
         return trips;
     }
     

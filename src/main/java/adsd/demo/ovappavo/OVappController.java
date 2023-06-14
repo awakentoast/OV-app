@@ -11,13 +11,9 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import javafx.scene.control.Tooltip;
-import javafx.scene.paint.Stop;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -170,6 +166,7 @@ public class OVappController {
    private void changeTripsOnDisplay(List<Trip> trips) {
       shownTrips = trips;
       ObservableList<TripDisplayCell> observableTripList;
+      System.out.println(trips + " " +  trips.size());
       
       if (shownTrips.isEmpty()) {
          observableTripList = FXCollections.observableArrayList(new TripDisplayCell(bundle.getString("noTripsAreFound.string")));
@@ -333,8 +330,10 @@ public class OVappController {
    }
 
    private void setupMap() {
-      mapDraw.drawImage(new Image("file:src/main/java/images/OVapp/123456789.png", mapDisplay.getWidth(), mapDisplay.getHeight(), true, true), 0, 0);
+      mapDraw.clearRect(0,0, mapDisplay.getWidth(), mapDisplay.getHeight());
+      mapDraw.drawImage(new Image("file:src/main/java/images/OVapp/mapNetherlands.png", mapDisplay.getWidth(), mapDisplay.getHeight(), true, true), 0, 0);
       mapDraw.setFill(Color.BLACK);
+      mapDraw.setStroke(Color.BLACK);
       drawAllPlaces(data.getLocations(), false);
    }
 
@@ -344,6 +343,7 @@ public class OVappController {
       boolean firstLocation = true;
       
       for (Location location : locations) {
+         //System.out.println(location.getName());
          double x = location.getLocationX();
          double y = mapDisplay.getHeight() - location.getLocationY();
          
