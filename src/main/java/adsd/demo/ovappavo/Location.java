@@ -73,11 +73,11 @@ public class Location
     public double getLatitude( ){return latitude;}
     public double getLongitude(){return longitude;}
 
-    public double getLocationX() {
+    public double getX() {
         return locationX;
     }
 
-    public double getLocationY() {
+    public double getY() {
         return locationY;
     }
 

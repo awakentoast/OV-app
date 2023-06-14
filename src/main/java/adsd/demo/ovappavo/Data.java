@@ -24,6 +24,14 @@ public abstract class Data {
         return locationList;
     }
     
+    public Set<String> getRouteStrings() {
+        Set<String> routeSet = new HashSet<>();
+        for (String route : routeMap.keySet()) {
+            routeSet.add(route.split("\\|")[0]);
+        }
+        return routeSet;
+    }
+    
     
     public List<Trip> getValidRoutes(Location start, Location destination, LocalTime departure) {
         List<Trip> trips = new ArrayList<>();
