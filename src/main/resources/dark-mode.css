@@ -5,7 +5,7 @@ https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html
 */
 
 .root {
-    -fx-background-color: #000000;
+    -fx-background-color: #1F1F1F;
     -fx-text-fill: #ffffff;
 }
 
@@ -15,15 +15,15 @@ https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html
 }
 
 .text-field {
-    -fx-background-color: #000000;
+    -fx-background-color: #1F1F1F;
     -fx-text-fill: #ffffff;
 }
 .text-area{
-    -fx-background-color: #000000;
+    -fx-background-color: #1F1F1F;
     -fx-text-fill: #ffffff;
 }
 .list-view{
-    -fx-background-color: #000000;
+    -fx-background-color: #1F1F1F;
     -fx-text-fill: #ffffff;
 }
 .combo-box{
