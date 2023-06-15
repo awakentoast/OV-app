@@ -1,14 +1,14 @@
-format: Location-latitude-longitude
-Abcoude-52.270281-4.971043
-Amersfoort-52.152625-5.389694
-Amsterdam-52.37276-4.893604
-Arnhem-51.985103-5.89873
-Emmen-52.788939-6.6939
-Groningen-53.219065-6.568008
-Haarlem-52.388532-4.638805
-Maastricht-50.857985-5.696988
-Nijmegen-51.844884-5.742828
-Rotterdam-51.922896-4.463173
-Utrecht-52.080952-5.12768
-Vlissingen-51.418093-3.579799
-Xanten-51.661519-6.4532
+format: Location-latitude-longitude-has a ramp(true or false)-has a toilet(true or false)-has service employee(true or false)-has an AED(true or false)
+Abcoude-52.270281-4.971043-true-true-false-false
+Amersfoort-52.152625-5.389694-true-true-true- false
+Amsterdam-52.37276-4.893604-true-true-true-true
+Arnhem-51.985103-5.89873-false-true-true-true
+Emmen-52.788939-6.6939-false-true-false-true
+Groningen-53.219065-6.568008-false-true-false-false
+Haarlem-52.388532-4.638805-true-true-false-false
+Maastricht-50.857985-5.696988-true-true-true-false
+Nijmegen-51.844884-5.742828-true-true-true-true
+Rotterdam-51.922896-4.463173-false-true-true-true
+Utrecht-52.080952-5.12768-false-true-false-false
+Vlissingen-51.418093-3.579799-false-true-false-false
+Xanten-51.661519-6.4532-true-true-false-false

@@ -1,28 +1,26 @@
 package adsd.demo.ovappavo;
 
-import java.time.LocalTime;
-import java.util.Map;
-
 public class BusData extends Data {
-
-
-    public BusData() {
+    
+    private static BusData busdata;
+    private BusData() {
+        locationFile = new LocationFile("src/main/resources/data/busLocationData.txt");
         locationMap = locationFile.getLocations();
-        routeMap = routeFile.getRoutes();
+        routeFile = new RouteFile("src/main/resources/data/busRouteData.txt");
+        routeMap = routeFile.getRoutes(locationMap);
+    }
+    
+    //singleton pattern, so we don't load the files multiple times
+    public static BusData getBusDataInstance() {
+        if (busdata == null) {
+            busdata = new BusData();
+        }
+        return busdata;
     }
     
     @Override
     public Location findLocation(String locationName) {
-        Location foundLocation;
-        for (Map.Entry<String, Location> entry : locationMap.entrySet()) {
-            Location location = entry.getValue();
-            
-            if (location.getName().equals(locationName)) {
-                foundLocation = location;
-                return foundLocation;
-            }
-        }
-        return null;
+        return locationMap.get(locationName);
     }
     
     @Override

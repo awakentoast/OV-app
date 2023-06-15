@@ -86,8 +86,8 @@ public class OVappController {
    
    
    private Data data;
-   private BusData busData;
-   private TrainData trainData;
+   private final TrainData trainData = TrainData.getTrainDataInstance();
+   private final BusData busData = BusData.getBusDataInstance();
    
    
    private final Time time = new Time();
@@ -95,11 +95,6 @@ public class OVappController {
    
    private final TripFile tripHistory = new TripFile("src/main/resources/data/tripHistory.txt");
    private final TripFile favoriteTrip = new TripFile("src/main/resources/data/favoriteTrips.txt");
-   private final LocationFile trainLocationDataFile = new LocationFile("src/main/resources/data/trainLocationData.txt");
-   private final LocationFile busLocationDataFile = new LocationFile("src/main/resources/data/busLocationData.txt");
-   private final RouteFile trainRouteDataFile = new RouteFile("src/main/resources/data/trainRouteData.txt");
-   private final RouteFile busRouteDataFile = new RouteFile("src/main/resources/data/busRouteData.txt");
-
    
    private ResourceBundle bundle;
    private ObservableList<String> locationList;
@@ -131,23 +126,27 @@ public class OVappController {
 
    @FXML
    protected void onTransportType() {
-      if (Objects.equals(bundle.getString("transportTypeComboBox.StringArray").split(",")[1], comboTransport.getValue())) {
+      if (Objects.equals(bundle.getString("transportTypeComboBox.StringArray").split(",")[0], comboTransport.getValue())) {
          data = trainData;
          String[] trainLocations = trainData.getLocationNames();
          locationList = FXCollections.observableArrayList(trainLocations);
       }
 
-      if (comboTransport.getValue().equals("Bus")) {
+      else {
          data = busData;
          String[] busLocations = busData.getLocationNames();
          locationList = FXCollections.observableArrayList(busLocations);
       }
-
+      
       startLocationsCombo.setItems(locationList);
-      startLocationsCombo.getSelectionModel().select(0); // i.e. "Amsterdam"
+      startLocationsCombo.getSelectionModel().select(0);
       
       destinationLocationsCombo.setItems(locationList);
       destinationLocationsCombo.getSelectionModel().select(destinationLocationsCombo.getItems().size() - 1);
+      
+      //draws the map with the locations of the other type
+      setupMap();
+      
       System.out.print("OVappController.onTransportChange:");
       System.out.println(comboTransport.getValue());
    }
@@ -167,9 +166,10 @@ public class OVappController {
    
    
    private void changeTripsOnDisplay(List<Trip> trips) {
+      //sets the values of shownTrips so the corresponding item in the listView will select the correct trip
       shownTrips = trips;
       ObservableList<TripDisplayCell> observableTripList;
-      System.out.println(trips + " " +  trips.size());
+      //System.out.println(trips + " " +  trips.size());
       
       if (shownTrips.isEmpty()) {
          observableTripList = FXCollections.observableArrayList(new TripDisplayCell(bundle.getString("noTripsAreFound.string")));
@@ -208,7 +208,9 @@ public class OVappController {
 
 
    private void drawTrip(Trip trip) {
+      //reset the map before drawing new route
       setupMap();
+      
       mapDraw.setFill(Color.RED);
       mapDraw.setStroke(Color.RED);
       drawLocations(trip.getLocationList(), true);
@@ -245,6 +247,7 @@ public class OVappController {
    
    @FXML
    private void onRetourTrip() {
+      //switches the locations in the 2 boxes
       int beginIndex = startLocationsCombo.getSelectionModel().getSelectedIndex();
       startLocationsCombo.getSelectionModel().select(destinationLocationsCombo.getSelectionModel().getSelectedIndex());
       destinationLocationsCombo.getSelectionModel().select(beginIndex);
@@ -255,26 +258,22 @@ public class OVappController {
 
    // Important method to initialize this Controller object!!!
    public void initialize() {
+      //for the timer
       Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1),e -> {time.oneSecondPassed(); timer.setText(time.getCurrentTime());} ));
+      
+      //loads all the translations
       bundle = ResourceBundle.getBundle("languages", new Locale("nl"));
       changeTextOfFields();
-
-
-
-      trainRouteDataFile.provideRouteMap()
+      
       mapDraw = mapDisplay.getGraphicsContext2D();
       
-      trainData.setRoute();
-      busData.setRoute();
       data = trainData;
 
-      comboTransport.getSelectionModel().select(1);
+      String[] locations = data.getLocationNames();
 
-      System.out.println("init TransportSelectorController ...");
-
-      String[] trainLocations = trainData.getLocationNames();
-
-      locationList = FXCollections.observableArrayList(trainLocations);
+      locationList = FXCollections.observableArrayList(locations);
+      
+      comboTransport.getSelectionModel().select(0);
 
       startLocationsCombo.setItems(locationList);
       startLocationsCombo.getSelectionModel().select(0); // i.e. "Amsterdam"
@@ -282,32 +281,28 @@ public class OVappController {
       destinationLocationsCombo.setItems(locationList);
       destinationLocationsCombo.getSelectionModel().select(destinationLocationsCombo.getItems().size() - 1);
 
+      setTime();
+      
       timer.setText(time.getCurrentTime());
-
       timeline.setCycleCount(Animation.INDEFINITE);
       timeline.play();
 
-      setTime();
-
-
       //Sets the generation of each field in listView to that of updateItem in TripDisplayCellFactory
       tripDisplay.setCellFactory(param -> new TripDisplayCellFactory());
-      
-      System.out.println("init TransportSelectorController done");
 
       addAllToolTips();
       
       setupMap();
-
-      busData = new BusData();
-      trainData = new TrainData();
+      System.out.println("init done");
    }
 
    private void setupMap() {
       mapDraw.clearRect(0,0, mapDisplay.getWidth(), mapDisplay.getHeight());
-      mapDraw.drawImage(new Image("file:src/main/java/images/OVapp/mapNetherlands.png", mapDisplay.getWidth(), mapDisplay.getHeight(), true, true), 0, 0);
+      mapDraw.drawImage(new Image("file:src/main/resources/images/map_netherlands.png", mapDisplay.getWidth(), mapDisplay.getHeight(), true, true), 0, 0);
+      
       mapDraw.setFill(Color.BLACK);
       mapDraw.setStroke(Color.BLACK);
+      
       drawLocations(data.getLocations(), false);
       drawLinesBetweenPlacesWithRoutes();
    }
@@ -344,10 +339,10 @@ public class OVappController {
    private void drawLinesBetweenPlacesWithRoutes() {
       mapDraw.setLineWidth(2);
       Set<String> routeSet = data.getRouteStrings();
-      System.out.println(routeSet);
+      //System.out.println(routeSet);
       
       for (String routeString : routeSet) {
-         System.out.println(routeString);
+         //System.out.println(routeString);
          String[] routeList = routeString.split("-");
          for (int i = 0; i < routeList.length - 1; i++) {
             Location location1 = data.findLocation(routeList[i]);
@@ -426,9 +421,7 @@ public class OVappController {
          bundle = ResourceBundle.getBundle("languages", new Locale("en"));
       }
       changeTextOfFields();
-      if (!shownTrips.isEmpty()) {
-         changeTripsOnDisplay(shownTrips);
-      }
+      changeTripsOnDisplay(shownTrips);
    }
 
    private void changeTextOfField(Labeled label, String key) {
@@ -443,6 +436,7 @@ public class OVappController {
       label.setText(bundle.getString(key).split(",")[index]);
    }
 
+   //this will preserve the box that was selected upon switching languages
    private void changeObservableListText(ComboBox<String> comboBox, String key) {
       int index = comboBox.getSelectionModel().getSelectedIndex();
 

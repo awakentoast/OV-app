@@ -1,0 +1,23 @@
+format:
+vetrekpunt(plaatsnaam)-00:00(vertrektijd)
+#tussentstop(plaatsnaam)-01:30(aankosmttijd)-02:01(vertrektijd)
+aankostpunt(plaatsnaam)-23:59(aankomsttijd)
+interval ritten(minuten)
+
+Spakenburg-07:00
+Amersfoort-07:22-07:24
+Soesterberg-07:35-07:36
+Rijnsweerd-07:53
+50
+
+Zeist-07:30
+Utrecht-08:00-08:02
+Rijnsweerd-08:24-08:25
+De Bilt-08:55-08:56
+Bilthoven-09:06
+80
+
+Spakenburg-07:00
+Amersfoort-07:20-07:22
+Utrecht-07:55
+30

@@ -2,11 +2,11 @@ package adsd.demo.ovappavo;
 
 import java.io.*;
 
-public class CustomFile {
+public class FileHandler {
     
     protected File file;
     
-    protected CustomFile(String filepath) {
+    protected FileHandler(String filepath) {
         file = new File(filepath);
         try {
             if (file.createNewFile()) {
@@ -22,7 +22,7 @@ public class CustomFile {
     }
     
     protected String read() {
-        //check for null when calling read()
+        //check for empty file
         if (file.length() != 0) {
             StringBuilder data = new StringBuilder();
             

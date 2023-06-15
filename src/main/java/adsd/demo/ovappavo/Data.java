@@ -9,7 +9,6 @@ public abstract class Data {
 
     protected Map<String, Location> locationMap = new TreeMap<>();
     protected Map<String, Route> routeMap = new TreeMap<>();
-
     
     public String[] getLocationNames() {
         String[] names = new String[locationMap.size()];

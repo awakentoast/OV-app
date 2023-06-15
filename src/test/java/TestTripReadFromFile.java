@@ -1,18 +1,16 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import adsd.demo.ovappavo.*;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 class TestTripReadFromFile {
 
     TripFile tripFile = new TripFile("src/main/java/adsd/demo/ovappavo/tripHistory.txt");
-    Data data = new TrainData();
+    Data data = TrainData.getTrainDataInstance();
 
     @Test
     @DisplayName("parse of text of trip")

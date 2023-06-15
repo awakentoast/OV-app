@@ -9,10 +9,10 @@ public class TripDisplayCell {
     private final String displayString;
     private List<Image> iconsStart = new ArrayList<>();
     private List<Image> iconsEnd = new ArrayList<>();
-    private final String[] iconPaths = {"src/main/java/images/OVapp/rampIcon.png",
-            "src/main/java/images/OVapp/toiletIcon.jpg",
-            "src/main/java/images/OVapp/serviceEmployeeIcon.png",
-            "src/main/java/images/OVapp/AEDIcon.jpeg"};
+    private final String[] iconPaths = {"src/main/resources/images/ramp_icon.png",
+            "src/main/resources/images/toilet_icon.jpg",
+            "src/main/resources/images/service_employee.png",
+            "src/main/resources/images/AEDIcon.jpeg"};
 
     public TripDisplayCell(String displayString, boolean[] iconsStart, boolean[] iconsEnd) {
         this.displayString = displayString;

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class TripFile extends CustomFile {
+public class TripFile extends FileHandler {
     private final List<Trip> allTrips = new ArrayList<>();
     
     public TripFile(String filepath) {
@@ -30,9 +30,9 @@ public class TripFile extends CustomFile {
         String[] tripData = tripString.split(",");
 
         if (Objects.equals(tripData[5], "Train")) {
-            data = new TrainData();
+            data = TrainData.getTrainDataInstance();
         } else {
-            data = new BusData();
+            data = BusData.getBusDataInstance();
         }
 
         LocalTime departure = LocalTime.parse(tripData[0]);
