@@ -10,7 +10,7 @@ import java.util.List;
 class TestTripReadFromFile {
 
     TripFile tripFile = new TripFile("src/main/java/adsd/demo/ovappavo/tripHistory.txt");
-    Data data = TrainData.getTrainDataInstance();
+    TrainData data = TrainData.getTrainDataInstance();
 
     @Test
     @DisplayName("parse of text of trip")

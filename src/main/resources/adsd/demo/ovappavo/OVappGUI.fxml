@@ -22,7 +22,7 @@
                     <items>
                         <MenuItem mnemonicParsing="false">
                             <graphic>
-                                <Button fx:id="toggleDarkModeButton" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#toggleDarkMode" text="%toggleDarkModeButton.StringArray" textAlignment="JUSTIFY">
+                                <Button fx:id="toggleHighContrast" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#toggleHighContrast" focusTraversable="false" text="%toggleHighContrast.StringArray" textAlignment="JUSTIFY" textOverrun="CLIP">
                                     <font>
                                         <Font name="Arial Nova Cond" size="25.0" />
                                     </font>
@@ -34,7 +34,7 @@
                         </MenuItem>
                         <MenuItem mnemonicParsing="false">
                             <graphic>
-                                <Button fx:id="switchLanguageButton" alignment="CENTER" contentDisplay="TEXT_ONLY" focusTraversable="false" mnemonicParsing="false" onAction="#onSwitchLanguage" text="%switchLanguageButton.text" textAlignment="CENTER" textOverrun="CLIP">
+                                <Button fx:id="switchLanguageButton" alignment="CENTER" contentDisplay="TEXT_ONLY" mnemonicParsing="false" onAction="#onSwitchLanguage" focusTraversable="false"  text="%switchLanguageButton.text" textAlignment="CENTER" textOverrun="CLIP">
                                     <font>
                                         <Font name="Arial Nova Cond" size="25.0" />
                                     </font>

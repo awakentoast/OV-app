@@ -10,5 +10,5 @@ Maastricht-50.857985-5.696988-true-true-true-false
 Nijmegen-51.844884-5.742828-true-true-true-true
 Rotterdam-51.922896-4.463173-false-true-true-true
 Utrecht-52.080952-5.12768-false-true-false-false
-Vlissingen-51.418093-3.579799-false-true-false-false
+Vlissingen-51.418093-3.599799-false-true-false-false
 Xanten-51.661519-6.4532-true-true-false-false

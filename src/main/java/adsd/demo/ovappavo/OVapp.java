@@ -17,7 +17,9 @@ public class OVapp extends Application
       FXMLloader.setResources(ResourceBundle.getBundle("languages"));
       Parent root = FXMLloader.load();
       stage.setTitle( "Mobiliteitsfabriek OV app" );
-      stage.setScene( new Scene(root) );
+      Scene scene = new Scene(root);
+      scene.getStylesheets().add("normal.css");
+      stage.setScene(scene);
       stage.setMaximized(true);
       stage.show();
    }

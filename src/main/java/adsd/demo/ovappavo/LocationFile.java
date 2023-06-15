@@ -25,7 +25,7 @@ public class LocationFile extends FileHandler {
                     try {
                         services[i] = servicePresent(locationStringArray[i + 3]);
                     } catch (Exception e) {
-                        System.out.println("there is not sufficient service info provided for" + locationStringArray[0] + "service " + i);
+                        //System.out.println("there is not sufficient service info provided for" + locationStringArray[0] + "service " + i);
                     }
                 }
                 Location location = new Location(locationStringArray[0], Double.parseDouble(locationStringArray[1]), Double.parseDouble(locationStringArray[2]),

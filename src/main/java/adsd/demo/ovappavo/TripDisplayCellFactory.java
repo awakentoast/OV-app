@@ -1,25 +1,28 @@
 package adsd.demo.ovappavo;
 
+import javafx.scene.Scene;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 
 public class TripDisplayCellFactory extends ListCell<TripDisplayCell> {
-    Text text;
-    GridPane gridPaneStart;
-    GridPane gridPaneEnd;
+    private final Text text;
+    private final GridPane gridPaneStart;
+    private final GridPane gridPaneEnd;
+    private final Scene scene;
     
     //positions for icon in GridPane
     int[] verticalPos = {0, 0, 1, 1};
     int[] horizontalPos = {0, 1, 0, 1};
     
     
-    public TripDisplayCellFactory() {
-        
+    public TripDisplayCellFactory(Scene scene) {
+        this.scene = scene;
         gridPaneStart = new GridPane();
         gridPaneEnd = new GridPane();
         text = new Text();
@@ -42,14 +45,23 @@ public class TripDisplayCellFactory extends ListCell<TripDisplayCell> {
     
     @Override
     protected void updateItem(TripDisplayCell tripDisplayCell, boolean empty) {
+        
         //System.out.println(tripDisplayCell);
         super.updateItem(tripDisplayCell, empty);
-        
         gridPaneStart.getChildren().clear();
         gridPaneEnd.getChildren().clear();
         
+        if (scene.getStylesheets().contains("high-contrast.css")) {
+            getStyleClass().add("custom-cell");
+            text.setFill(Color.rgb(242,232,42));
+        } else {
+            System.out.println("false");
+            getStyleClass().remove("custom-cell");
+            text.setFill(Color.BLACK);
+        }
+        
         //the check for string is so the cell clears when there are no trips, but no trips are found is still printed to the listView
-        if ((empty || tripDisplayCell == null) || tripDisplayCell.getDisplayString().length() < 100) {
+        if ((empty || tripDisplayCell == null) || tripDisplayCell.getDisplayString().length() < 30) {
             setGraphic(null);
             if (tripDisplayCell != null) {
                 text.setText(tripDisplayCell.getDisplayString());

@@ -1,0 +1,70 @@
+/*alles wat met javafx CSS te maken heeft:
+
+https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html
+
+*/
+
+.root {
+    -fx-background-color: #111;
+    -fx-text-fill: #F2DF2A;
+}
+
+.button {
+    -fx-background-color: #111;
+    -fx-text-fill: #F2DF2A;
+    -fx-border-color: #F2DF2A;
+}
+
+.menu-item {
+    -fx-background-color: #111;
+    -fx-border-color: #111;
+}
+
+.text-field {
+    -fx-background-color: #111;
+    -fx-text-fill: #F2DF2A;
+    -fx-border-color: #F2DF2A;
+}
+
+.text-area {
+    -fx-background-color: #111;
+    -fx-text-fill: #F2DF2A;
+    -fx-border-color: #F2DF2A;
+}
+
+.combo-box {
+    -fx-background-color: #111;
+    -fx-text-fill: #F2DF2A;
+    -fx-border-color: #F2DF2A;
+}
+
+.combo-box .list-cell {
+    -fx-background: #111;
+    -fx-text-fill: #F2DF2A;
+}
+
+.list-view {
+    -fx-background-color: #111;
+    -fx-text-fill: #F2DF2A;
+    -fx-border-color: #F2DF2A;
+}
+
+.list-view .scroll-bar {
+    -fx-background-color: #111;
+    -fx-base: #F2DF2A;
+}
+
+.custom-cell {
+     -fx-background-color: #111;
+     -fx-text-fill: #F2DF2A;
+     -fx-border-color: #F2DF2A;
+}
+
+.tooltip {
+    -fx-background-color: #111;
+    -fx-text-fill: #F2DF2A;
+    -fx-font-size: 14px;
+    -fx-min-width: 200px;
+}
+
+

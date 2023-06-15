@@ -5,7 +5,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -17,7 +16,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import javafx.scene.Node;
 import javafx.util.Duration;
 
 
@@ -33,7 +31,7 @@ public class OVappController {
    @FXML
    private Button switchLanguageButton;
    @FXML
-   private Button toggleDarkModeButton;
+   private Button toggleHighContrast;
    @FXML
    private Button tripHistoryButton;
    @FXML
@@ -288,7 +286,7 @@ public class OVappController {
       timeline.play();
 
       //Sets the generation of each field in listView to that of updateItem in TripDisplayCellFactory
-      tripDisplay.setCellFactory(param -> new TripDisplayCellFactory());
+      tripDisplay.setCellFactory(param -> new TripDisplayCellFactory(tripDisplay.getScene()));
 
       addAllToolTips();
       
@@ -354,41 +352,41 @@ public class OVappController {
    }
    
    private void addAllToolTips() {
-      Tooltip tripHistoryTooltip = new Tooltip("bekijk hier je reisgeschiedenis");
-      tripHistoryButton.setTooltip(tripHistoryTooltip);
+      Tooltip tooltip = new Tooltip("bekijk hier je reisgeschiedenis");
+      tripHistoryButton.setTooltip(tooltip);
       
-      Tooltip addFavoriteTooltip = new Tooltip("voeg via hier je favoriete reis");
-      addFavoriteTripButton.setTooltip(addFavoriteTooltip);
+      tooltip = new Tooltip("voeg via hier je favoriete reis");
+      addFavoriteTripButton.setTooltip(tooltip);
       
-      Tooltip retourTooltip = new Tooltip("plan met dit knop je terug reis");
-      retourButton.setTooltip(retourTooltip);
+      tooltip = new Tooltip("plan met dit knop je terug reis");
+      retourButton.setTooltip(tooltip);
       
-      Tooltip planmytripTooltip = new Tooltip("Plan met dit knop je reis");
-      planMyTripButton.setTooltip(planmytripTooltip);
+      tooltip = new Tooltip("Plan met dit knop je reis");
+      planMyTripButton.setTooltip(tooltip);
       
-      Tooltip switchLanguageTooltip = new Tooltip("verander hier de taal");
-      switchLanguageButton.setTooltip(switchLanguageTooltip);
+      tooltip = new Tooltip("verander hier de taal");
+      switchLanguageButton.setTooltip(tooltip);
       
-      Tooltip getFavoriteTripTooltip = new Tooltip("druk hier op om je favoriete reizen te zien");
-      getFavoriteTripButton.setTooltip(getFavoriteTripTooltip);
+      tooltip = new Tooltip("druk hier op om je favoriete reizen te zien");
+      getFavoriteTripButton.setTooltip(tooltip);
       
-      Tooltip toggleDarkModeTooltip = new Tooltip("verander het naar donkere modus");
-      toggleDarkModeButton.setTooltip(toggleDarkModeTooltip);
+      tooltip = new Tooltip("verander het naar donkere modus");
+      toggleHighContrast.setTooltip(tooltip);
       
-      Tooltip tooltip = new Tooltip("kies met dit knop een begin locatie");
+      tooltip = new Tooltip("kies met dit knop een begin locatie");
       startLocationsCombo.setTooltip(tooltip);
       
-      Tooltip destinationTooltip = new Tooltip("kies met dit knop je eind locatie");
-      destinationLocationsCombo.setTooltip(destinationTooltip);
+      tooltip = new Tooltip("kies met dit knop je eind locatie");
+      destinationLocationsCombo.setTooltip(tooltip);
       
-      Tooltip minutesTooltip = new Tooltip("kies met dit knop hoelaat je wilt vertrekken");
-      minutesComboBox.setTooltip(minutesTooltip);
+      tooltip = new Tooltip("kies met dit knop hoelaat je wilt vertrekken");
+      minutesComboBox.setTooltip(tooltip);
       
-      Tooltip hoursTooltip = new Tooltip("kies met dit knop hoelaat je wilt vertrekken");
-      hoursComboBox.setTooltip(hoursTooltip);
+      tooltip = new Tooltip("kies met dit knop hoelaat je wilt vertrekken");
+      hoursComboBox.setTooltip(tooltip);
       
-      Tooltip transportTooltip = new Tooltip("kies met dit knop je vervoer type");
-      comboTransport.setTooltip(transportTooltip);
+      tooltip = new Tooltip("kies met dit knop je vervoer type");
+      comboTransport.setTooltip(tooltip);
    }
 
 
@@ -473,25 +471,28 @@ public class OVappController {
       //index 0 is the text "switch to dark mode"
       //index 1 is the text "switch to light mode"
       if (darkMode) {
-         changeTextOfFieldWithArray(toggleDarkModeButton, "toggleDarkModeButton.StringArray", 1);
+         changeTextOfFieldWithArray(toggleHighContrast, "toggleHighContrast.StringArray", 1);
       }
       else {
-         changeTextOfFieldWithArray(toggleDarkModeButton, "toggleDarkModeButton.StringArray", 0);
+         changeTextOfFieldWithArray(toggleHighContrast, "toggleHighContrast.StringArray", 0);
       }
    }
    
 
    @FXML
-   private void toggleDarkMode(ActionEvent event) {
-      Scene scene = ((Node) event.getSource()).getScene();
-      if (scene.getStylesheets().contains("dark-mode.css")) {
-         scene.getStylesheets().remove("dark-mode.css");
+   private void toggleHighContrast() {
+      Scene scene = mapDisplay.getScene();
+      if (scene.getStylesheets().contains("high-contrast.css")) {
+         scene.getStylesheets().remove("high-contrast.css");
+         scene.getStylesheets().add("normal.css");
       }
       else {
-         scene.getStylesheets().add("dark-mode.css");
+         scene.getStylesheets().add("high-contrast.css");
+         scene.getStylesheets().remove("normal.css");
       }
       darkMode = !darkMode;
       changeTextDarkModeButton();
+      changeTripsOnDisplay(shownTrips);
    }
 
    private LocalTime getTime()
