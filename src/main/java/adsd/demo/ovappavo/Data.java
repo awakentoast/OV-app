@@ -2,12 +2,14 @@ package adsd.demo.ovappavo;
 
 import java.time.LocalTime;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public abstract class Data {
-    protected final Map<String, Location> locationMap = new TreeMap<>();
-    protected final Map<String, Route> routeMap = new TreeMap<>();
+    protected RouteFile routeFile;
+    protected LocationFile locationFile;
+
+    protected Map<String, Location> locationMap = new TreeMap<>();
+    protected Map<String, Route> routeMap = new TreeMap<>();
+
     
     public String[] getLocationNames() {
         String[] names = new String[locationMap.size()];

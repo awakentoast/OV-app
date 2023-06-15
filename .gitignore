@@ -3,5 +3,7 @@ target
 out
 tripHistory.txt
 favoriteTrips.txt
-trainData.txt
-busData.txt
+busLocationData.txt
+busRouteData.txt
+trainLocationData.txt
+trainRouteData.txt

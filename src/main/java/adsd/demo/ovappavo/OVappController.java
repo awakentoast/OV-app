@@ -86,8 +86,8 @@ public class OVappController {
    
    
    private Data data;
-   private final BusData busData = new BusData();
-   private final TrainData trainData = new TrainData();
+   private BusData busData;
+   private TrainData trainData;
    
    
    private final Time time = new Time();
@@ -95,15 +95,16 @@ public class OVappController {
    
    private final TripFile tripHistory = new TripFile("src/main/resources/data/tripHistory.txt");
    private final TripFile favoriteTrip = new TripFile("src/main/resources/data/favoriteTrips.txt");
-   private final locationsFile trainDataFile = new locationsFile("src/main/resources/data/trainData.txt");
-   private final locationsFile busDataFile = new locationsFile("src/main/resources/data/busData.txt");
-   private final locationsFile trainDataFile = new locationsFile("src/main/resources/data/trainData.txt");
-   private final locationsFile busDataFile = new locationsFile("src/main/resources/data/busData.txt");
+   private final LocationFile trainLocationDataFile = new LocationFile("src/main/resources/data/trainLocationData.txt");
+   private final LocationFile busLocationDataFile = new LocationFile("src/main/resources/data/busLocationData.txt");
+   private final RouteFile trainRouteDataFile = new RouteFile("src/main/resources/data/trainRouteData.txt");
+   private final RouteFile busRouteDataFile = new RouteFile("src/main/resources/data/busRouteData.txt");
 
    
    private ResourceBundle bundle;
    private ObservableList<String> locationList;
    private List<Trip> shownTrips = new ArrayList<>();
+
    
    
    //----------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -258,6 +259,9 @@ public class OVappController {
       bundle = ResourceBundle.getBundle("languages", new Locale("nl"));
       changeTextOfFields();
 
+
+
+      trainRouteDataFile.provideRouteMap()
       mapDraw = mapDisplay.getGraphicsContext2D();
       
       trainData.setRoute();
@@ -294,6 +298,9 @@ public class OVappController {
       addAllToolTips();
       
       setupMap();
+
+      busData = new BusData();
+      trainData = new TrainData();
    }
 
    private void setupMap() {
