@@ -1,0 +1,9 @@
+format: Location-latitude-longitude
+Amersfoort-51.180707-5.137016
+Spakenburg-52.5-5.36666667
+De Bilt-52.1092717-5.18089676
+Bilthoven-52.1307201-5.20523623
+Soesterberg-52.120899-5.283606
+Rijnsweerd-52.0892-5.150985
+Utrecht-52.080952-5.12768
+Zeist-52.1038954-5.2605939
