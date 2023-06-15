@@ -11,6 +11,8 @@ public class Trip {
     private final double distance;
     private final int duration;
     private final String transportType;
+
+    //it's a list of locations instead of a route, because making a new route from plaintext after saving is a pain, and we only need the locations for the map as of now
     private final List<Location> locationList;
     
     
@@ -47,8 +49,8 @@ public class Trip {
         String distancePrefix = bundle.getString("distance.string") + ": " + distance + " km";
         String departurePrefix = bundle.getString("departure.string") + ": " + departure;
         
-        String servicesStart = bundle.getString("beginStationServices.string");
-        String servicesEnd = bundle.getString("endStationServices.string");
+        String servicesStart = bundle.getString("beginStationServices.string") + " " + start.getName();
+        String servicesEnd = bundle.getString("endStationServices.string") + " " + destination.getName();
         
         durationString = bundle.getString("duration.string") + ": " + durationString;
 
@@ -84,6 +86,42 @@ public class Trip {
     
     public List<Location> getLocationList() {
         return locationList;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Trip other = (Trip) obj;
+
+        boolean sameList = true;
+
+        if (locationList.size() != other.locationList.size()) {
+            sameList = false;
+        } else {
+            for (int i = 0; i < locationList.size(); i++) {
+                if (!locationList.get(i).getName().equals(other.locationList.get(i).getName())) {
+                    sameList = false;
+                    break;
+                }
+            }
+        }
+
+        System.out.println(sameList);
+
+        return start.getName().equals(other.start.getName()) &&
+                destination.getName().equals(other.destination.getName()) &&
+                distance == other.distance &&
+                departure.equals(other.departure) &&
+                duration == other.duration &&
+                transportType.equals(other.transportType) &&
+                sameList;
     }
 }
 

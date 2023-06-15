@@ -11,13 +11,9 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import javafx.scene.control.Tooltip;
-import javafx.scene.paint.Stop;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -32,8 +28,6 @@ import java.util.*;
 
 @SuppressWarnings("deprecation")
 public class OVappController {
-
-   
    @FXML
    private Button planMyTripButton;
    @FXML
@@ -170,6 +164,7 @@ public class OVappController {
    private void changeTripsOnDisplay(List<Trip> trips) {
       shownTrips = trips;
       ObservableList<TripDisplayCell> observableTripList;
+      System.out.println(trips + " " +  trips.size());
       
       if (shownTrips.isEmpty()) {
          observableTripList = FXCollections.observableArrayList(new TripDisplayCell(bundle.getString("noTripsAreFound.string")));
@@ -211,7 +206,7 @@ public class OVappController {
       setupMap();
       mapDraw.setFill(Color.RED);
       mapDraw.setStroke(Color.RED);
-      drawAllPlaces(trip.getLocationList(), true);
+      drawLocations(trip.getLocationList(), true);
    }
    
    //perform the actions after stage.setOnCloseRequest() if plan my trip has been used or set favorite trip has been used
@@ -292,61 +287,29 @@ public class OVappController {
       
       System.out.println("init TransportSelectorController done");
 
+      addAllToolTips();
+      
       setupMap();
-
-      Tooltip tripHistoryTooltip = new Tooltip("bekijk hier je reisgeschiedenis");
-      tripHistoryButton.setTooltip(tripHistoryTooltip);
-
-      Tooltip addFavoriteTooltip = new Tooltip("voeg via hier je favoriete reis");
-      addFavoriteTripButton.setTooltip(addFavoriteTooltip);
-
-      Tooltip retourTooltip = new Tooltip("plan met deze knop je terug reis");
-      retourButton.setTooltip(retourTooltip);
-
-      Tooltip planmytripTooltip = new Tooltip("Plan met deze knop je reis");
-      planMyTripButton.setTooltip(planmytripTooltip);
-
-      Tooltip switchLanguageTooltip = new Tooltip("verander hier de taal");
-      switchLanguageButton.setTooltip(switchLanguageTooltip);
-
-      Tooltip getFavoriteTripTooltip = new Tooltip("druk hier op om je favoriete reizen te zien");
-      getFavoriteTripButton.setTooltip(getFavoriteTripTooltip);
-
-      Tooltip toggleDarkModeTooltip = new Tooltip("verander het naar donkere modus");
-      toggleDarkModeButton.setTooltip(toggleDarkModeTooltip);
-
-      Tooltip tooltip = new Tooltip("kies met deze knop een begin locatie");
-      startLocationsCombo.setTooltip(tooltip);
-
-      Tooltip destinationTooltip = new Tooltip("kies met deze knop je eind locatie");
-      destinationLocationsCombo.setTooltip(destinationTooltip);
-
-      Tooltip minutesTooltip = new Tooltip("kies met deze knop hoelaat je wilt vertrekken");
-      minutesComboBox.setTooltip(minutesTooltip);
-
-      Tooltip hoursTooltip = new Tooltip("kies met deze knop hoelaat je wilt vertrekken");
-      hoursComboBox.setTooltip(hoursTooltip);
-
-      Tooltip transportTooltip = new Tooltip("kies met deze knop je vervoer type");
-      comboTransport.setTooltip(transportTooltip);
-
-
    }
 
    private void setupMap() {
-      mapDraw.drawImage(new Image("file:src/main/java/images/OVapp/123456789.png", mapDisplay.getWidth(), mapDisplay.getHeight(), true, true), 0, 0);
+      mapDraw.clearRect(0,0, mapDisplay.getWidth(), mapDisplay.getHeight());
+      mapDraw.drawImage(new Image("file:src/main/java/images/OVapp/mapNetherlands.png", mapDisplay.getWidth(), mapDisplay.getHeight(), true, true), 0, 0);
       mapDraw.setFill(Color.BLACK);
-      drawAllPlaces(data.getLocations(), false);
+      mapDraw.setStroke(Color.BLACK);
+      drawLocations(data.getLocations(), false);
+      drawLinesBetweenPlacesWithRoutes();
    }
 
-   private void drawAllPlaces(List<Location> locations, boolean drawLines) {
+   private void drawLocations(List<Location> locations, boolean drawLines) {
       double previousX = 0;
       double previousY = 0;
       boolean firstLocation = true;
       
       for (Location location : locations) {
-         double x = location.getLocationX();
-         double y = mapDisplay.getHeight() - location.getLocationY();
+         //System.out.println(location.getName());
+         double x = location.getX();
+         double y = mapDisplay.getHeight() - location.getY();
          
          //System.out.println("Location: " + location.getName() + " x: " + (int) x + " y: " + (int) y);
          
@@ -364,6 +327,62 @@ public class OVappController {
          //this way we don't draw from 0,0 to the first location
          firstLocation = false;
       }
+   }
+   
+   
+   private void drawLinesBetweenPlacesWithRoutes() {
+      mapDraw.setLineWidth(2);
+      Set<String> routeSet = data.getRouteStrings();
+      System.out.println(routeSet);
+      
+      for (String routeString : routeSet) {
+         System.out.println(routeString);
+         String[] routeList = routeString.split("-");
+         for (int i = 0; i < routeList.length - 1; i++) {
+            Location location1 = data.findLocation(routeList[i]);
+            Location location2 = data.findLocation(routeList[i + 1]);
+            mapDraw.strokeLine(location1.getX() + 5,mapDisplay.getHeight() - location1.getY() + 5,
+                    location2.getX() + 5, mapDisplay.getHeight() - location2.getY() + 5);
+         }
+      }
+   }
+   
+   private void addAllToolTips() {
+      Tooltip tripHistoryTooltip = new Tooltip("bekijk hier je reisgeschiedenis");
+      tripHistoryButton.setTooltip(tripHistoryTooltip);
+      
+      Tooltip addFavoriteTooltip = new Tooltip("voeg via hier je favoriete reis");
+      addFavoriteTripButton.setTooltip(addFavoriteTooltip);
+      
+      Tooltip retourTooltip = new Tooltip("plan met dit knop je terug reis");
+      retourButton.setTooltip(retourTooltip);
+      
+      Tooltip planmytripTooltip = new Tooltip("Plan met dit knop je reis");
+      planMyTripButton.setTooltip(planmytripTooltip);
+      
+      Tooltip switchLanguageTooltip = new Tooltip("verander hier de taal");
+      switchLanguageButton.setTooltip(switchLanguageTooltip);
+      
+      Tooltip getFavoriteTripTooltip = new Tooltip("druk hier op om je favoriete reizen te zien");
+      getFavoriteTripButton.setTooltip(getFavoriteTripTooltip);
+      
+      Tooltip toggleDarkModeTooltip = new Tooltip("verander het naar donkere modus");
+      toggleDarkModeButton.setTooltip(toggleDarkModeTooltip);
+      
+      Tooltip tooltip = new Tooltip("kies met dit knop een begin locatie");
+      startLocationsCombo.setTooltip(tooltip);
+      
+      Tooltip destinationTooltip = new Tooltip("kies met dit knop je eind locatie");
+      destinationLocationsCombo.setTooltip(destinationTooltip);
+      
+      Tooltip minutesTooltip = new Tooltip("kies met dit knop hoelaat je wilt vertrekken");
+      minutesComboBox.setTooltip(minutesTooltip);
+      
+      Tooltip hoursTooltip = new Tooltip("kies met dit knop hoelaat je wilt vertrekken");
+      hoursComboBox.setTooltip(hoursTooltip);
+      
+      Tooltip transportTooltip = new Tooltip("kies met dit knop je vervoer type");
+      comboTransport.setTooltip(transportTooltip);
    }
 
 
@@ -456,7 +475,6 @@ public class OVappController {
       }
    }
    
-
 
    @FXML
    private void toggleDarkMode(ActionEvent event) {

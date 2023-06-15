@@ -69,7 +69,6 @@ public class TripFile extends CustomFile {
     }
 
     public void addTrip(Trip trip) {
-        System.out.println(trip);
         allTrips.add(trip);
     }
     public List<Trip> getAllTrips() {
