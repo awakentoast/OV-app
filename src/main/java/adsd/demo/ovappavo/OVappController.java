@@ -285,7 +285,8 @@ public class OVappController {
       timeline.play();
 
       setTime();
-      
+
+
       //Sets the generation of each field in listView to that of updateItem in TripDisplayCellFactory
       tripDisplay.setCellFactory(param -> new TripDisplayCellFactory());
       

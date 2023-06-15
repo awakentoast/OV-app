@@ -28,5 +28,5 @@ https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html
 }
 .combo-box{
     -fx-background-color: #555;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: #00000;
 }
