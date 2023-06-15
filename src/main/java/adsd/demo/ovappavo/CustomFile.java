@@ -1,9 +1,6 @@
 package adsd.demo.ovappavo;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class CustomFile {
     
@@ -42,6 +39,15 @@ public class CustomFile {
             return data.toString();
         } else {
             return null;
+        }
+    }
+
+    protected void write(String data) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+            bw.write(data);
+        } catch (Exception e) {
+            System.out.println("Something wrong when writing to file in save");
+            e.printStackTrace();
         }
     }
 }

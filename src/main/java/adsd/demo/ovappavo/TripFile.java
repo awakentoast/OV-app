@@ -1,6 +1,5 @@
 package adsd.demo.ovappavo;
 
-import java.io.*;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,12 +59,7 @@ public class TripFile extends CustomFile {
             System.out.println(data);
         }
         
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
-            bw.write(data.toString());
-        } catch (Exception e) {
-            System.out.println("Something wrong when writing to file in save");
-            e.printStackTrace();
-        }
+        write(data.toString());
     }
 
     public void addTrip(Trip trip) {

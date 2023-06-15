@@ -93,9 +93,13 @@ public class OVappController {
    private final Time time = new Time();
    
    
-   private final TripFile tripHistory = new TripFile("src/main/java/adsd/demo/ovappavo/tripHistory.txt");
-   private final TripFile favoriteTrip = new TripFile("src/main/java/adsd/demo/ovappavo/favoriteTrips.txt");
-   
+   private final TripFile tripHistory = new TripFile("src/main/resources/data/tripHistory.txt");
+   private final TripFile favoriteTrip = new TripFile("src/main/resources/data/favoriteTrips.txt");
+   private final locationsFile trainDataFile = new locationsFile("src/main/resources/data/trainData.txt");
+   private final locationsFile busDataFile = new locationsFile("src/main/resources/data/busData.txt");
+   private final locationsFile trainDataFile = new locationsFile("src/main/resources/data/trainData.txt");
+   private final locationsFile busDataFile = new locationsFile("src/main/resources/data/busData.txt");
+
    
    private ResourceBundle bundle;
    private ObservableList<String> locationList;
