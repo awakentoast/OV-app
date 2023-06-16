@@ -1,6 +1,8 @@
 package adsd.demo.ovappavo;
 
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -52,22 +54,24 @@ public class TripDisplayCellFactory extends ListCell<TripDisplayCell> {
         gridPaneEnd.getChildren().clear();
         
         if (scene.getStylesheets().contains("high-contrast.css")) {
-            getStyleClass().add("custom-cell");
             text.setFill(Color.rgb(242,232,42));
         } else {
-            System.out.println("false");
-            getStyleClass().remove("custom-cell");
             text.setFill(Color.BLACK);
         }
-        
-        //the check for string is so the cell clears when there are no trips, but no trips are found is still printed to the listView
-        if ((empty || tripDisplayCell == null) || tripDisplayCell.getDisplayString().length() < 30) {
+
+        if (empty || tripDisplayCell == null) {
             setGraphic(null);
+            //System.out.println("empty non print");
             if (tripDisplayCell != null) {
                 text.setText(tripDisplayCell.getDisplayString());
                 setGraphic(new Pane(text));
+                //System.out.println("empty print");
+            } else {
+                Pane pane = new Pane();
+                setGraphic(pane);
             }
         } else {
+            //System.out.println("non empty");
             int index = -1;
             for (Image image : tripDisplayCell.getIconsStart()) {
                 index++;

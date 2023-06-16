@@ -22,7 +22,7 @@
                     <items>
                         <MenuItem mnemonicParsing="false">
                             <graphic>
-                                <Button fx:id="toggleHighContrast" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#toggleHighContrast" focusTraversable="false" text="%toggleHighContrast.StringArray" textAlignment="JUSTIFY" textOverrun="CLIP">
+                                <Button fx:id="toggleHighContrast" alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" mnemonicParsing="false" onAction="#toggleHighContrast" text="%toggleHighContrast.StringArray" textAlignment="JUSTIFY" textOverrun="CLIP">
                                     <font>
                                         <Font name="Arial Nova Cond" size="25.0" />
                                     </font>
@@ -34,7 +34,7 @@
                         </MenuItem>
                         <MenuItem mnemonicParsing="false">
                             <graphic>
-                                <Button fx:id="switchLanguageButton" alignment="CENTER" contentDisplay="TEXT_ONLY" mnemonicParsing="false" onAction="#onSwitchLanguage" focusTraversable="false"  text="%switchLanguageButton.text" textAlignment="CENTER" textOverrun="CLIP">
+                                <Button fx:id="switchLanguageButton" alignment="CENTER" contentDisplay="TEXT_ONLY" focusTraversable="false" mnemonicParsing="false" onAction="#onSwitchLanguage" text="%switchLanguageButton.text" textAlignment="CENTER" textOverrun="CLIP">
                                     <font>
                                         <Font name="Arial Nova Cond" size="25.0" />
                                     </font>
@@ -81,7 +81,7 @@
                             </color>
                         </DropShadow>
                     </effect></ComboBox>
-                <ListView fx:id="tripDisplay" layoutX="241.0" layoutY="568.0" onMouseClicked="#tripSelected" prefHeight="425.0" prefWidth="602.0">
+                <ListView fx:id="tripDisplay" layoutX="241.0" layoutY="550.0" prefHeight="425.0" prefWidth="602.0">
                     <opaqueInsets>
                         <Insets left="75.0" />
                     </opaqueInsets>
@@ -130,21 +130,32 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Button fx:id="addFavoriteTripButton" layoutX="556.0" layoutY="511.0" mnemonicParsing="false" onMouseClicked="#onAddFavoriteTripButton" prefHeight="35.0" prefWidth="177.0" text="\%addFavoriteTripButton.text" textAlignment="CENTER">
+
+                <Button fx:id="addFavoriteTripButton" layoutX="556.0" layoutY="506.0" mnemonicParsing="false" onMouseClicked="#onAddFavoriteTripButton" prefHeight="35.0" prefWidth="177.0" text="\%addFavoriteTripButton.text" textAlignment="CENTER">
                     <font>
                         <Font name="Arial Nova Cond Bold" size="15.0" />
                     </font>
                 </Button>
 
-                <Button fx:id="retourButton" layoutX="361.0" layoutY="511.0" mnemonicParsing="false" onMouseClicked="#onRetourTrip" prefHeight="35.0" prefWidth="150.0" text="%retourTripButton.text">
+                <Button fx:id="doTrip" layoutX="450.0" layoutY="980.0" mnemonicParsing="false" onMouseClicked="#onDoTrip" prefHeight="35.0" prefWidth="177.0" text="%doTrip.button" textAlignment="CENTER">
+                    <font>
+                        <Font name="Arial Nova Cond Bold" size="15.0" />
+                    </font>
+                </Button>
+
+                <Button fx:id="retourButton" layoutX="361.0" layoutY="506.0" mnemonicParsing="false" onMouseClicked="#onRetourTrip" prefHeight="35.0" prefWidth="150.0" text="%retourTripButton.text">
                     <font>
                         <Font name="Arial Nova Cond Bold" size="13.0" />
                     </font>
                 </Button>
+
                 <Canvas fx:id="mapDisplay" height="880.0" layoutX="1070.0" layoutY="198.0" width="700.0" AnchorPane.rightAnchor="150.0">
                     <effect>
                         <DropShadow />
-                    </effect></Canvas>
+                        <DropShadow />
+                    </effect>
+                </Canvas>
+
                 <Button fx:id="getFavoriteTripButton" layoutX="1489.0" layoutY="93.0" mnemonicParsing="false" onMouseClicked="#onDisplayFavoriteTrips" prefHeight="58.0" prefWidth="185.0" text="\%getFavoriteTripsButton.text" textAlignment="CENTER" underline="true" AnchorPane.rightAnchor="246.0">
                     <font>
                         <Font name="Arial Nova Cond Bold" size="20.0" />
@@ -153,12 +164,14 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
+
                 <ImageView fitHeight="97.0" fitWidth="560.0" layoutX="154.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="150.0">
                     <image>
                         <Image url="file:src/main/resources/images/letters_plus_icon.png" />
                     </image>
                 </ImageView>
-                <ImageView fx:id="travelicon" fitHeight="40.0" fitWidth="50.0" layoutX="516.0" layoutY="367.0" pickOnBounds="true" preserveRatio="true">
+
+                <ImageView fx:id="travelIcon" fitHeight="40.0" fitWidth="50.0" layoutX="516.0" layoutY="367.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="file:src/main/resources/images/round_trip.png" />
                     </image>

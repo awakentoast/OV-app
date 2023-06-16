@@ -40,8 +40,8 @@ public class OVappController {
    private Button getFavoriteTripButton;
    @FXML
    private Button retourButton;
-   
-
+   @FXML
+   private Button doTrip;
   
    
 
@@ -81,6 +81,8 @@ public class OVappController {
    private boolean closeRequest = false;
    private boolean tripListEmpty = true;
    private boolean favoriteTripsAreShown = false;
+   private boolean actionDoneInTripDisplay = false;
+   private boolean firstTimeChangeText = true;
    
    
    private Data data;
@@ -157,53 +159,56 @@ public class OVappController {
       System.out.format("Van:   %s\n", startLocationsCombo.getValue());
       System.out.format("Tot:      %s\n", destinationLocationsCombo.getValue());
 
+      actionDoneInTripDisplay = true;
       changeTripsOnDisplay(data.getValidRoutes(data.findLocation(startLocationsCombo.getValue()), data.findLocation(destinationLocationsCombo.getValue()), getTime()));
-
       System.out.println(comboTransport.getValue());
-   }
-   
-   
-   private void changeTripsOnDisplay(List<Trip> trips) {
-      //sets the values of shownTrips so the corresponding item in the listView will select the correct trip
-      shownTrips = trips;
-      ObservableList<TripDisplayCell> observableTripList;
-      //System.out.println(trips + " " +  trips.size());
-      
-      if (shownTrips.isEmpty()) {
-         observableTripList = FXCollections.observableArrayList(new TripDisplayCell(bundle.getString("noTripsAreFound.string")));
-         tripListEmpty = true;
-      } else {
-         List<TripDisplayCell> tripDisplayCellList = new ArrayList<>(shownTrips.size());
-         for (Trip trip : shownTrips) {
-            boolean[] servicesStart = trip.getStart().getServices();
-            boolean[] servicesEnd = trip.getDestination().getServices();
-            TripDisplayCell tripDisplayCell = new TripDisplayCell(trip.getStringForDisplay(bundle), servicesStart, servicesEnd);
-            tripDisplayCellList.add(tripDisplayCell);
-         }
-         
-         observableTripList = FXCollections.observableArrayList(tripDisplayCellList);
-         tripListEmpty = false;
-      }
-      
-      tripDisplay.setItems(observableTripList);
    }
 
    @FXML
-   private void tripSelected() {
+   protected void onDoTrip() {
       setupCloseEvent();
       if (!tripListEmpty) {
          int tripIndex = tripDisplay.getSelectionModel().getSelectedIndex();
-         Trip currentTrip = shownTrips.get(tripIndex);
-         if (favoriteTripsAreShown) {
-            changeTripsOnDisplay(data.getValidRoutes(currentTrip.getStart(), currentTrip.getDestination(), currentTrip.getDeparture()));
-            favoriteTripsAreShown = false;
-         } else {
-            tripHistory.addTrip(currentTrip);
-            drawTrip(currentTrip);
+         if (tripIndex >= 0) {
+            Trip currentTrip = shownTrips.get(tripIndex);
+            if (favoriteTripsAreShown) {
+               changeTripsOnDisplay(data.getValidRoutes(currentTrip.getStart(), currentTrip.getDestination(), currentTrip.getDeparture()));
+               favoriteTripsAreShown = false;
+            } else {
+               tripHistory.addTrip(currentTrip);
+               drawTrip(currentTrip);
+            }
          }
       }
    }
+   
+   private void changeTripsOnDisplay(List<Trip> trips) {
+      //sets the values of shownTrips so the corresponding item in the listView will select the correct trip
+      System.out.println();
+      shownTrips = trips;
+      ObservableList<TripDisplayCell> observableTripList;
+      //System.out.println(trips + " " +  trips.size());
+      if (actionDoneInTripDisplay) {
+         //will not print trips are not found when switching color mode or language, as it updates the listview
+         if (shownTrips.isEmpty()) {
+            observableTripList = FXCollections.observableArrayList(new TripDisplayCell(bundle.getString("noTripsAreFound.string")));
+            tripListEmpty = true;
+            tripDisplay.setItems(observableTripList);
+         } else {
+            List<TripDisplayCell> tripDisplayCellList = new ArrayList<>(shownTrips.size());
+            for (Trip trip : shownTrips) {
+               boolean[] servicesStart = trip.getStart().getServices();
+               boolean[] servicesEnd = trip.getDestination().getServices();
+               TripDisplayCell tripDisplayCell = new TripDisplayCell(trip.getStringForDisplay(bundle), servicesStart, servicesEnd);
+               tripDisplayCellList.add(tripDisplayCell);
+            }
 
+            observableTripList = FXCollections.observableArrayList(tripDisplayCellList);
+            tripListEmpty = false;
+            tripDisplay.setItems(observableTripList);
+         }
+      }
+   }
 
    private void drawTrip(Trip trip) {
       //reset the map before drawing new route
@@ -228,6 +233,7 @@ public class OVappController {
    
    @FXML
    public void onDisplayTripHistory() {
+      actionDoneInTripDisplay = true;
       changeTripsOnDisplay(tripHistory.getAllTrips());
    }
    
@@ -235,10 +241,12 @@ public class OVappController {
    private void onAddFavoriteTripButton() {
       Trip trip = shownTrips.get(tripDisplay.getSelectionModel().getSelectedIndex());
       favoriteTrip.addTrip(trip);
+      setupCloseEvent();
    }
    
    @FXML
    private void onDisplayFavoriteTrips() {
+      actionDoneInTripDisplay = true;
       changeTripsOnDisplay(favoriteTrip.getAllTrips());
       favoriteTripsAreShown = true;
    }
@@ -287,10 +295,12 @@ public class OVappController {
 
       //Sets the generation of each field in listView to that of updateItem in TripDisplayCellFactory
       tripDisplay.setCellFactory(param -> new TripDisplayCellFactory(tripDisplay.getScene()));
-
+      tripDisplay.setItems(FXCollections.observableArrayList());
       addAllToolTips();
       
       setupMap();
+
+
       System.out.println("init done");
    }
 
@@ -352,40 +362,38 @@ public class OVappController {
    }
    
    private void addAllToolTips() {
-      Tooltip tooltip = new Tooltip("bekijk hier je reisgeschiedenis");
+      Tooltip tooltip = new Tooltip(bundle.getString("travelHistory.tooltip"));
       tripHistoryButton.setTooltip(tooltip);
       
-      tooltip = new Tooltip("voeg via hier je favoriete reis");
+      tooltip = new Tooltip(bundle.getString("favoriteTrip.tooltip"));
       addFavoriteTripButton.setTooltip(tooltip);
       
-      tooltip = new Tooltip("plan met dit knop je terug reis");
+      tooltip = new Tooltip(bundle.getString("retour.tooltip"));
       retourButton.setTooltip(tooltip);
       
-      tooltip = new Tooltip("Plan met dit knop je reis");
-      planMyTripButton.setTooltip(tooltip);
+      tooltip = new Tooltip(bundle.getString("planTrip.tooltip"));
+      doTrip.setTooltip(tooltip);
       
-      tooltip = new Tooltip("verander hier de taal");
+      tooltip = new Tooltip(bundle.getString("changeLanguage.tooltip"));
       switchLanguageButton.setTooltip(tooltip);
       
-      tooltip = new Tooltip("druk hier op om je favoriete reizen te zien");
+      tooltip = new Tooltip(bundle.getString("seeFavoriteTrips.tooltip"));
       getFavoriteTripButton.setTooltip(tooltip);
       
-      tooltip = new Tooltip("verander het naar donkere modus");
+      tooltip = new Tooltip(bundle.getString("highContrastMode.tooltip"));
       toggleHighContrast.setTooltip(tooltip);
       
-      tooltip = new Tooltip("kies met dit knop een begin locatie");
+      tooltip = new Tooltip(bundle.getString("begin.tooltip"));
       startLocationsCombo.setTooltip(tooltip);
       
-      tooltip = new Tooltip("kies met dit knop je eind locatie");
+      tooltip = new Tooltip(bundle.getString("destination.tooltip"));
       destinationLocationsCombo.setTooltip(tooltip);
       
-      tooltip = new Tooltip("kies met dit knop hoelaat je wilt vertrekken");
+      tooltip = new Tooltip(bundle.getString("time.tooltip"));
       minutesComboBox.setTooltip(tooltip);
-      
-      tooltip = new Tooltip("kies met dit knop hoelaat je wilt vertrekken");
       hoursComboBox.setTooltip(tooltip);
       
-      tooltip = new Tooltip("kies met dit knop je vervoer type");
+      tooltip = new Tooltip(bundle.getString("transportType.tooltip"));
       comboTransport.setTooltip(tooltip);
    }
 
@@ -465,6 +473,22 @@ public class OVappController {
       changeTextDarkModeButton();
       
       changeObservableListText(comboTransport, "transportTypeComboBox.StringArray");
+
+      if (!firstTimeChangeText) {
+         tripHistoryButton.getTooltip().setText(bundle.getString("travelHistory.tooltip"));
+         addFavoriteTripButton.getTooltip().setText(bundle.getString("favoriteTrip.tooltip"));
+         retourButton.getTooltip().setText(bundle.getString("retour.tooltip"));
+         doTrip.getTooltip().setText(bundle.getString("planTrip.tooltip"));
+         switchLanguageButton.getTooltip().setText(bundle.getString("changeLanguage.tooltip"));
+         getFavoriteTripButton.getTooltip().setText(bundle.getString("seeFavoriteTrips.tooltip"));
+         toggleHighContrast.getTooltip().setText(bundle.getString("highContrastMode.tooltip"));
+         startLocationsCombo.getTooltip().setText(bundle.getString("begin.tooltip"));
+         destinationLocationsCombo.getTooltip().setText(bundle.getString("destination.tooltip"));
+         minutesComboBox.getTooltip().setText(bundle.getString("time.tooltip"));
+         hoursComboBox.getTooltip().setText(bundle.getString("time.tooltip"));
+         comboTransport.getTooltip().setText(bundle.getString("transportType.tooltip"));
+      }
+      firstTimeChangeText = false;
    }
 
    private void changeTextDarkModeButton() {

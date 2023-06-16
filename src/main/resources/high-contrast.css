@@ -38,9 +38,14 @@ https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html
     -fx-border-color: #F2DF2A;
 }
 
+.combo-box .arrow{
+    -fx-background-color:#F2DF2A;
+}
+
 .combo-box .list-cell {
     -fx-background: #111;
     -fx-text-fill: #F2DF2A;
+    -fx-background-color: #111;
 }
 
 .list-view {
@@ -54,10 +59,15 @@ https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html
     -fx-base: #F2DF2A;
 }
 
-.custom-cell {
+.list-cell {
      -fx-background-color: #111;
      -fx-text-fill: #F2DF2A;
      -fx-border-color: #F2DF2A;
+     -fx-selection-bar :#FFFFFF;
+}
+
+.list-cell:selected {
+    -fx-background-color: #4747EE;
 }
 
 .tooltip {
