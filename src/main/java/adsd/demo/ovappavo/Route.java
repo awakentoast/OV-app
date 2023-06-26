@@ -79,6 +79,7 @@ public class Route
 
             route.addEndPoint(stopOvers.get(startIndex), stopOvers.get(startIndex).getArrival());
         } else {
+            //if reversed, start from the end
             route = new Route(stopOver, stopOver.getArrival());
 
             startIndex--;

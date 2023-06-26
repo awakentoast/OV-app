@@ -1,9 +1,7 @@
 package adsd.demo.ovappavo;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class TripFile extends FileHandler {
     private final List<Trip> allTrips = new ArrayList<>();
@@ -26,30 +24,8 @@ public class TripFile extends FileHandler {
     
     public Trip stringToTripFromFile(String tripString)
     {
-        Data data;
-        String[] tripData = tripString.split(",");
-
-        if (Objects.equals(tripData[5], "Train")) {
-            data = TrainData.getTrainDataInstance();
-        } else {
-            data = BusData.getBusDataInstance();
-        }
-
-        LocalTime departure = LocalTime.parse(tripData[0]);
-        Location begin = data.findLocation(tripData[1]);
-        Location end = data.findLocation(tripData[2]);
-        double distance = Double.parseDouble(tripData[3]);
-        int duration = Integer.parseInt(tripData[4]);
-        String transportType = tripData[5];
-        List<Location> locationList = new ArrayList<>();
-        
-        for (String locationString : tripData[6].split("-")) {
-            locationList.add(data.findLocation(locationString));
-        }
-
-        return new Trip(departure, begin, end, distance, duration, transportType, locationList);
+        return Trip.savedStringToTrip(tripString);
     }
-    
     
     public void save() {
         StringBuilder data = new StringBuilder();

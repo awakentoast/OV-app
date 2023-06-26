@@ -26,14 +26,17 @@ public class RouteFile extends FileHandler {
                 
                 //adds all the times of the locations to a map, so we can increment the time later on
                 for (int i = 0; i < currentRoute.length - 1; i++) {
-                    String[] values = currentRoute[i].split("-");
+                    String[] locationWithTimes = currentRoute[i].split("-");
+                    
                     if (i == 0) {
-                        timeValues.add(getLocalTime(values[1]));
+                        //only departure time
+                        timeValues.add(getLocalTime(locationWithTimes[1]));
                     } else if (i + 2 == currentRoute.length) {
-                        timeValues.add(getLocalTime(values[1]));
+                        //only arrival time
+                        timeValues.add(getLocalTime(locationWithTimes[1]));
                     } else {
-                        timeValues.add(getLocalTime(values[1]));
-                        timeValues.add(getLocalTime(values[2]));
+                        timeValues.add(getLocalTime(locationWithTimes[1]));
+                        timeValues.add(getLocalTime(locationWithTimes[2]));
                     }
                 }
                 
@@ -46,6 +49,7 @@ public class RouteFile extends FileHandler {
                     int timeIndex = 0;
                     Route route = new Route(locationMap.get(currentRoute[0].split("-")[0]), timeValues.get(timeIndex++).plusMinutes((long) increment * i));
                     
+                    //loop trough route locations
                     for (int j = 1; j < currentRoute.length - 1; j++) {
                         String[] values = currentRoute[j].split("-");
                         if (j + 2 == currentRoute.length) {

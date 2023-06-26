@@ -2,6 +2,7 @@ package adsd.demo.ovappavo;
 
 import java.io.*;
 
+//this class is for the creation of the file, getting BufferedReader and BufferedWriter
 public class FileHandler {
     
     protected File file;
@@ -33,7 +34,7 @@ public class FileHandler {
                     data.append(line).append("\n");
                 }
             } catch (Exception e) {
-                System.out.println("Something wrong when reading file in getFavoriteTrip");
+                System.out.println("Something wrong when reading file: " +  file.getPath());
                 e.printStackTrace();
             }
             return data.toString();

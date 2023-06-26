@@ -5,7 +5,7 @@ aankostpunt(plaatsnaam)-23:59(aankomsttijd)
 interval ritten(minuten)
 
 Haarlem-06:00
-Amsterdam-06:18:-06:23
+Amsterdam-06:18-06:23
 Utrecht-06:49-06:51
 Nijmegen-07:25-07:27
 Xanten-8:40

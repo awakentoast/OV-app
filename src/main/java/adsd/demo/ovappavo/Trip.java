@@ -1,7 +1,9 @@
 package adsd.demo.ovappavo;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class Trip {
@@ -36,6 +38,10 @@ public class Trip {
     
     public Location getDestination() {
         return destination;
+    }
+    
+    public List<Location> getLocationList() {
+        return locationList;
     }
     
     public String getStringForDisplay(ResourceBundle bundle) {
@@ -82,12 +88,35 @@ public class Trip {
                 duration + "," +
                 transportType + "," +
                 route.substring(0,route.length() - 1);
+        //example "06:00,Haarlem,Xanten,148.14,160,Train,Haarlem-Amsterdam-Utrecht-Nijmegen-Xanten"
     }
     
-    public List<Location> getLocationList() {
-        return locationList;
+    public static Trip savedStringToTrip(String tripString) {
+        Data data;
+        String[] tripData = tripString.split(",");
+        
+        if (Objects.equals(tripData[5], "Train")) {
+            data = TrainData.getTrainDataInstance();
+        } else {
+            data = BusData.getBusDataInstance();
+        }
+        
+        LocalTime departure = LocalTime.parse(tripData[0]);
+        Location begin = data.findLocation(tripData[1]);
+        Location end = data.findLocation(tripData[2]);
+        double distance = Double.parseDouble(tripData[3]);
+        int duration = Integer.parseInt(tripData[4]);
+        String transportType = tripData[5];
+        List<Location> locationList = new ArrayList<>();
+        
+        for (String locationString : tripData[6].split("-")) {
+            locationList.add(data.findLocation(locationString));
+        }
+        
+        return new Trip(departure, begin, end, distance, duration, transportType, locationList);
     }
 
+    //for the test
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

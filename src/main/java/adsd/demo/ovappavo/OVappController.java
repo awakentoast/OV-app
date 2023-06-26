@@ -80,14 +80,13 @@ public class OVappController {
    private boolean darkMode = false;
    private boolean closeRequest = false;
    private boolean tripListEmpty = true;
-   private boolean favoriteTripsAreShown = false;
    private boolean actionDoneInTripDisplay = false;
    private boolean firstTimeChangeText = true;
    
    
    private Data data;
-   private final TrainData trainData = TrainData.getTrainDataInstance();
-   private final BusData busData = BusData.getBusDataInstance();
+   private final Data trainData = TrainData.getTrainDataInstance();
+   private final Data busData = BusData.getBusDataInstance();
    
    
    private final Time time = new Time();
@@ -128,15 +127,12 @@ public class OVappController {
    protected void onTransportType() {
       if (Objects.equals(bundle.getString("transportTypeComboBox.StringArray").split(",")[0], comboTransport.getValue())) {
          data = trainData;
-         String[] trainLocations = trainData.getLocationNames();
-         locationList = FXCollections.observableArrayList(trainLocations);
       }
-
       else {
          data = busData;
-         String[] busLocations = busData.getLocationNames();
-         locationList = FXCollections.observableArrayList(busLocations);
       }
+      
+      locationList = FXCollections.observableArrayList(data.getLocationNames());
       
       startLocationsCombo.setItems(locationList);
       startLocationsCombo.getSelectionModel().select(0);
@@ -169,18 +165,12 @@ public class OVappController {
       setupCloseEvent();
       if (!tripListEmpty) {
          int tripIndex = tripDisplay.getSelectionModel().getSelectedIndex();
-         if (tripIndex >= 0) {
-            Trip currentTrip = shownTrips.get(tripIndex);
-            if (favoriteTripsAreShown) {
-               changeTripsOnDisplay(data.getValidRoutes(currentTrip.getStart(), currentTrip.getDestination(), currentTrip.getDeparture()));
-               favoriteTripsAreShown = false;
-            } else {
-               tripHistory.addTrip(currentTrip);
-               drawTrip(currentTrip);
-            }
-         }
+         Trip currentTrip = shownTrips.get(tripIndex);
+         tripHistory.addTrip(currentTrip);
+         drawTrip(currentTrip);
       }
    }
+   
    
    private void changeTripsOnDisplay(List<Trip> trips) {
       //sets the values of shownTrips so the corresponding item in the listView will select the correct trip
@@ -189,12 +179,13 @@ public class OVappController {
       ObservableList<TripDisplayCell> observableTripList;
       //System.out.println(trips + " " +  trips.size());
       if (actionDoneInTripDisplay) {
-         //will not print trips are not found when switching color mode or language, as it updates the listview
+         //print "not trips found"
          if (shownTrips.isEmpty()) {
             observableTripList = FXCollections.observableArrayList(new TripDisplayCell(bundle.getString("noTripsAreFound.string")));
             tripListEmpty = true;
             tripDisplay.setItems(observableTripList);
          } else {
+            //print all the trips
             List<TripDisplayCell> tripDisplayCellList = new ArrayList<>(shownTrips.size());
             for (Trip trip : shownTrips) {
                boolean[] servicesStart = trip.getStart().getServices();
@@ -239,16 +230,15 @@ public class OVappController {
    
    @FXML
    private void onAddFavoriteTripButton() {
+      setupCloseEvent();
       Trip trip = shownTrips.get(tripDisplay.getSelectionModel().getSelectedIndex());
       favoriteTrip.addTrip(trip);
-      setupCloseEvent();
    }
    
    @FXML
    private void onDisplayFavoriteTrips() {
       actionDoneInTripDisplay = true;
       changeTripsOnDisplay(favoriteTrip.getAllTrips());
-      favoriteTripsAreShown = true;
    }
    
    @FXML
@@ -260,7 +250,6 @@ public class OVappController {
       
       onPlanMyTrip();
    }
-
 
    // Important method to initialize this Controller object!!!
    public void initialize() {
@@ -299,12 +288,12 @@ public class OVappController {
       addAllToolTips();
       
       setupMap();
-
-
+      
       System.out.println("init done");
    }
 
    private void setupMap() {
+      //will draw the map, ets called before every new drawn trip so the previous trip is not displayed
       mapDraw.clearRect(0,0, mapDisplay.getWidth(), mapDisplay.getHeight());
       mapDraw.drawImage(new Image("file:src/main/resources/images/map_netherlands.png", mapDisplay.getWidth(), mapDisplay.getHeight(), true, true), 0, 0);
       
@@ -474,6 +463,7 @@ public class OVappController {
       
       changeObservableListText(comboTransport, "transportTypeComboBox.StringArray");
 
+      //you can't call getToolTip() in initialize(), which is where this function is also called
       if (!firstTimeChangeText) {
          tripHistoryButton.getTooltip().setText(bundle.getString("travelHistory.tooltip"));
          addFavoriteTripButton.getTooltip().setText(bundle.getString("favoriteTrip.tooltip"));

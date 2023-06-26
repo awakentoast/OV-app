@@ -1,8 +1,6 @@
 package adsd.demo.ovappavo;
 
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

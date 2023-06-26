@@ -18,7 +18,7 @@ public class Location
     private final boolean hasServiceEmployee;
     private final boolean hasAED;
     
-    
+    //if there aren't services provides, by example for bus locations
     public Location(String name, double latitude, double longitude)
     {
         this.name = name;
@@ -48,13 +48,16 @@ public class Location
     }
 
     private double calcPointOnMap(double earthLineValue, String typeEarthLine) {
+        //the top right point expressen in longitude and latitude
         double x0 = 3.5697;
         double y0 = 50.4871;
-
+        
+        //how many longitude or latitude is between each pixel
         double xStepDelta = 0.004967;
         double yStepDelta = 0.003545;
 
         if (Objects.equals(typeEarthLine, "longitude")) {
+            // else vlissingen gets drawn too far left and is out of view
             return (earthLineValue - x0) / xStepDelta + 20;
         } else {
             return (earthLineValue - y0) / yStepDelta;
