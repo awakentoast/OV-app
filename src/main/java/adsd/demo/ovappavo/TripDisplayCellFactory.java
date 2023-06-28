@@ -9,11 +9,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
+import java.util.List;
+
 
 public class TripDisplayCellFactory extends ListCell<TripDisplayCell> {
     private final Text text;
-    private final GridPane gridPaneStart;
-    private final GridPane gridPaneEnd;
+    private GridPane gridPaneStart = null;
+    private GridPane gridPaneEnd = null;
     private final Scene scene;
     
     //positions for icon in GridPane
@@ -70,22 +72,20 @@ public class TripDisplayCellFactory extends ListCell<TripDisplayCell> {
             }
         } else {
             //System.out.println("non empty");
-            int index = -1;
-            for (Image image : tripDisplayCell.getIconsStart()) {
-                index++;
-                ImageView imageView = new ImageView(image);
-                gridPaneStart.add(imageView, horizontalPos[index], verticalPos[index]);
-            }
-
-            index = -1;
-            for (Image image : tripDisplayCell.getIconsEnd()) {
-                index++;
-                ImageView imageView = new ImageView(image);
-                gridPaneEnd.add(imageView, horizontalPos[index], verticalPos[index]);
-            }
+            
+            addIconsOfServicesToGridPane(tripDisplayCell.getIconsStart(), gridPaneStart);
+            addIconsOfServicesToGridPane(tripDisplayCell.getIconsEnd(), gridPaneEnd);
             
             text.setText(tripDisplayCell.getDisplayString());
             setGraphic(new Pane(text, gridPaneStart, gridPaneEnd));
+        }
+    }
+    public void addIconsOfServicesToGridPane(List<Image> images, GridPane gridpane) {
+        int index = -1;
+        for (Image image : images) {
+            index++;
+            ImageView imageView = new ImageView(image);
+            gridpane.add(imageView, horizontalPos[index], verticalPos[index]);
         }
     }
 }
