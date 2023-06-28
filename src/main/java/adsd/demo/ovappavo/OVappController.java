@@ -163,6 +163,8 @@ public class OVappController {
    @FXML
    protected void onDoTrip() {
       setupCloseEvent();
+      
+      //doing it with boolean because when the text "no trips are found" the list  isn't empty, but we don't want the user to be able to click it
       if (!tripListEmpty) {
          int tripIndex = tripDisplay.getSelectionModel().getSelectedIndex();
          Trip currentTrip = shownTrips.get(tripIndex);
