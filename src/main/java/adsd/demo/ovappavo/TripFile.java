@@ -29,7 +29,6 @@ public class TripFile extends FileHandler {
     
     public void save() {
         StringBuilder data = new StringBuilder();
-        System.out.println(allTrips.get(0).getStart().getName());
         
         for (Trip trip : allTrips) {
             data.append(trip.getStringForSaving()).append("\n");
