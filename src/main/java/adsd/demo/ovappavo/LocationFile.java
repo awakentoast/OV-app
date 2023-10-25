@@ -8,7 +8,6 @@ public class LocationFile extends FileHandler {
 
     public LocationFile(String filepath) {
         super(filepath);
-        System.out.println("a");
     }
 
     public Map<String, Location> getLocations() {
